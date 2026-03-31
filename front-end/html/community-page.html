@@ -10,34 +10,45 @@
 <link href="../css/pages/community-page.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- ─── SIDEBAR ─── -->
-<aside class="sidebar">
-<div class="sidebar-logo">
-<div class="logo-icon">⬡</div>
-<span class="logo-name">NexusHub</span>
-</div>
-<div class="nav-section">
-<div class="nav-label">Menu</div>
-<a href="dashboard.html" class="nav-item"><span class="nav-icon">🏠</span> Home</a>
-<a href="discovery.html" class="nav-item active"><span class="nav-icon">🔍</span> Discover</a>
-<a href="events.html" class="nav-item"><span class="nav-icon">📅</span> Events <span class="nav-badge gold">3</span></a>
-<a href="chat.html" class="nav-item"><span class="nav-icon">💬</span> Messages <span class="nav-badge">12</span></a>
-<a href="#" class="nav-item"><span class="nav-icon">🔔</span> Notifications <span class="nav-badge">5</span></a>
-<a href="profile-settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
-</div>
-<div class="nav-section pb-6"><div class="nav-label">My Communities</div></div>
-<div class="comm-list">
-<div class="comm-item active-comm"><div class="c-av grad-purple">⚡</div><div class="c-inf"><div class="c-nm">Dev Nexus</div><div class="c-sb">2.4k members</div></div><div class="c-dot bg-dot-green"></div></div>
-<div class="comm-item"><div class="c-av grad-orange">🎨</div><div class="c-inf"><div class="c-nm">Design Vault</div><div class="c-sb">1.1k members</div></div><div class="c-dot bg-dot-green"></div></div>
-<div class="comm-item"><div class="c-av grad-cyan">🎮</div><div class="c-inf"><div class="c-nm">GameZone</div><div class="c-sb">8.7k members</div></div><div class="c-dot bg-dot-orange"></div></div>
-<div class="comm-item"><div class="c-av grad-green">🌿</div><div class="c-inf"><div class="c-nm">EcoBuilders</div><div class="c-sb">540 members</div></div><div class="c-dot bg-dot-gray"></div></div>
-<div class="comm-item"><div class="c-av grad-pink">🎵</div><div class="c-inf"><div class="c-nm">SoundWave</div><div class="c-sb">3.2k members</div></div><div class="c-dot bg-dot-green"></div></div>
-</div>
-<div class="sidebar-footer">
-<div class="user-avatar">AM</div>
-<div class="u-extracted-143"><div class="user-name">Alex Morgan</div><div class="user-status">Online</div></div>
-<span class="fs-14 c-text-3">⋯</span>
-</div>
+<!-- ─── APP RAIL ─── -->
+<aside class="app-rail">
+  <div class="rail-logo">⬡</div>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Main Nav -->
+  <a href="dashboard.html" class="rail-item" data-tooltip="Home">🏠</a>
+  <a href="discovery.html" class="rail-item active" data-tooltip="Discover">🔍</a>
+  <a href="events.html" class="rail-item" data-tooltip="Events">📅<div class="notif-dot" style="background:var(--gold);width:6px;height:6px;"></div></a>
+  <a href="chat.html" class="rail-item" data-tooltip="Messages">💬<div class="notif-dot" style="width:6px;height:6px;"></div></a>
+  <a href="#" class="rail-item" data-tooltip="Notifications">🔔</a>
+  <a href="profile-settings.html" class="rail-item" data-tooltip="Settings">⚙️</a>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Communities -->
+  <div class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">
+    ⚡<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">
+    🎨<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">
+    🎮<div class="rail-dot bg-dot-orange"></div>
+  </div>
+  <div class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">
+    🌿<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  <div class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">
+    🎵<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">
+    📚<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  
+  <div class="rail-footer">
+    <div class="rail-avatar" onclick="window.location.href='profile-settings.html'" data-tooltip="Profile">AM<div class="rail-dot bg-dot-green" style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg-sidebar);"></div></div>
+  </div>
 </aside>
 <!-- ─── MAIN ─── -->
 <div class="main">
@@ -46,9 +57,9 @@
 <div class="breadcrumb">
 <span>Discover</span>
 <span class="sep">›</span>
-<span>Technology</span>
+<span>Gaming</span>
 <span class="sep">›</span>
-<span class="current">Dev Nexus</span>
+<span class="current">Pro Gamers</span>
 </div>
 <div class="header-actions">
 <div class="icon-btn">🔔<div class="notif-dot"></div></div>
@@ -66,13 +77,13 @@
 <div class="comm-big-icon">⚡</div>
 <div class="comm-title-block">
 <div class="comm-title-row">
-<div class="comm-big-name">Dev Nexus</div>
+<div class="comm-big-name">Pro Gamers</div>
 <div class="verified-badge">✓ Verified</div>
 </div>
 <div class="comm-meta-row">
 <div class="meta-chip"><span class="online-dot"></span> 312 online</div>
 <div class="meta-chip">👥 2,451 members</div>
-<div class="meta-chip">💻 Technology · Web Dev</div>
+<div class="meta-chip">💻 Esports · Competitive</div>
 <div class="meta-chip">📅 Founded Mar 2022</div>
 </div>
 </div>
@@ -96,7 +107,7 @@
 <!-- Pinned Announcement -->
 <div class="pinned-card">
 <div class="pin-header">📌 Pinned Announcement</div>
-<div class="pin-text">Welcome to Dev Nexus! 🎉 Our monthly hackathon is back — <strong>March Hack Sprint</strong> starts on March 7th. Register in #events before March 6th. Prizes worth $2,000 up for grabs. All skill levels welcome!</div>
+<div class="pin-text">Welcome to Pro Gamers! 🎉 Our monthly hackathon is back — <strong>March Hack Sprint</strong> starts on March 7th. Register in #events before March 6th. Prizes worth $2,000 up for grabs. All skill levels welcome!</div>
 <div class="pin-footer">
 <div class="pin-author">
 <div class="pin-av">JK</div>
@@ -106,13 +117,13 @@
 </div>
 <!-- About -->
 <div class="section-card">
-<div class="sc-title"><span class="sc-title-icon">ℹ</span> About Dev Nexus</div>
-<div class="about-text">Dev Nexus is a thriving community for developers of all levels — from curious beginners to seasoned engineers. We share projects, debug together, discuss the latest frameworks, and support each other in growing our careers. Whether you're into frontend, backend, DevOps, or mobile, there's a home for you here.</div>
+<div class="sc-title"><span class="sc-title-icon">ℹ</span> About Pro Gamers</div>
+<div class="about-text">Pro Gamers is a thriving community for developers of all levels — from curious beginners to seasoned engineers. We share projects, debug together, discuss the latest frameworks, and support each other in growing our careers. Whether you're into frontend, Strategy, Streaming, or mobile, there's a home for you here.</div>
 <div class="tag-row">
-<span class="tag">JavaScript</span>
-<span class="tag">Python</span>
-<span class="tag">React</span>
-<span class="tag">DevOps</span>
+<span class="tag">MOBA</span>
+<span class="tag">RPG</span>
+<span class="tag">FPS</span>
+<span class="tag">Streaming</span>
 <span class="tag">Open Source</span>
 <span class="tag">Career</span>
 <span class="tag">Hackathons</span>
@@ -172,8 +183,8 @@
 <div class="ch-row" onclick="setActiveChannel(this,'#off-topic')"><span class="ch-icon">#</span><span class="ch-name">off-topic</span><span class="ch-meta">1h ago</span></div>
 <div class="ch-group-title">💻 Development</div>
 <div class="ch-row" onclick="setActiveChannel(this,'#frontend')"><span class="ch-icon">#</span><span class="ch-name">frontend</span><span class="ch-unread">4</span><span class="ch-meta">20m ago</span></div>
-<div class="ch-row" onclick="setActiveChannel(this,'#backend')"><span class="ch-icon">#</span><span class="ch-name">backend</span><span class="ch-meta">45m ago</span></div>
-<div class="ch-row" onclick="setActiveChannel(this,'#devops')"><span class="ch-icon">#</span><span class="ch-name">devops</span><span class="ch-meta">2h ago</span></div>
+<div class="ch-row" onclick="setActiveChannel(this,'#Strategy')"><span class="ch-icon">#</span><span class="ch-name">Strategy</span><span class="ch-meta">45m ago</span></div>
+<div class="ch-row" onclick="setActiveChannel(this,'#Streaming')"><span class="ch-icon">#</span><span class="ch-name">Streaming</span><span class="ch-meta">2h ago</span></div>
 <div class="ch-row" onclick="setActiveChannel(this,'#code-review')"><span class="ch-icon">#</span><span class="ch-name">code-review</span><span class="ch-unread">7</span><span class="ch-meta">5m ago</span></div>
 <div class="ch-row" onclick="setActiveChannel(this,'#open-source')"><span class="ch-icon">#</span><span class="ch-name">open-source</span><span class="ch-meta">3h ago</span></div>
 <div class="ch-group-title">🎯 Career</div>
@@ -187,7 +198,7 @@
 <div class="ch-sidebar">
 <div class="ch-info-card">
 <div class="ch-info-name"># <span id="activeCh">general</span></div>
-<div class="ch-info-desc" id="activeChDesc">The main hub for all things Dev Nexus. Say hello, share updates, ask anything, or just vibe with the community.</div>
+<div class="ch-info-desc" id="activeChDesc">The main hub for all things Pro Gamers. Say hello, share updates, ask anything, or just vibe with the community.</div>
 <div class="ch-perms">
 <div class="u-extracted-217">Your Permissions</div>
 <div class="perm-row"><span class="perm-yes">✓</span> View messages</div>
@@ -255,7 +266,7 @@
 <div class="rules-aside">
 <div class="rules-note">
 <div class="rules-note-title">✓ Safe Community</div>
-<div class="rules-note-text">Dev Nexus has zero tolerance for hate speech, harassment, or discrimination. Violations result in immediate action.</div>
+<div class="rules-note-text">Pro Gamers has zero tolerance for hate speech, harassment, or discrimination. Violations result in immediate action.</div>
 </div>
 <div class="section-card">
 <div class="sc-title u-extracted-220">⚖️ Enforcement</div>

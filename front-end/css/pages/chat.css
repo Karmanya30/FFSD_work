@@ -546,14 +546,14 @@ body {
   overflow: hidden;
 }
 
-/* Reactions */
+/* reactions */
 .reactions {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   margin-top: 8px;
 }
-.react-pill {
+.FPS-pill {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -567,20 +567,20 @@ body {
     background 0.15s,
     border-color 0.15s;
 }
-.react-pill:hover {
+.FPS-pill:hover {
   background: rgba(91, 110, 245, 0.1);
   border-color: rgba(91, 110, 245, 0.3);
 }
-.react-pill.mine {
+.FPS-pill.mine {
   background: rgba(91, 110, 245, 0.14);
   border-color: rgba(91, 110, 245, 0.35);
 }
-.react-count {
+.FPS-count {
   font-size: 12px;
   color: var(--text-2);
   font-weight: 500;
 }
-.react-pill.mine .react-count {
+.FPS-pill.mine .FPS-count {
   color: var(--accent);
 }
 

@@ -10,7 +10,7 @@
 /**
  * Initializes a user session
  * @param {string} username 
- * @param {string} role - 'admin', 'mod', or 'member'
+ * @param {string} role - 'superuser', 'admin', 'mod', 'manager', 'gamer', or 'audience'
  */
 export function loginUser(username, role) {
     const user = { 
@@ -53,7 +53,7 @@ export function logoutUser() {
     if (window.toast) window.toast("Logging out...");
     
     setTimeout(() => {
-        window.location.href = 'index.html'; // Or landing.html based on your structure
+        window.location.href = 'landing.html';
     }, 500);
 }
 
@@ -73,15 +73,16 @@ export function requireRole(allowedRoles) {
     // 1. No user found
     if (!user) {
         console.warn("[AUTH] Unauthenticated access attempt.");
-        window.location.href = 'index.html?error=unauthorized';
+        window.location.href = 'login.html?error=unauthorized';
         return false;
     }
 
-    // 2. Role check
+    // 2. Super User bypasses all role checks
+    if (user.role === 'superuser') return true;
+
+    // 3. Role check
     if (allowedRoles && !allowedRoles.includes(user.role)) {
         console.error(`[AUTH] Access Denied. User role: ${user.role}. Required: ${allowedRoles}`);
-        
-        // Redirect back to home with a specific flag
         window.location.href = 'dashboard.html?error=forbidden';
         return false;
     }
@@ -92,9 +93,17 @@ export function requireRole(allowedRoles) {
 /**
  * Non-blocking check for UI elements (e.g., showing/hiding buttons)
  */
-export function hasPermission(role) {
+/**
+ * Non-blocking check for UI elements (e.g., showing/hiding buttons)
+ * Super User always has permission.
+ * @param {string|Array} roles - single role string or array of roles
+ */
+export function hasPermission(roles) {
     const user = getCurrentUser();
-    return user && user.role === role;
+    if (!user) return false;
+    if (user.role === 'superuser') return true;
+    if (Array.isArray(roles)) return roles.includes(user.role);
+    return user.role === roles;
 }
 
 // ==========================================

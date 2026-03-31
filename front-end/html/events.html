@@ -10,34 +10,45 @@
 <link href="../css/pages/events.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- ─── SIDEBAR ─── -->
-<aside class="sidebar">
-<div class="sidebar-logo">
-<div class="logo-icon">⬡</div>
-<span class="logo-name">NexusHub</span>
-</div>
-<div class="nav-section">
-<div class="nav-label">Menu</div>
-<a href="dashboard.html" class="nav-item"><span class="nav-icon">🏠</span> Home</a>
-<a href="discovery.html" class="nav-item"><span class="nav-icon">🔍</span> Discover</a>
-<a href="events.html" class="nav-item active"><span class="nav-icon">📅</span> Events <span class="nav-badge gold">3</span></a>
-<a href="chat.html" class="nav-item"><span class="nav-icon">💬</span> Messages <span class="nav-badge">12</span></a>
-<a href="#" class="nav-item"><span class="nav-icon">🔔</span> Notifications <span class="nav-badge">5</span></a>
-<a href="profile-settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
-</div>
-<div class="nav-section pb-6"><div class="nav-label">My Communities</div></div>
-<div class="comm-list">
-<div class="comm-item"><div class="c-av grad-purple">⚡</div><div class="c-inf"><div class="c-nm">Dev Nexus</div><div class="c-sb">2.4k members</div></div><div class="c-dot bg-dot-green"></div></div>
-<div class="comm-item"><div class="c-av grad-orange">🎨</div><div class="c-inf"><div class="c-nm">Design Vault</div><div class="c-sb">1.1k members</div></div><div class="c-dot bg-dot-green"></div></div>
-<div class="comm-item"><div class="c-av grad-cyan">🎮</div><div class="c-inf"><div class="c-nm">GameZone</div><div class="c-sb">8.7k members</div></div><div class="c-dot bg-dot-orange"></div></div>
-<div class="comm-item"><div class="c-av grad-green">🌿</div><div class="c-inf"><div class="c-nm">EcoBuilders</div><div class="c-sb">540 members</div></div><div class="c-dot bg-dot-gray"></div></div>
-<div class="comm-item"><div class="c-av grad-pink">🎵</div><div class="c-inf"><div class="c-nm">SoundWave</div><div class="c-sb">3.2k members</div></div><div class="c-dot bg-dot-green"></div></div>
-</div>
-<div class="sidebar-footer">
-<div class="user-avatar">AM</div>
-<div class="u-extracted-143"><div class="user-name">Alex Morgan</div><div class="user-status">Online</div></div>
-<span class="fs-14 c-text-3">⋯</span>
-</div>
+<!-- ─── APP RAIL ─── -->
+<aside class="app-rail">
+  <div class="rail-logo">⬡</div>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Main Nav -->
+  <a href="dashboard.html" class="rail-item" data-tooltip="Home">🏠</a>
+  <a href="discovery.html" class="rail-item" data-tooltip="Discover">🔍</a>
+  <a href="events.html" class="rail-item active" data-tooltip="Events">📅<div class="notif-dot" style="background:var(--gold);width:6px;height:6px;"></div></a>
+  <a href="chat.html" class="rail-item" data-tooltip="Messages">💬<div class="notif-dot" style="width:6px;height:6px;"></div></a>
+  <a href="#" class="rail-item" data-tooltip="Notifications">🔔</a>
+  <a href="profile-settings.html" class="rail-item" data-tooltip="Settings">⚙️</a>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Communities -->
+  <div class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">
+    ⚡<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">
+    🎨<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">
+    🎮<div class="rail-dot bg-dot-orange"></div>
+  </div>
+  <div class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">
+    🌿<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  <div class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">
+    🎵<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">
+    📚<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  
+  <div class="rail-footer">
+    <div class="rail-avatar" onclick="window.location.href='profile-settings.html'" data-tooltip="Profile">AM<div class="rail-dot bg-dot-green" style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg-sidebar);"></div></div>
+  </div>
 </aside>
 <!-- ─── MAIN ─── -->
 <div class="main">
@@ -87,7 +98,7 @@
 <div class="feat-desc">48-hour hackathon open to all skill levels. Build anything — solo or in teams up to 4. Prizes worth $2,000 across 3 categories: Best UI, Most Innovative, and Best Use of NexusHub API.</div>
 <div class="feat-community">
 <div class="feat-comm-av">⚡</div>
-<span class="feat-comm-name">Hosted by <strong class="u-extracted-173">Dev Nexus</strong></span>
+<span class="feat-comm-name">Hosted by <strong class="u-extracted-173">Pro Gamers</strong></span>
 </div>
 </div>
 <div class="feat-bottom">
@@ -128,7 +139,7 @@
 <div class="ev-card-body">
 <div class="ev-card-top">
 <div class="ev-date-box"><div class="ev-date-mon">Mar</div><div class="ev-date-day">10</div></div>
-<div><div class="ev-card-title">UI Design Workshop: Components That Scale</div><div class="ev-card-comm u-extracted-256"><div class="ev-comm-av grad-orange">🎨</div><div class="ev-comm-name">Design Vault</div></div></div>
+<div><div class="ev-card-title">UI Design Workshop: Components That Scale</div><div class="ev-card-comm u-extracted-256"><div class="ev-comm-av grad-orange">🎨</div><div class="ev-comm-name">RPG Tavern</div></div></div>
 </div>
 <div class="ev-card-meta">
 <div class="ev-meta-tag">⏰ 5:00 PM IST</div>
@@ -170,7 +181,7 @@
 <div class="ev-card-body">
 <div class="ev-card-top">
 <div class="ev-date-box"><div class="ev-date-mon">Mar</div><div class="ev-date-day">14</div></div>
-<div><div class="ev-card-title">Beat Battle Night Vol. 3</div><div class="ev-card-comm u-extracted-256"><div class="ev-comm-av grad-pink">🎵</div><div class="ev-comm-name">SoundWave</div></div></div>
+<div><div class="ev-card-title">Beat Battle Night Vol. 3</div><div class="ev-card-comm u-extracted-256"><div class="ev-comm-av grad-pink">🎵</div><div class="ev-comm-name">SpeedRunners</div></div></div>
 </div>
 <div class="ev-card-meta">
 <div class="ev-meta-tag">⏰ 8:00 PM IST</div>
@@ -191,7 +202,7 @@
 <div class="ev-card-body">
 <div class="ev-card-top">
 <div class="ev-date-box"><div class="ev-date-mon">Mar</div><div class="ev-date-day">16</div></div>
-<div><div class="ev-card-title">EcoBuilders City Cleanup Drive</div><div class="ev-card-comm u-extracted-256"><div class="ev-comm-av grad-green">🌿</div><div class="ev-comm-name">EcoBuilders</div></div></div>
+<div><div class="ev-card-title">FPS Masters City Cleanup Drive</div><div class="ev-card-comm u-extracted-256"><div class="ev-comm-av grad-green">🌿</div><div class="ev-comm-name">FPS Masters</div></div></div>
 </div>
 <div class="ev-card-meta">
 <div class="ev-meta-tag">⏰ 9:00 AM IST</div>
@@ -233,7 +244,7 @@
 <div class="ev-card-body">
 <div class="ev-card-top">
 <div class="ev-date-box"><div class="ev-date-mon">Mar</div><div class="ev-date-day">22</div></div>
-<div><div class="ev-card-title">March Book Club: Atomic Habits Deep Dive</div><div class="ev-card-comm u-extracted-256"><div class="ev-comm-av grad-violet">📚</div><div class="ev-comm-name">BookClub Pro</div></div></div>
+<div><div class="ev-card-title">March Book Club: Atomic Habits Deep Dive</div><div class="ev-card-comm u-extracted-256"><div class="ev-comm-av grad-violet">📚</div><div class="ev-comm-name">Strategy Gods</div></div></div>
 </div>
 <div class="ev-card-meta">
 <div class="ev-meta-tag">⏰ 6:00 PM IST</div>
@@ -261,7 +272,7 @@
 <div class="reg-meta">
 <div class="reg-meta-item">⏰ Mar 7–8 · 2:00 PM IST</div>
 <div class="reg-meta-item">🌐 Online</div>
-<div class="reg-meta-item">⚡ Dev Nexus</div>
+<div class="reg-meta-item">⚡ Pro Gamers</div>
 <div class="reg-meta-item">🏆 $2,000 prizes</div>
 </div>
 <div class="reg-status-row">
@@ -301,7 +312,7 @@
 <div class="reg-meta">
 <div class="reg-meta-item">⏰ Mar 22 · 6:00 PM IST</div>
 <div class="reg-meta-item">🌐 Online</div>
-<div class="reg-meta-item">📚 BookClub Pro</div>
+<div class="reg-meta-item">📚 Strategy Gods</div>
 <div class="reg-meta-item">📖 Discussion</div>
 </div>
 <div class="reg-status-row">
@@ -323,7 +334,7 @@
 <div class="form-section-title">✦ Create a New Event</div>
 <div class="field">
 <label>Event Title *</label>
-<input id="evTitle" oninput="updatePreview()" placeholder="e.g. JavaScript Deep Dive Workshop" type="text"/>
+<input id="evTitle" oninput="updatePreview()" placeholder="e.g. MOBA Deep Dive Workshop" type="text"/>
 </div>
 <div class="field">
 <label>Description</label>
@@ -351,11 +362,11 @@
 <div class="field">
 <label>Community</label>
 <select>
-<option>⚡ Dev Nexus</option>
-<option>🎨 Design Vault</option>
+<option>⚡ Pro Gamers</option>
+<option>🎨 RPG Tavern</option>
 <option>🎮 GameZone</option>
-<option>🌿 EcoBuilders</option>
-<option>🎵 SoundWave</option>
+<option>🌿 FPS Masters</option>
+<option>🎵 SpeedRunners</option>
 </select>
 </div>
 <div class="field">
@@ -396,7 +407,7 @@
 <div class="preview-title" id="prevTitle">Your event title</div>
 <div class="preview-meta">
 <div class="preview-meta-row" id="prevDate">🗓 Select a date and time</div>
-<div class="preview-meta-row">🌐 Online · ⚡ Dev Nexus</div>
+<div class="preview-meta-row">🌐 Online · ⚡ Pro Gamers</div>
 <div class="preview-meta-row">🏆 Hackathon · 🆓 Free</div>
 </div>
 </div>

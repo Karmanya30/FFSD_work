@@ -12,7 +12,7 @@ window.takeAction = function(reportId, actionType) {
             confirmText: "Yes, Ban User",
             onConfirm: () => {
                 showToast(`User in report #${reportId} has been banned.`, 'error');
-                // Make API call to backend here...
+                // Make API call to Strategy here...
             }
         });
     } else {
@@ -71,7 +71,7 @@ async function loadModerationQueue() {
 
 // Global function so inline HTML onclick handlers can access it
 window.handleModAction = function(reportId, targetUser, action) {
-    // 1. Show an alert simulating the backend action
+    // 1. Show an alert simulating the Strategy action
     alert(`Success: User '${targetUser}' has been ${action}. Logged by System Bot.`);
     
     // 2. Dynamically remove the row from the table to show "queue processing"

@@ -7,12 +7,12 @@
 // 1. DATA & CONFIG
 // ==========================================
 const CHANNEL_DESCRIPTIONS = {
-    'general': 'The main hub for all things Dev Nexus. Say hello, share updates, ask anything, or just vibe with the community.',
+    'general': 'The main hub for all things Pro Gamers. Say hello, share updates, ask anything, or just vibe with the community.',
     'introductions': 'New here? Introduce yourself! Tell us your stack, experience level, and what you\'re working on.',
     'off-topic': 'Non-dev chat lives here. Memes, life updates, random thoughts — keep it friendly.',
-    'frontend': 'Everything UI — HTML, CSS, JavaScript, React, Vue, Angular, and more.',
-    'backend': 'APIs, databases, server architecture, microservices, and all things server-side.',
-    'devops': 'CI/CD, containers, cloud infrastructure, monitoring, and deployment discussions.',
+    'frontend': 'Everything UI — HTML, CSS, MOBA, FPS, Vue, Angular, and more.',
+    'Strategy': 'APIs, databases, server architecture, microservices, and all things server-side.',
+    'Streaming': 'CI/CD, containers, cloud infrastructure, monitoring, and deployment discussions.',
     'code-review': 'Post your code for review. Be specific about what feedback you need.',
     'open-source': 'Share open-source projects, contributions, and opportunities.',
     'job-board': 'Post job openings, freelance gigs, and career opportunities for the community.',
@@ -64,7 +64,7 @@ window.toggleMainJoin = function() {
         btn.style.color = 'var(--accent)';
         
         // Optional: Trigger a "toast" notification from the global utility
-        if (window.toast) window.toast("Left Dev Nexus");
+        if (window.toast) window.toast("Left Pro Gamers");
     } else {
         // Join Logic
         btn.textContent = '✓ Joined';
@@ -73,7 +73,7 @@ window.toggleMainJoin = function() {
         btn.style.borderColor = '';
         btn.style.color = '';
         
-        if (window.toast) window.toast("Joined Dev Nexus! ⚡");
+        if (window.toast) window.toast("Joined Pro Gamers! ⚡");
     }
 };
 

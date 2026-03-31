@@ -11,12 +11,34 @@
 </head>
 <body>
 <!-- ═══ SIDEBAR ═══ -->
-<aside class="sidebar">
-<div class="sidebar-logo">
-<div class="logo-icon">⬡</div>
-<span class="logo-name">NexusHub</span>
-</div>
-<div class="nav-section">
+    <!-- ═══ APP RAIL ═══ -->
+<aside class="app-rail">
+  <div class="rail-logo">⬡</div>
+  <div class="rail-divider"></div>
+  <a href="dashboard.html" class="rail-item" data-tooltip="Home">🏠</a>
+  <a href="discovery.html" class="rail-item" data-tooltip="Discover">🔍</a>
+  <a href="events.html" class="rail-item" data-tooltip="Events">📅</a>
+  <a href="chat.html" class="rail-item" data-tooltip="Messages">💬</a>
+  <a href="#" class="rail-item" data-tooltip="Notifications">🔔</a>
+  <a href="profile-settings.html" class="rail-item" data-tooltip="Settings">⚙️</a>
+  <div class="rail-divider"></div>
+  <div class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">⚡<div class="rail-dot bg-dot-green"></div></div>
+  <div class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">🎨<div class="rail-dot bg-dot-green"></div></div>
+  <div class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">🎮<div class="rail-dot bg-dot-orange"></div></div>
+  <div class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">🌿<div class="rail-dot bg-dot-gray"></div></div>
+  <div class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">🎵<div class="rail-dot bg-dot-green"></div></div>
+  <div class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">📚<div class="rail-dot bg-dot-gray"></div></div>
+  <div class="rail-footer">
+    <div class="rail-avatar" onclick="window.location.href='profile-settings.html'" data-tooltip="Profile">AM<div class="rail-dot bg-dot-green" style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg-sidebar);"></div></div>
+  </div>
+</aside>
+
+    <!-- ═══ SUB-SIDEBAR ═══ -->
+    <aside class="sub-sidebar">
+        <div class="sub-header">
+            Admin Panel
+        </div>
+        <div class="nav-section">
 <div class="nav-label">Menu</div>
 <a href="#" class="nav-item active" onclick="navTo('dashboard',this)"><span class="nav-icon">🏠</span> Dashboard</a>
 <a href="#" class="nav-item" onclick="navTo('analytics',this)"><span class="nav-icon">📊</span> Analytics</a>
@@ -40,14 +62,14 @@
 <div class="comm-info"><div class="comm-name">CryptoHive</div><div class="comm-sub">9.3k members</div></div>
 <div class="comm-dot u-extracted-101"></div>
 </div>
-<div class="comm-item" onclick="toast('SoundWave — Under review')">
+<div class="comm-item" onclick="toast('SpeedRunners — Under review')">
 <div class="comm-avatar grad-pink">🎵</div>
-<div class="comm-info"><div class="comm-name">SoundWave</div><div class="comm-sub">14.1k members</div></div>
+<div class="comm-info"><div class="comm-name">SpeedRunners</div><div class="comm-sub">14.1k members</div></div>
 <div class="comm-dot u-extracted-102"></div>
 </div>
-<div class="comm-item" onclick="toast('Dev Nexus — Healthy')">
+<div class="comm-item" onclick="toast('Pro Gamers — Healthy')">
 <div class="comm-avatar grad-purple">⚡</div>
-<div class="comm-info"><div class="comm-name">Dev Nexus</div><div class="comm-sub">42.8k members</div></div>
+<div class="comm-info"><div class="comm-name">Pro Gamers</div><div class="comm-sub">42.8k members</div></div>
 <div class="comm-dot bg-dot-green"></div>
 </div>
 <div class="comm-item" onclick="toast('AI &amp; ML Hub — Healthy')">
@@ -65,9 +87,9 @@
 <div class="comm-info"><div class="comm-name">Startup Founders</div><div class="comm-sub">15.2k members</div></div>
 <div class="comm-dot bg-dot-green"></div>
 </div>
-<div class="comm-item" onclick="toast('EcoBuilders — Healthy')">
+<div class="comm-item" onclick="toast('FPS Masters — Healthy')">
 <div class="comm-avatar grad-green">🌿</div>
-<div class="comm-info"><div class="comm-name">EcoBuilders</div><div class="comm-sub">540 members</div></div>
+<div class="comm-info"><div class="comm-name">FPS Masters</div><div class="comm-sub">540 members</div></div>
 <div class="comm-dot bg-dot-gray"></div>
 </div>
 </div>
@@ -141,10 +163,10 @@
 <table class="data-table">
 <thead><tr><th>Community</th><th>Members</th><th>Status</th></tr></thead>
 <tbody>
-<tr onclick="navToByName('communities')"><td><div class="row-cell"><div class="row-comm-av u-extracted-105">⚡</div><span class="u-extracted-117">Dev Nexus</span></div></td><td>42.8k</td><td><span class="badge badge-active">Active</span></td></tr>
+<tr onclick="navToByName('communities')"><td><div class="row-cell"><div class="row-comm-av u-extracted-105">⚡</div><span class="u-extracted-117">Pro Gamers</span></div></td><td>42.8k</td><td><span class="badge badge-active">Active</span></td></tr>
 <tr onclick="navToByName('communities')"><td><div class="row-cell"><div class="row-comm-av u-extracted-118">🤖</div><span class="u-extracted-117">AI &amp; ML Hub</span></div></td><td>38.2k</td><td><span class="badge badge-active">Active</span></td></tr>
 <tr onclick="navToByName('communities')"><td><div class="row-cell"><div class="row-comm-av u-extracted-118">🎮</div><span class="u-extracted-117">GameZone</span></div></td><td>28.7k</td><td><span class="badge badge-active">Active</span></td></tr>
-<tr onclick="navToByName('communities')"><td><div class="row-cell"><div class="row-comm-av u-extracted-119">🎵</div><span class="u-extracted-117">SoundWave</span></div></td><td>14.1k</td><td><span class="badge badge-warn">Review</span></td></tr>
+<tr onclick="navToByName('communities')"><td><div class="row-cell"><div class="row-comm-av u-extracted-119">🎵</div><span class="u-extracted-117">SpeedRunners</span></div></td><td>14.1k</td><td><span class="badge badge-warn">Review</span></td></tr>
 <tr onclick="navToByName('communities')"><td><div class="row-cell"><div class="row-comm-av u-extracted-111">⚠️</div><span class="u-extracted-117">CryptoHive</span></div></td><td>9.3k</td><td><span class="badge badge-flag">Flagged</span></td></tr>
 </tbody>
 </table>
@@ -212,13 +234,13 @@
 <table class="data-table">
 <thead><tr><th>Community</th><th>Members</th><th>Owner</th><th>Created</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody>
-<tr><td><div class="row-cell"><div class="row-comm-av u-extracted-105">⚡</div><div><div class="row-name">Dev Nexus</div><div class="row-sub">Technology · Programming</div></div></div></td><td>42,819</td><td>@devnexus_admin</td><td>Jan 2023</td><td><span class="badge badge-active">Active</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Viewing Dev Nexus')">View</button><button class="act-btn act-warn" onclick="toast('Warning sent')">Warn</button></div></td></tr>
-<tr><td><div class="row-cell"><div class="row-comm-av u-extracted-118">🤖</div><div><div class="row-name">AI &amp; ML Hub</div><div class="row-sub">Technology · Research</div></div></div></td><td>38,245</td><td>@aiml_mod</td><td>Mar 2023</td><td><span class="badge badge-active">Active</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Viewing AI &amp; ML Hub')">View</button><button class="act-btn act-warn" onclick="toast('Warning sent')">Warn</button></div></td></tr>
+<tr><td><div class="row-cell"><div class="row-comm-av u-extracted-105">⚡</div><div><div class="row-name">Pro Gamers</div><div class="row-sub">Gaming · Programming</div></div></div></td><td>42,819</td><td>@devnexus_admin</td><td>Jan 2023</td><td><span class="badge badge-active">Active</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Viewing Pro Gamers')">View</button><button class="act-btn act-warn" onclick="toast('Warning sent')">Warn</button></div></td></tr>
+<tr><td><div class="row-cell"><div class="row-comm-av u-extracted-118">🤖</div><div><div class="row-name">AI &amp; ML Hub</div><div class="row-sub">Gaming · Research</div></div></div></td><td>38,245</td><td>@aiml_mod</td><td>Mar 2023</td><td><span class="badge badge-active">Active</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Viewing AI &amp; ML Hub')">View</button><button class="act-btn act-warn" onclick="toast('Warning sent')">Warn</button></div></td></tr>
 <tr><td><div class="row-cell"><div class="row-comm-av u-extracted-118">🎮</div><div><div class="row-name">GameZone</div><div class="row-sub">Gaming · Entertainment</div></div></div></td><td>28,712</td><td>@gamezone_gm</td><td>Feb 2023</td><td><span class="badge badge-active">Active</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Viewing GameZone')">View</button><button class="act-btn act-warn" onclick="toast('Warning sent')">Warn</button></div></td></tr>
 <tr><td><div class="row-cell"><div class="row-comm-av u-extracted-109">🚀</div><div><div class="row-name">Startup Founders</div><div class="row-sub">Business · Entrepreneurship</div></div></div></td><td>15,200</td><td>@startupfnd</td><td>May 2023</td><td><span class="badge badge-active">Active</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Viewing Startup Founders')">View</button><button class="act-btn act-warn" onclick="toast('Warning sent')">Warn</button></div></td></tr>
-<tr><td><div class="row-cell"><div class="row-comm-av u-extracted-119">🎵</div><div><div class="row-name">SoundWave</div><div class="row-sub">Music · Entertainment</div></div></div></td><td>14,100</td><td>@soundwave_dj</td><td>Apr 2023</td><td><span class="badge badge-warn">Review</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Viewing SoundWave')">View</button><button class="act-btn act-ban" onclick="toast('SoundWave suspended')">Suspend</button></div></td></tr>
+<tr><td><div class="row-cell"><div class="row-comm-av u-extracted-119">🎵</div><div><div class="row-name">SpeedRunners</div><div class="row-sub">Music · Entertainment</div></div></div></td><td>14,100</td><td>@SpeedRunners_dj</td><td>Apr 2023</td><td><span class="badge badge-warn">Review</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Viewing SpeedRunners')">View</button><button class="act-btn act-ban" onclick="toast('SpeedRunners suspended')">Suspend</button></div></td></tr>
 <tr><td><div class="row-cell"><div class="row-comm-av u-extracted-111">⚠️</div><div><div class="row-name">CryptoHive</div><div class="row-sub">Finance · Crypto</div></div></div></td><td>9,300</td><td>@cryptohive_mod</td><td>Jun 2023</td><td><span class="badge badge-flag">Flagged</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Viewing CryptoHive')">View</button><button class="act-btn act-ban" onclick="toast('CryptoHive removed')">Remove</button></div></td></tr>
-<tr><td><div class="row-cell"><div class="row-comm-av u-extracted-107">🌿</div><div><div class="row-name">EcoBuilders</div><div class="row-sub">Environment · DIY</div></div></div></td><td>540</td><td>@ecobuilder1</td><td>Aug 2023</td><td><span class="badge badge-active">Active</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Viewing EcoBuilders')">View</button><button class="act-btn act-warn" onclick="toast('Warning sent')">Warn</button></div></td></tr>
+<tr><td><div class="row-cell"><div class="row-comm-av u-extracted-107">🌿</div><div><div class="row-name">FPS Masters</div><div class="row-sub">Environment · DIY</div></div></div></td><td>540</td><td>@ecobuilder1</td><td>Aug 2023</td><td><span class="badge badge-active">Active</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Viewing FPS Masters')">View</button><button class="act-btn act-warn" onclick="toast('Warning sent')">Warn</button></div></td></tr>
 </tbody>
 </table>
 </div>
@@ -240,7 +262,7 @@
 <tbody>
 <tr><td><div class="u-extracted-134">"Buy crypto NOW guaranteed 10x returns…"</div></td><td>@FloodBot99</td><td>CryptoHive</td><td>18</td><td><span class="badge badge-flag">Spam</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Content viewed')">View</button><button class="act-btn act-ban" onclick="toast('Post removed')">Remove</button></div></td></tr>
 <tr><td><div class="u-extracted-134">"[Offensive language targeting group]"</div></td><td>@DarkRaider99</td><td>GameZone</td><td>8</td><td><span class="badge badge-flag">Hate Speech</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Content viewed')">View</button><button class="act-btn act-ban" onclick="toast('Removed + banned')">Remove</button></div></td></tr>
-<tr><td><div class="u-extracted-134">"Check out my new album (link)"</div></td><td>@SoundPromo22</td><td>SoundWave</td><td>3</td><td><span class="badge badge-warn">Self-Promo</span></td><td><div class="btn-row"><button class="act-btn act-warn" onclick="toast('Warning issued')">Warn</button><button class="act-btn act-ban" onclick="toast('Post removed')">Remove</button></div></td></tr>
+<tr><td><div class="u-extracted-134">"Check out my new album (link)"</div></td><td>@SoundPromo22</td><td>SpeedRunners</td><td>3</td><td><span class="badge badge-warn">Self-Promo</span></td><td><div class="btn-row"><button class="act-btn act-warn" onclick="toast('Warning issued')">Warn</button><button class="act-btn act-ban" onclick="toast('Post removed')">Remove</button></div></td></tr>
 <tr><td><div class="u-extracted-134">"Off-topic post about politics in #design"</div></td><td>@OffTopicUser</td><td>UI Designers</td><td>1</td><td><span class="badge badge-pending">Off-topic</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Content viewed')">View</button><button class="act-btn act-dismiss" onclick="toast('Dismissed')">Dismiss</button></div></td></tr>
 <tr><td><div class="u-extracted-134">"Phishing link disguised as job post"</div></td><td>@JobScam123</td><td>Startup Founders</td><td>5</td><td><span class="badge badge-flag">Phishing</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Content viewed')">View</button><button class="act-btn act-ban" onclick="toast('Removed + flagged')">Remove</button></div></td></tr>
 </tbody>
@@ -259,9 +281,9 @@
 <table class="data-table">
 <thead><tr><th>Event</th><th>Community</th><th>Date &amp; Time</th><th>Type</th><th>RSVP</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody>
-<tr><td class="u-extracted-136">Dev Nexus Hackathon</td><td>Dev Nexus</td><td>Mar 07 · 2:00 PM</td><td><span class="badge badge-pending">Online</span></td><td>312</td><td><span class="badge badge-active">Approved</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Event details')">View</button><button class="act-btn act-ban" onclick="toast('Event cancelled')">Cancel</button></div></td></tr>
-<tr><td class="u-extracted-136">UI Design Workshop</td><td>Design Vault</td><td>Mar 10 · 5:00 PM</td><td><span class="badge badge-warn">In-Person</span></td><td>88</td><td><span class="badge badge-active">Approved</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Event details')">View</button><button class="act-btn act-ban" onclick="toast('Event cancelled')">Cancel</button></div></td></tr>
-<tr><td class="u-extracted-136">Beat Battle Night</td><td>SoundWave</td><td>Mar 14 · 8:00 PM</td><td><span class="badge badge-pending">Online</span></td><td>204</td><td><span class="badge badge-warn">Pending</span></td><td><div class="btn-row"><button class="act-btn act-restore" onclick="toast('Event approved ✓')">Approve</button><button class="act-btn act-ban" onclick="toast('Event rejected')">Reject</button></div></td></tr>
+<tr><td class="u-extracted-136">Pro Gamers Hackathon</td><td>Pro Gamers</td><td>Mar 07 · 2:00 PM</td><td><span class="badge badge-pending">Online</span></td><td>312</td><td><span class="badge badge-active">Approved</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Event details')">View</button><button class="act-btn act-ban" onclick="toast('Event cancelled')">Cancel</button></div></td></tr>
+<tr><td class="u-extracted-136">UI Design Workshop</td><td>RPG Tavern</td><td>Mar 10 · 5:00 PM</td><td><span class="badge badge-warn">In-Person</span></td><td>88</td><td><span class="badge badge-active">Approved</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Event details')">View</button><button class="act-btn act-ban" onclick="toast('Event cancelled')">Cancel</button></div></td></tr>
+<tr><td class="u-extracted-136">Beat Battle Night</td><td>SpeedRunners</td><td>Mar 14 · 8:00 PM</td><td><span class="badge badge-pending">Online</span></td><td>204</td><td><span class="badge badge-warn">Pending</span></td><td><div class="btn-row"><button class="act-btn act-restore" onclick="toast('Event approved ✓')">Approve</button><button class="act-btn act-ban" onclick="toast('Event rejected')">Reject</button></div></td></tr>
 <tr><td class="u-extracted-136">AI Research Meetup</td><td>AI &amp; ML Hub</td><td>Mar 18 · 3:30 PM</td><td><span class="badge badge-warn">Hybrid</span></td><td>156</td><td><span class="badge badge-active">Approved</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Event details')">View</button><button class="act-btn act-ban" onclick="toast('Event cancelled')">Cancel</button></div></td></tr>
 <tr><td class="u-extracted-136">Crypto AMA Session</td><td>CryptoHive</td><td>Mar 20 · 6:00 PM</td><td><span class="badge badge-pending">Online</span></td><td>89</td><td><span class="badge badge-flag">Flagged</span></td><td><div class="btn-row"><button class="act-btn act-view" onclick="toast('Event details')">View</button><button class="act-btn act-ban" onclick="toast('Event removed')">Remove</button></div></td></tr>
 </tbody>
@@ -283,7 +305,7 @@
 <div class="report-item"><span class="report-sev sev-critical"></span><div class="report-body"><div class="report-title">Phishing link in Startup Founders</div><div class="report-meta">RPT-039477 · 5 reports · External malicious URL · 1h ago</div></div><div class="btn-row"><button class="act-btn act-dismiss" onclick="toast('Dismissed')">Dismiss</button><button class="act-btn act-ban" onclick="toast('Post removed + user banned')">Remove &amp; Ban</button></div></div>
 <div class="report-item"><span class="report-sev sev-high"></span><div class="report-body"><div class="report-title">Misleading event info — GameZone</div><div class="report-meta">RPT-039479 · 3 reports · Fake ticket giveaway · 1h ago</div></div><div class="btn-row"><button class="act-btn act-dismiss" onclick="toast('Dismissed')">Dismiss</button><button class="act-btn act-warn" onclick="toast('Warning issued')">Warn</button><button class="act-btn act-ban" onclick="toast('Post removed')">Remove</button></div></div>
 <div class="report-item"><span class="report-sev sev-high"></span><div class="report-body"><div class="report-title">Profile impersonation — @fake.devnexus</div><div class="report-meta">RPT-039478 · 2 reports · Copying @devnexus_admin · 2h ago</div></div><div class="btn-row"><button class="act-btn act-dismiss" onclick="toast('Dismissed')">Dismiss</button><button class="act-btn act-ban" onclick="toast('Account removed')">Remove Account</button></div></div>
-<div class="report-item"><span class="report-sev sev-high"></span><div class="report-body"><div class="report-title">NSFW content in SoundWave #general</div><div class="report-meta">RPT-039476 · 4 reports · 3h ago</div></div><div class="btn-row"><button class="act-btn act-dismiss" onclick="toast('Dismissed')">Dismiss</button><button class="act-btn act-warn" onclick="toast('Warning issued')">Warn</button><button class="act-btn act-ban" onclick="toast('Content removed')">Remove</button></div></div>
+<div class="report-item"><span class="report-sev sev-high"></span><div class="report-body"><div class="report-title">NSFW content in SpeedRunners #general</div><div class="report-meta">RPT-039476 · 4 reports · 3h ago</div></div><div class="btn-row"><button class="act-btn act-dismiss" onclick="toast('Dismissed')">Dismiss</button><button class="act-btn act-warn" onclick="toast('Warning issued')">Warn</button><button class="act-btn act-ban" onclick="toast('Content removed')">Remove</button></div></div>
 <div class="report-item"><span class="report-sev sev-medium"></span><div class="report-body"><div class="report-title">Self-promotion spam in AI &amp; ML Hub</div><div class="report-meta">RPT-039475 · 2 reports · 6 promo posts in 1h · 4h ago</div></div><div class="btn-row"><button class="act-btn act-dismiss" onclick="toast('Dismissed')">Dismiss</button><button class="act-btn act-warn" onclick="toast('Warning issued')">Warn</button></div></div>
 </div>
 </div>

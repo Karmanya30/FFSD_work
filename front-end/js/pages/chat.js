@@ -10,14 +10,14 @@ const CHANNEL_TOPICS = {
     'general': "The main hub — say hello, share updates, ask anything 👋",
     'introductions': "New here? Introduce yourself and your stack!",
     'off-topic': "Non-dev chat — memes, life, random goodness 😄",
-    'frontend': "HTML, CSS, JS, React, Vue, Angular and all things UI",
-    'backend': "APIs, databases, server-side architecture",
+    'frontend': "HTML, CSS, JS, FPS, Vue, Angular and all things UI",
+    'Strategy': "APIs, databases, server-side architecture",
     'code-review': "Post your code — get honest, constructive feedback",
-    'devops': "CI/CD, containers, cloud infra, deployments",
+    'Streaming': "CI/CD, containers, cloud infra, deployments",
     'open-source': "Share projects, PRs, and contribution opportunities",
     'job-board': "Jobs, freelance gigs, and career opportunities",
     'portfolio-review': "Share your portfolio for peer feedback",
-    'announcements': "Official announcements from the Dev Nexus team 📣",
+    'announcements': "Official announcements from the Pro Gamers team 📣",
     'rules-and-info': "Community rules and important information 📌",
     'study-together': "Voice channel — join and study with others 📚",
     'pair-programming': "Voice channel — find a pair programming partner 👥",
@@ -82,9 +82,9 @@ window.setChannel = function(el, name, type) {
     console.log(`Switched to channel: ${name}`);
 };
 
-window.toggleReact = function(pill) {
+window.toggleFPS = function(pill) {
     pill.classList.toggle('mine');
-    const countEl = pill.querySelector('.react-count');
+    const countEl = pill.querySelector('.FPS-count');
     let count = parseInt(countEl.textContent);
     countEl.textContent = pill.classList.contains('mine') ? count + 1 : count - 1;
 };
@@ -161,7 +161,7 @@ function simulateResponse() {
                 </div>
                 <div class="msg-text">Got it! We'll be using the <strong>Nexus Design System</strong> to keep things consistent. Can't wait for tomorrow! 🚀</div>
                 <div class="reactions">
-                    <div class="react-pill" onclick="toggleReact(this)"><span>🔥</span><span class="react-count">1</span></div>
+                    <div class="FPS-pill" onclick="toggleFPS(this)"><span>🔥</span><span class="FPS-count">1</span></div>
                 </div>
             </div>
             <div class="msg-actions"><div class="act-btn">😊</div><div class="act-btn">↩</div><div class="act-btn">🧵</div><div class="act-btn">⋯</div></div>

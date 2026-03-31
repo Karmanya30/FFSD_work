@@ -24,8 +24,8 @@
 <a class="nav-link" href="#community">Community</a>
 </div>
 <div class="nav-r">
-<button class="btn-ghost">Sign in</button>
-<button class="btn-cta">Get started free</button>
+<a href="login.html" class="btn-ghost">Sign in</a>
+<a href="login.html" class="btn-cta">Get started free</a>
 </div>
 </nav>
 <!-- HERO -->
@@ -44,7 +44,7 @@
 </h1>
 <p class="hero-sub">NexusHub brings together developers, creators, and thinkers into living, breathing communities — with real-time chat, events, and tools built for serious collaboration.</p>
 <div class="hero-btns">
-<button class="btn-hero">Start for free →</button>
+<a href="login.html" class="btn-hero">Start for free →</a>
 <button class="btn-hero-g">Watch demo ▶</button>
 </div>
 <div class="hero-stat-row">
@@ -58,7 +58,7 @@
 <span>✦</span> <span>+847 joined today</span>
 </div>
 <div class="float-badge fb2">
-        🔴 <span>Dev Nexus is live</span>
+        🔴 <span>Pro Gamers is live</span>
 </div>
 <div class="float-badge fb3 u-extracted-259">
         🏆 <span>Hackathon starting soon</span>
@@ -83,8 +83,8 @@
 <div class="mk-main">
 <div class="mk-hdr">🔥 Trending Communities</div>
 <div class="mk-card">
-<div class="mk-card-title">Dev Nexus <span class="mk-badge u-extracted-263">🟢 Live</span></div>
-                Realtime discussions on web dev and open source
+<div class="mk-card-title">Pro Gamers <span class="mk-badge u-extracted-263">🟢 Live</span></div>
+                Realtime discussions on Console and open source
                 <div class="mk-av-row">
 <div class="mk-av u-extracted-113">A</div>
 <div class="mk-av u-extracted-264">K</div>
@@ -94,7 +94,7 @@
 <div class="mk-prog"><div class="mk-prog-fill u-extracted-265"></div></div>
 </div>
 <div class="mk-card">
-<div class="mk-card-title">Design Studio <span class="mk-badge u-extracted-266">Event</span></div>
+<div class="mk-card-title">Indie Games <span class="mk-badge u-extracted-266">Event</span></div>
                 Weekly UI crits and design sprints
               </div>
 </div>
@@ -148,114 +148,7 @@
 <div class="feat-title">Moderation Suite</div>
 <div class="feat-desc">AI-assisted AutoMod, appeal workflows, structured reporting — keep communities safe without the toil.</div>
 <div class="feat-link">Learn more →</div>
-</div>/**
- * Utility functions for formatting, security, and global UI elements.
- */
-
-// 1. TIME AND DATE FORMATTING
-// ------------------------------------------------------------------
-
-/**
- * Formats a standard date string into a readable format.
- * Example: '2026-04-15' -> 'April 15, 2026'
- */
-export function formatEventDate(dateString) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const date = new Date(dateString);
-    return date.toLocaleDateString(undefined, options);
-}
-
-/**
- * Gets the current time in a short, readable format for chat.
- * Example: '6:30 PM'
- */
-export function getCurrentShortTime() {
-    return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
-
-
-// 2. SECURITY (CRITICAL FOR CHAT APPS)
-// ------------------------------------------------------------------
-
-/**
- * Escapes HTML characters to prevent Cross-Site Scripting (XSS).
- * You should wrap user inputs in this before injecting them into the DOM.
- */
-export function escapeHTML(unsafeString) {
-    if (!unsafeString) return "";
-    return unsafeString
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-
-// 3. UI HELPERS (TOAST NOTIFICATIONS)
-// ------------------------------------------------------------------
-
-/**
- * Creates a temporary popup notification on the screen.
- * Replaces standard browser alert() boxes for a modern look.
- * * @param {string} message - The message to display.
- * @param {string} type - 'success', 'error', or 'info'.
- */
-export function showToast(message, type = 'info') {
-    // Check if a toast container exists, if not, create one
-    let container = document.getElementById('toast-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.id = 'toast-container';
-        // Basic inline styles so it works without requiring extra CSS files
-        Object.assign(container.style, {
-            position: 'fixed',
-            bottom: '20px',
-            right: '20px',
-            zIndex: '9999',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px'
-        });
-        document.body.appendChild(container);
-    }
-
-    // Create the toast element
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.textContent = message;
-
-    // Style the toast based on the type
-    let bgColor = '#333'; // default info
-    if (type === 'success') bgColor = '#4CAF50';
-    if (type === 'error') bgColor = '#F44336';
-
-    Object.assign(toast.style, {
-        backgroundColor: bgColor,
-        color: 'white',
-        padding: '12px 20px',
-        borderRadius: '5px',
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-        fontFamily: 'sans-serif',
-        fontSize: '14px',
-        opacity: '0',
-        transition: 'opacity 0.3s ease-in-out',
-        minWidth: '250px'
-    });
-
-    container.appendChild(toast);
-
-    // Fade in
-    requestAnimationFrame(() => {
-        toast.style.opacity = '1';
-    });
-
-    // Remove after 3 seconds
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 300); // Wait for fade out animation
-    }, 3000);
-}
+</div>
 <div class="feat-card">
 <div class="feat-ico">📊</div>
 <div class="feat-title">Manager Analytics</div>
@@ -316,7 +209,7 @@ export function showToast(message, type = 'info') {
             <span class="u-extracted-269">3,247 total</span>
 </div>
 <div class="u-extracted-270">
-<span class="u-extracted-271">Technology</span>
+<span class="u-extracted-271">Gaming</span>
 <span class="u-extracted-272">Design</span>
 <span class="u-extracted-272">Gaming</span>
 <span class="u-extracted-272">Education</span>
@@ -325,22 +218,22 @@ export function showToast(message, type = 'info') {
 <div class="hw-comm-list">
 <div class="hw-ci">
 <div class="hw-ci-ico u-extracted-105">⚡</div>
-<div class="hw-ci-info"><div class="hw-ci-name">Dev Nexus</div><div class="hw-ci-meta">12.4k members · Technology</div></div>
+<div class="hw-ci-info"><div class="hw-ci-name">Pro Gamers</div><div class="hw-ci-meta">12.4k members · Gaming</div></div>
 <button class="hw-ci-btn joined">✓ Joined</button>
 </div>
 <div class="hw-ci">
 <div class="hw-ci-ico u-extracted-273">🎨</div>
-<div class="hw-ci-info"><div class="hw-ci-name">Design Studio</div><div class="hw-ci-meta">8.2k members · Design</div></div>
+<div class="hw-ci-info"><div class="hw-ci-name">Indie Games</div><div class="hw-ci-meta">8.2k members · Design</div></div>
 <button class="hw-ci-btn" onclick="this.classList.add('joined');this.textContent='✓ Joined'">Join</button>
 </div>
 <div class="hw-ci">
 <div class="hw-ci-ico u-extracted-107">🌱</div>
-<div class="hw-ci-info"><div class="hw-ci-name">Open Source Hub</div><div class="hw-ci-meta">6.8k members · Technology</div></div>
+<div class="hw-ci-info"><div class="hw-ci-name">Modding Community</div><div class="hw-ci-meta">6.8k members · Gaming</div></div>
 <button class="hw-ci-btn" onclick="this.classList.add('joined');this.textContent='✓ Joined'">Join</button>
 </div>
 <div class="hw-ci">
 <div class="hw-ci-ico u-extracted-109">🏆</div>
-<div class="hw-ci-info"><div class="hw-ci-name">Hackathon HQ</div><div class="hw-ci-meta">5.1k members · Events</div></div>
+<div class="hw-ci-info"><div class="hw-ci-name">Tournament Hub</div><div class="hw-ci-meta">5.1k members · Events</div></div>
 <button class="hw-ci-btn" onclick="this.classList.add('joined');this.textContent='✓ Joined'">Join</button>
 </div>
 </div>

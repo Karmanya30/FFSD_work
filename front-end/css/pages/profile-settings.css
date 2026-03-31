@@ -19,14 +19,14 @@
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   html,body{height:100%;overflow:hidden;}
-  body{font-family:'DM Sans',sans-serif;background:var(--bg-deep);color:var(--text-1);display:flex;flex-direction:column;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg-deep);color:var(--text-1);display:flex;flex-direction:row;}
 
   /* TOP BAR */
   .top-bar{height:54px;background:var(--bg-sidebar);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 22px;gap:0;flex-shrink:0;z-index:20;position:relative;}
   .top-bar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(91,110,245,0.25),transparent);}
   .tb-logo{display:flex;align-items:center;gap:9px;margin-right:18px;}
   .tb-logo-icon{width:30px;height:30px;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 0 12px rgba(91,110,245,0.28);}
-  .tb-logo-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;background:linear-gradient(135deg,#EEF0F8,#9CA3AF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .tb-logo-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;background:linear-gradient(135deg,#EEF0F8,#9CA3AF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
   .tb-sep{width:1px;height:22px;background:var(--border);margin:0 14px;}
   .tb-page{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text-1);}
   .tb-right{margin-left:auto;display:flex;align-items:center;gap:10px;}

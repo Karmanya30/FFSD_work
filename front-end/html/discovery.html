@@ -10,34 +10,45 @@
 <link href="../css/pages/discovery.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- ─── SIDEBAR ─── -->
-<aside class="sidebar">
-<div class="sidebar-logo">
-<div class="logo-icon">⬡</div>
-<span class="logo-name">NexusHub</span>
-</div>
-<div class="nav-section">
-<div class="nav-label">Menu</div>
-<a href="dashboard.html" class="nav-item"><span class="nav-icon">🏠</span> Home</a>
-<a href="discovery.html" class="nav-item active"><span class="nav-icon">🔍</span> Discover</a>
-<a href="events.html" class="nav-item"><span class="nav-icon">📅</span> Events <span class="nav-badge gold">3</span></a>
-<a href="chat.html" class="nav-item"><span class="nav-icon">💬</span> Messages <span class="nav-badge">12</span></a>
-<a href="#" class="nav-item"><span class="nav-icon">🔔</span> Notifications <span class="nav-badge">5</span></a>
-<a href="profile-settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
-</div>
-<div class="nav-section pb-6"><div class="nav-label">My Communities</div></div>
-<div class="comm-list">
-<div class="comm-item"><div class="comm-avatar grad-purple">⚡</div><div class="comm-info"><div class="comm-name">Dev Nexus</div><div class="comm-sub">2.4k members</div></div><div class="comm-dot bg-dot-green"></div></div>
-<div class="comm-item"><div class="comm-avatar grad-orange">🎨</div><div class="comm-info"><div class="comm-name">Design Vault</div><div class="comm-sub">1.1k members</div></div><div class="comm-dot bg-dot-green"></div></div>
-<div class="comm-item"><div class="comm-avatar grad-cyan">🎮</div><div class="comm-info"><div class="comm-name">GameZone</div><div class="comm-sub">8.7k members</div></div><div class="comm-dot bg-dot-orange"></div></div>
-<div class="comm-item"><div class="comm-avatar grad-green">🌿</div><div class="comm-info"><div class="comm-name">EcoBuilders</div><div class="comm-sub">540 members</div></div><div class="comm-dot bg-dot-gray"></div></div>
-<div class="comm-item"><div class="comm-avatar grad-pink">🎵</div><div class="comm-info"><div class="comm-name">SoundWave</div><div class="comm-sub">3.2k members</div></div><div class="comm-dot bg-dot-green"></div></div>
-</div>
-<div class="sidebar-footer">
-<div class="user-avatar">AM</div>
-<div class="user-info"><div class="user-name">Alex Morgan</div><div class="user-status">Online</div></div>
-<span class="fs-14 c-text-3">⋯</span>
-</div>
+<!-- ─── APP RAIL ─── -->
+<aside class="app-rail">
+  <div class="rail-logo">⬡</div>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Main Nav -->
+  <a href="dashboard.html" class="rail-item" data-tooltip="Home">🏠</a>
+  <a href="discovery.html" class="rail-item active" data-tooltip="Discover">🔍</a>
+  <a href="events.html" class="rail-item" data-tooltip="Events">📅<div class="notif-dot" style="background:var(--gold);width:6px;height:6px;"></div></a>
+  <a href="chat.html" class="rail-item" data-tooltip="Messages">💬<div class="notif-dot" style="width:6px;height:6px;"></div></a>
+  <a href="#" class="rail-item" data-tooltip="Notifications">🔔</a>
+  <a href="profile-settings.html" class="rail-item" data-tooltip="Settings">⚙️</a>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Communities -->
+  <div class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">
+    ⚡<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">
+    🎨<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">
+    🎮<div class="rail-dot bg-dot-orange"></div>
+  </div>
+  <div class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">
+    🌿<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  <div class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">
+    🎵<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">
+    📚<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  
+  <div class="rail-footer">
+    <div class="rail-avatar" onclick="window.location.href='profile-settings.html'" data-tooltip="Profile">AM<div class="rail-dot bg-dot-green" style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg-sidebar);"></div></div>
+  </div>
 </aside>
 <!-- ─── MAIN ─── -->
 <div class="main">
@@ -70,7 +81,7 @@
 <!-- Filter Chips -->
 <div class="filter-bar" id="filterBar">
 <div class="chip active" data-cat="all" onclick="setChip(this,'all')"><span class="chip-icon">✦</span> All</div>
-<div class="chip" data-cat="tech" onclick="setChip(this,'tech')"><span class="chip-icon">💻</span> Technology</div>
+<div class="chip" data-cat="tech" onclick="setChip(this,'tech')"><span class="chip-icon">💻</span> Gaming</div>
 <div class="chip" data-cat="gaming" onclick="setChip(this,'gaming')"><span class="chip-icon">🎮</span> Gaming</div>
 <div class="chip" data-cat="design" onclick="setChip(this,'design')"><span class="chip-icon">🎨</span> Design</div>
 <div class="chip" data-cat="music" onclick="setChip(this,'music')"><span class="chip-icon">🎵</span> Music</div>
@@ -92,7 +103,7 @@
 <div class="feat-meta">
 <div class="feat-tag"><span class="dot"></span> 84.2k online</div>
 <div class="feat-tag">👥 420,000 members</div>
-<div class="feat-tag">📍 Technology · Research</div>
+<div class="feat-tag">📍 Gaming · Research</div>
 </div>
 </div>
 <button class="btn-join-feat" onclick="event.stopPropagation(); toggleJoinFeat(this)">Join Community</button>
@@ -112,7 +123,7 @@
 <div class="c-icon grad-purple">⚡</div>
 <div class="c-badges"><span class="c-badge badge-trending">🔥 Trending</span></div>
 </div>
-<div><div class="c-name">Dev Nexus</div><div class="c-cat">Technology · Web Dev</div></div>
+<div><div class="c-name">Pro Gamers</div><div class="c-cat">Esports · Competitive</div></div>
 <div class="c-desc">A home for developers of all levels. Share projects, ask questions, and explore the latest frameworks and tools.</div>
 <div class="c-footer">
 <div class="c-stats"><span class="c-stat">👥 2,451</span><span class="c-stat">🟢 312 online</span></div>
@@ -157,7 +168,7 @@
 <div class="c-icon grad-violet">🎨</div>
 <div class="c-badges"><span class="c-badge badge-new">✦ New</span></div>
 </div>
-<div><div class="c-name">Design Vault</div><div class="c-cat">Design · UI/UX</div></div>
+<div><div class="c-name">RPG Tavern</div><div class="c-cat">Design · UI/UX</div></div>
 <div class="c-desc">Critique, inspiration, and resources for UI/UX designers. Weekly design challenges and portfolio reviews every Friday.</div>
 <div class="c-footer">
 <div class="c-stats"><span class="c-stat">👥 1,120</span><span class="c-stat">🟢 210 online</span></div>
@@ -172,7 +183,7 @@
 <div class="c-icon grad-pink">🎵</div>
 <div class="c-badges"><span class="c-badge badge-trending">🔥 Trending</span></div>
 </div>
-<div><div class="c-name">SoundWave</div><div class="c-cat">Music · Production</div></div>
+<div><div class="c-name">SpeedRunners</div><div class="c-cat">Music · Production</div></div>
 <div class="c-desc">From bedroom producers to signed artists — share tracks, collaborate, get feedback, and talk about gear.</div>
 <div class="c-footer">
 <div class="c-stats"><span class="c-stat">👥 3,210</span><span class="c-stat">🟢 445 online</span></div>
@@ -217,7 +228,7 @@
 <div class="c-icon u-extracted-251">📚</div>
 <div class="c-badges"><span class="c-badge badge-new">✦ New</span></div>
 </div>
-<div><div class="c-name">BookClub Pro</div><div class="c-cat">Education · Literature</div></div>
+<div><div class="c-name">Strategy Gods</div><div class="c-cat">Education · Literature</div></div>
 <div class="c-desc">Monthly book reads, live author AMAs, and deep discussion threads for serious readers and casual bookworms alike.</div>
 <div class="c-footer">
 <div class="c-stats"><span class="c-stat">👥 920</span><span class="c-stat">🟢 88 online</span></div>

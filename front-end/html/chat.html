@@ -10,13 +10,53 @@
 <link href="../css/pages/chat.css" rel="stylesheet"/>
 </head>
 <body>
+<!-- ─── APP RAIL ─── -->
+<aside class="app-rail">
+  <div class="rail-logo">⬡</div>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Main Nav -->
+  <a href="dashboard.html" class="rail-item" data-tooltip="Home">🏠</a>
+  <a href="discovery.html" class="rail-item" data-tooltip="Discover">🔍</a>
+  <a href="events.html" class="rail-item" data-tooltip="Events">📅<div class="notif-dot" style="background:var(--gold);width:6px;height:6px;"></div></a>
+  <a href="chat.html" class="rail-item active" data-tooltip="Messages">💬<div class="notif-dot" style="width:6px;height:6px;"></div></a>
+  <a href="#" class="rail-item" data-tooltip="Notifications">🔔</a>
+  <a href="profile-settings.html" class="rail-item" data-tooltip="Settings">⚙️</a>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Communities -->
+  <div class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">
+    ⚡<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">
+    🎨<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">
+    🎮<div class="rail-dot bg-dot-orange"></div>
+  </div>
+  <div class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">
+    🌿<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  <div class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">
+    🎵<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">
+    📚<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  
+  <div class="rail-footer">
+    <div class="rail-avatar" onclick="window.location.href='profile-settings.html'" data-tooltip="Profile">AM<div class="rail-dot bg-dot-green" style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg-sidebar);"></div></div>
+  </div>
+</aside>
 <!-- ─── LEFT: CHANNEL LIST ─── -->
 <div class="ch-sidebar">
 <div class="comm-header">
 <div class="comm-header-top">
 <div class="comm-icon-sm">⚡</div>
 <div>
-<div class="comm-hname">Dev Nexus</div>
+<div class="comm-hname">Pro Gamers</div>
 <div class="comm-hmeta">312 online</div>
 </div>
 </div>
@@ -34,9 +74,9 @@
 <div class="ch-row" onclick="setChannel(this,'off-topic','#')"><span class="ch-type">#</span><span class="ch-lbl">off-topic</span></div>
 <div class="ch-group-lbl">▾ 💻 Development</div>
 <div class="ch-row" onclick="setChannel(this,'frontend','#')"><span class="ch-type">#</span><span class="ch-lbl">frontend</span><span class="ch-unread">4</span></div>
-<div class="ch-row" onclick="setChannel(this,'backend','#')"><span class="ch-type">#</span><span class="ch-lbl">backend</span></div>
+<div class="ch-row" onclick="setChannel(this,'Strategy','#')"><span class="ch-type">#</span><span class="ch-lbl">Strategy</span></div>
 <div class="ch-row" onclick="setChannel(this,'code-review','#')"><span class="ch-type">#</span><span class="ch-lbl">code-review</span><span class="ch-unread">7</span></div>
-<div class="ch-row" onclick="setChannel(this,'devops','#')"><span class="ch-type">#</span><span class="ch-lbl">devops</span></div>
+<div class="ch-row" onclick="setChannel(this,'Streaming','#')"><span class="ch-type">#</span><span class="ch-lbl">Streaming</span></div>
 <div class="ch-row" onclick="setChannel(this,'open-source','#')"><span class="ch-type">#</span><span class="ch-lbl">open-source</span></div>
 <div class="ch-group-lbl">▾ 🎯 Career</div>
 <div class="ch-row" onclick="setChannel(this,'job-board','#')"><span class="ch-type">#</span><span class="ch-lbl">job-board</span></div>
@@ -85,13 +125,13 @@
 </div>
 <div class="msg-text">Good morning everyone! 🌟 Just a reminder — the <strong>March Hack Sprint</strong> kicks off <strong>tomorrow at 2 PM</strong>. Register in <span class="mention">#events</span> if you haven't already. Prizes worth <strong>$2,000</strong> are on the line. Let's gooo! 🚀</div>
 <div class="reactions">
-<div class="react-pill mine" onclick="toggleReact(this)"><span>🚀</span><span class="react-count">18</span></div>
-<div class="react-pill" onclick="toggleReact(this)"><span>🎉</span><span class="react-count">11</span></div>
-<div class="react-pill" onclick="toggleReact(this)"><span>❤️</span><span class="react-count">7</span></div>
+<div class="FPS-pill mine" onclick="toggleFPS(this)"><span>🚀</span><span class="FPS-count">18</span></div>
+<div class="FPS-pill" onclick="toggleFPS(this)"><span>🎉</span><span class="FPS-count">11</span></div>
+<div class="FPS-pill" onclick="toggleFPS(this)"><span>❤️</span><span class="FPS-count">7</span></div>
 </div>
 </div>
 <div class="msg-actions">
-<div class="act-btn" title="React">😊</div>
+<div class="act-btn" title="FPS">😊</div>
 <div class="act-btn" title="Reply">↩</div>
 <div class="act-btn" title="Thread">🧵</div>
 <div class="act-btn" title="More">⋯</div>
@@ -119,11 +159,11 @@
 <span class="fn">nexus</span> login --token <span class="str">YOUR_TOKEN_HERE</span>
 
 <span class="cm"># Bootstrap a new project</span>
-<span class="fn">nexus</span> init my-project --template <span class="str">react-ts</span></pre>
+<span class="fn">nexus</span> init my-project --template <span class="str">FPS-ts</span></pre>
 </div>
 <div class="reactions">
-<div class="react-pill" onclick="toggleReact(this)"><span>🙏</span><span class="react-count">9</span></div>
-<div class="react-pill" onclick="toggleReact(this)"><span>⭐</span><span class="react-count">5</span></div>
+<div class="FPS-pill" onclick="toggleFPS(this)"><span>🙏</span><span class="FPS-count">9</span></div>
+<div class="FPS-pill" onclick="toggleFPS(this)"><span>⭐</span><span class="FPS-count">5</span></div>
 </div>
 </div>
 <div class="msg-actions">
@@ -140,7 +180,7 @@
 </div>
 <div class="msg-text">Thanks <span class="mention">@Sara Lee</span> — worked perfectly on my M2 Mac. One note: make sure you're on <code>node ≥ 18</code> or you'll hit the <code>fetch</code> polyfill issue.</div>
 <div class="reactions">
-<div class="react-pill mine" onclick="toggleReact(this)"><span>👍</span><span class="react-count">14</span></div>
+<div class="FPS-pill mine" onclick="toggleFPS(this)"><span>👍</span><span class="FPS-count">14</span></div>
 </div>
 </div>
 <div class="msg-actions">
@@ -165,9 +205,9 @@
 </div>
 <div class="u-extracted-163">hackathon-mockup-v1.png · 1.2 MB</div>
 <div class="reactions">
-<div class="react-pill" onclick="toggleReact(this)"><span>🔥</span><span class="react-count">22</span></div>
-<div class="react-pill mine" onclick="toggleReact(this)"><span>😍</span><span class="react-count">8</span></div>
-<div class="react-pill" onclick="toggleReact(this)"><span>👀</span><span class="react-count">6</span></div>
+<div class="FPS-pill" onclick="toggleFPS(this)"><span>🔥</span><span class="FPS-count">22</span></div>
+<div class="FPS-pill mine" onclick="toggleFPS(this)"><span>😍</span><span class="FPS-count">8</span></div>
+<div class="FPS-pill" onclick="toggleFPS(this)"><span>👀</span><span class="FPS-count">6</span></div>
 </div>
 </div>
 <div class="msg-actions">
@@ -185,7 +225,7 @@
 </div>
 <div class="msg-text u-extracted-166">This looks incredible <span class="mention">@Mia Park</span>! Love the color scheme. Are you using <strong>NexusHub's design system</strong> or building from scratch?</div>
 <div class="reactions">
-<div class="react-pill" onclick="toggleReact(this)"><span>❤️</span><span class="react-count">3</span></div>
+<div class="FPS-pill" onclick="toggleFPS(this)"><span>❤️</span><span class="FPS-count">3</span></div>
 </div>
 </div>
 <div class="msg-actions">
@@ -210,7 +250,7 @@
 <span class="msg-cont-time">10:45</span>
 <div class="msg-text">Checked the rules doc but didn't see it mentioned explicitly 🤔</div>
 <div class="reactions">
-<div class="react-pill" onclick="toggleReact(this)"><span>🤔</span><span class="react-count">4</span></div>
+<div class="FPS-pill" onclick="toggleFPS(this)"><span>🤔</span><span class="FPS-count">4</span></div>
 </div>
 </div>
 <!-- System msg -->
@@ -225,8 +265,8 @@
 </div>
 <div class="msg-text"><span class="mention">@Leo Perez</span> Yes, external APIs are totally fine! Just make sure you're not hitting paid tiers that require billing. Free-tier everything and you're good 👍</div>
 <div class="reactions">
-<div class="react-pill mine" onclick="toggleReact(this)"><span>🎯</span><span class="react-count">11</span></div>
-<div class="react-pill" onclick="toggleReact(this)"><span>🙌</span><span class="react-count">6</span></div>
+<div class="FPS-pill mine" onclick="toggleFPS(this)"><span>🎯</span><span class="FPS-count">11</span></div>
+<div class="FPS-pill" onclick="toggleFPS(this)"><span>🙌</span><span class="FPS-count">6</span></div>
 </div>
 </div>
 <div class="msg-actions">

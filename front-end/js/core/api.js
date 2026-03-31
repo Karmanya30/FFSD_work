@@ -11,7 +11,7 @@ const API_BASE = 'http://localhost:3000/api';
 // Centralized mock data to keep the fetch logic clean
 const MOCK_DATA = {
     '/chat/history': [
-        { sender: "System Bot", message: "Welcome to the Dev Nexus channel! 👋", role: "bot", timestamp: "10:00 AM" },
+        { sender: "System Bot", message: "Welcome to the Pro Gamers channel! 👋", role: "bot", timestamp: "10:00 AM" },
         { sender: "ProGamer99", message: "Anyone up for a raid in the #gaming channel later?", role: "member", timestamp: "10:05 AM" },
         { sender: "Sara Lee", message: "Check out the new #announcements for the hackathon rules.", role: "mod", timestamp: "10:12 AM" }
     ],
@@ -47,7 +47,7 @@ export async function fetchData(endpoint, options = {}) {
 
         // --- AUTH INTERCEPTOR ---
         // Automatically inject the token if the user is logged in
-        const user = JSON.parse(localStorage.getItem('nexus_session'));
+        const user = JSON.parse(localStorage.getItem('nexus_user'));
         const headers = {
             'Content-Type': 'application/json',
             ...options.headers
@@ -56,8 +56,8 @@ export async function fetchData(endpoint, options = {}) {
             headers['Authorization'] = `Bearer ${user.token}`;
         }
 
-        // --- MOCK LOGIC (For Frontend Prototype) ---
-        // Remove this block once the backend is fully integrated
+        // --- MOCK LOGIC (For frontend Prototype) ---
+        // Remove this block once the Strategy is fully integrated
         if (MOCK_DATA[endpoint]) {
             // Simulate 300ms network latency
             await new Promise(resolve => setTimeout(resolve, 300));

@@ -9,18 +9,47 @@
 <link href="../css/pages/create-community.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- SIDEBAR -->
-<div class="sidebar">
-<div class="logo"><div class="logo-hex">N</div>NexusHub</div>
-<div class="nav">
-<div class="nav-item">🏠 Home</div>
-<div class="nav-item">🔍 Discover</div>
-<div class="nav-item">📅 Events</div>
-<div class="nav-item">💬 Messages</div>
-<div class="nav-item on">✚ Create</div>
-<div class="nav-item">⚙ Settings</div>
-</div>
-</div>
+<!-- ─── APP RAIL ─── -->
+<aside class="app-rail">
+  <div class="rail-logo">⬡</div>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Main Nav -->
+  <a href="dashboard.html" class="rail-item" data-tooltip="Home">🏠</a>
+  <a href="discovery.html" class="rail-item" data-tooltip="Discover">🔍</a>
+  <a href="events.html" class="rail-item" data-tooltip="Events">📅<div class="notif-dot" style="background:var(--gold);width:6px;height:6px;"></div></a>
+  <a href="chat.html" class="rail-item" data-tooltip="Messages">💬<div class="notif-dot" style="width:6px;height:6px;"></div></a>
+  <a href="#" class="rail-item" data-tooltip="Notifications">🔔</a>
+  <a href="profile-settings.html" class="rail-item" data-tooltip="Settings">⚙️</a>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Communities -->
+  <div class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">
+    ⚡<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">
+    🎨<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">
+    🎮<div class="rail-dot bg-dot-orange"></div>
+  </div>
+  <div class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">
+    🌿<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  <div class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">
+    🎵<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">
+    📚<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  <div class="rail-item active" data-tooltip="Create" style="background:var(--accent);color:#fff;border-radius:14px;">✚</div>
+  
+  <div class="rail-footer">
+    <div class="rail-avatar" onclick="window.location.href='profile-settings.html'" data-tooltip="Profile">AM<div class="rail-dot bg-dot-green" style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg-sidebar);"></div></div>
+  </div>
+</aside>
 <!-- MAIN -->
 <div class="main">
 <div class="header">
@@ -70,7 +99,7 @@
 <div class="pc-av" id="pc-ico">⚡</div>
 <div class="pc-info">
 <div class="pc-name" id="pc-name">Your Community</div>
-<div class="pc-meta" id="pc-meta">Technology · 0 members</div>
+<div class="pc-meta" id="pc-meta">Gaming · 0 members</div>
 </div>
 </div>
 </div>
@@ -89,7 +118,7 @@
 <div class="section-sub">Tell people what your community is about.</div>
 <div class="fg">
 <div class="f-label">Community Name <span class="f-req">*</span></div>
-<input class="f-in" id="comm-name" maxlength="60" oninput="updatePreview()" placeholder="e.g. Dev Nexus, Design Studio…"/>
+<input class="f-in" id="comm-name" maxlength="60" oninput="updatePreview()" placeholder="e.g. Pro Gamers, Indie Games…"/>
 <div class="char-count"><span id="name-len">0</span>/60</div>
 </div>
 <div class="fg">
@@ -116,7 +145,7 @@
 <div class="fg">
 <div class="f-label">Category <span class="f-req">*</span></div>
 <div class="cat-grid" id="cat-grid">
-<div class="cat-item on" onclick="pickCat(this,'Technology')"><div class="cat-ico">💻</div><div class="cat-lbl">Technology</div></div>
+<div class="cat-item on" onclick="pickCat(this,'Gaming')"><div class="cat-ico">💻</div><div class="cat-lbl">Gaming</div></div>
 <div class="cat-item" onclick="pickCat(this,'Design')"><div class="cat-ico">🎨</div><div class="cat-lbl">Design</div></div>
 <div class="cat-item" onclick="pickCat(this,'Gaming')"><div class="cat-ico">🎮</div><div class="cat-lbl">Gaming</div></div>
 <div class="cat-item" onclick="pickCat(this,'Education')"><div class="cat-ico">📚</div><div class="cat-lbl">Education</div></div>
@@ -166,7 +195,7 @@
 <div class="fg-row">
 <div>
 <div class="f-label">Community Tags</div>
-<input class="f-in" placeholder="Add tags — e.g. react, ux, devops…"/>
+<input class="f-in" placeholder="Add tags — e.g. FPS, ux, Streaming…"/>
 <div class="f-desc">Helps members find your community</div>
 </div>
 <div>
@@ -298,10 +327,10 @@
 <div class="f-label">Community</div>
 <div class="sel-wrap">
 <select class="f-sel">
-<option>Dev Nexus</option>
-<option>Design Studio</option>
-<option>Open Source Hub</option>
-<option>Hackathon HQ</option>
+<option>Pro Gamers</option>
+<option>Indie Games</option>
+<option>Modding Community</option>
+<option>Tournament Hub</option>
 </select>
 </div>
 </div>
@@ -351,7 +380,7 @@
 <div class="toggle on" onclick="this.classList.toggle('on')"></div>
 </div>
 <div class="toggle-row">
-<div class="tr-l"><div class="tr-lbl">Pinned announcements only</div><div class="tr-desc">Only admins can post, members can react</div></div>
+<div class="tr-l"><div class="tr-lbl">Pinned announcements only</div><div class="tr-desc">Only admins can post, members can FPS</div></div>
 <div class="toggle" onclick="this.classList.toggle('on')"></div>
 </div>
 </div>

@@ -10,6 +10,48 @@
 <link href="../css/pages/profile-settings.css" rel="stylesheet"/>
 </head>
 <body>
+<!-- ─── APP RAIL ─── -->
+<aside class="app-rail">
+  <div class="rail-logo">⬡</div>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Main Nav -->
+  <a href="dashboard.html" class="rail-item" data-tooltip="Home">🏠</a>
+  <a href="discovery.html" class="rail-item" data-tooltip="Discover">🔍</a>
+  <a href="events.html" class="rail-item" data-tooltip="Events">📅<div class="notif-dot" style="background:var(--gold);width:6px;height:6px;"></div></a>
+  <a href="chat.html" class="rail-item" data-tooltip="Messages">💬<div class="notif-dot" style="width:6px;height:6px;"></div></a>
+  <a href="#" class="rail-item" data-tooltip="Notifications">🔔</a>
+  <a href="profile-settings.html" class="rail-item active" data-tooltip="Settings">⚙️</a>
+  
+  <div class="rail-divider"></div>
+  
+  <!-- Communities -->
+  <div class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">
+    ⚡<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">
+    🎨<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">
+    🎮<div class="rail-dot bg-dot-orange"></div>
+  </div>
+  <div class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">
+    🌿<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  <div class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">
+    🎵<div class="rail-dot bg-dot-green"></div>
+  </div>
+  <div class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">
+    📚<div class="rail-dot bg-dot-gray"></div>
+  </div>
+  
+  <div class="rail-footer">
+    <div class="rail-avatar" onclick="window.location.href='profile-settings.html'" data-tooltip="Profile">AM<div class="rail-dot bg-dot-green" style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg-sidebar);"></div></div>
+  </div>
+</aside>
+
+<div style="flex:1; display:flex; flex-direction:column; min-width:0; overflow:hidden;">
 <!-- TOP BAR -->
 <div class="top-bar">
 <div class="tb-logo"><div class="tb-logo-icon">⬡</div><span class="tb-logo-name">NexusHub</span></div>
@@ -77,7 +119,7 @@
 </div>
 <div class="field u-extracted-142">
 <label>Bio</label>
-<textarea>Full-stack dev 🛠 · React, Node, Python · Building cool things · based in Chennai 🇮🇳</textarea>
+<textarea>Full-stack dev 🛠 · FPS, Node, RPG · Building cool things · based in Chennai 🇮🇳</textarea>
 <div class="field-hint">160 characters max. Visible on your public profile.</div>
 </div>
 <div class="field-row">
@@ -249,12 +291,12 @@
 <div class="card-title">🌐 My Communities</div>
 <div class="card-sub">You're a member of 6 communities.</div>
 <div class="comm-grid">
-<div class="comm-card"><div class="comm-icon grad-purple">⚡</div><div class="comm-info"><div class="comm-name">Dev Nexus</div><div class="comm-meta">2,451 members · Member</div></div></div>
-<div class="comm-card"><div class="comm-icon grad-orange">🎨</div><div class="comm-info"><div class="comm-name">Design Vault</div><div class="comm-meta">1,120 members · Member</div></div></div>
+<div class="comm-card"><div class="comm-icon grad-purple">⚡</div><div class="comm-info"><div class="comm-name">Pro Gamers</div><div class="comm-meta">2,451 members · Member</div></div></div>
+<div class="comm-card"><div class="comm-icon grad-orange">🎨</div><div class="comm-info"><div class="comm-name">RPG Tavern</div><div class="comm-meta">1,120 members · Member</div></div></div>
 <div class="comm-card"><div class="comm-icon grad-cyan">🎮</div><div class="comm-info"><div class="comm-name">GameZone</div><div class="comm-meta">8,720 members · Member</div></div></div>
-<div class="comm-card"><div class="comm-icon grad-pink">🎵</div><div class="comm-info"><div class="comm-name">SoundWave</div><div class="comm-meta">3,240 members · Member</div></div></div>
-<div class="comm-card"><div class="comm-icon grad-green">🌿</div><div class="comm-info"><div class="comm-name">EcoBuilders</div><div class="comm-meta">540 members · Member</div></div></div>
-<div class="comm-card"><div class="comm-icon grad-violet">📚</div><div class="comm-info"><div class="comm-name">BookClub Pro</div><div class="comm-meta">890 members · Member</div></div></div>
+<div class="comm-card"><div class="comm-icon grad-pink">🎵</div><div class="comm-info"><div class="comm-name">SpeedRunners</div><div class="comm-meta">3,240 members · Member</div></div></div>
+<div class="comm-card"><div class="comm-icon grad-green">🌿</div><div class="comm-info"><div class="comm-name">FPS Masters</div><div class="comm-meta">540 members · Member</div></div></div>
+<div class="comm-card"><div class="comm-icon grad-violet">📚</div><div class="comm-info"><div class="comm-name">Strategy Gods</div><div class="comm-meta">890 members · Member</div></div></div>
 </div>
 </div>
 </div>
@@ -279,8 +321,9 @@
 <div class="danger-zone">
 <div class="dz-title">⚠️ Danger Zone</div>
 <div class="dz-sub">These actions are permanent and cannot be undone.</div>
-<div class="dz-item"><div><div class="dz-label">Deactivate Account</div><div class="dz-desc">Temporarily hide your profile and pause notifications. You can reactivate at any time.</div></div><button class="btn-danger" onclick="toast('⚠️ Deactivation flow started…')">Deactivate</button></div>
+<div class="dz-item"><div><div class="dz-label">Deactivate Account</div><div class="dz-desc">Temporarily hide your profile and pause notifications. You can FPSivate at any time.</div></div><button class="btn-danger" onclick="toast('⚠️ Deactivation flow started…')">Deactivate</button></div>
 <div class="dz-item"><div><div class="dz-label">Leave All Communities</div><div class="dz-desc">Remove yourself from all 6 communities you've joined.</div></div><button class="btn-danger" onclick="toast('⚠️ Confirm: Leave all communities?')">Leave All</button></div>
+<div class="dz-item"><div><div class="dz-label">Log Out</div><div class="dz-desc">Sign out of your session on this device.</div></div><button class="btn-danger" id="logoutBtn" onclick="localStorage.removeItem('nexus_user'); window.location.href='landing.html';">Log Out</button></div>
 <div class="dz-item"><div><div class="dz-label">Delete Account</div><div class="dz-desc">Permanently delete your account, profile, and all associated data. This cannot be reversed.</div></div><button class="btn-danger u-extracted-309" onclick="toast('⛔ Account deletion requires email confirmation')">Delete Account</button></div>
 </div>
 </div>
@@ -288,6 +331,7 @@
 </div>
 <!-- TOAST -->
 <div class="toast" id="toast"><span id="toastMsg"></span></div>
+</div>
 <script src="../js/pages/profile_settings.js"></script>
 </body>
 </html>

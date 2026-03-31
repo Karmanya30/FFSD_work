@@ -270,7 +270,7 @@ window.setRA = function(el, r) {
 function drawBars() {
     const cats = [
         { n: 'Gaming', v: 31400, c: '#5B6EF5' },
-        { n: 'Technology', v: 24800, c: '#F59E0B' },
+        { n: 'Gaming', v: 24800, c: '#F59E0B' },
         { n: 'Design', v: 18200, c: '#06B6D4' },
         { n: 'Education', v: 14600, c: '#F97316' },
         { n: 'Music', v: 9200, c: '#F472B6' },
@@ -298,7 +298,7 @@ function drawBars() {
 // 7. LIVE FEED SIMULATION
 // ==========================================
 const liveEvents = [
-    { ico: '🏘️', cls: 'lc-green', ev: 'Community created', dt: '"Go Backend Wizards" queued', tag: 'INFO', tc: 'tag-info' },
+    { ico: '🏘️', cls: 'lc-green', ev: 'Community created', dt: '"Go Strategy Wizards" queued', tag: 'INFO', tc: 'tag-info' },
     { ico: '👤', cls: 'lc-blue', ev: 'User milestone', dt: 'User #148,300 registered', tag: 'SYS', tc: 'tag-sys' },
     { ico: '⚠️', cls: 'lc-yellow', ev: 'Rate limit hit', dt: 'IP 103.28.x.x throttled', tag: 'WARN', tc: 'tag-warn' },
     { ico: '🔄', cls: 'lc-cyan', ev: 'AutoMod updated', dt: 'Precision → 97.8%', tag: 'SYS', tc: 'tag-sys' },
