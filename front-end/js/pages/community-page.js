@@ -102,6 +102,21 @@ window.setActiveChannel = function(el, channelName) {
     // Scroll the info card to top
     const sidebar = document.querySelector('.ch-sidebar');
     if (sidebar) sidebar.scrollTop = 0;
+    
+    // Navigate to chat interface with the selected channel
+    window.openChatInterface(channelName);
+};
+
+/**
+ * Opens the chat interface with the selected channel
+ */
+window.openChatInterface = function(channelName) {
+    // Store the selected channel in sessionStorage for the chat page to use
+    sessionStorage.setItem('selectedChannel', channelName);
+    sessionStorage.setItem('fromCommunityPage', 'true');
+    
+    // Navigate to chat page
+    window.location.href = 'chat.html';
 };
 
 // ==========================================
@@ -133,7 +148,205 @@ window.filterMembers = function(query) {
 };
 
 // ==========================================
-// 6. INITIALIZATION
+// 6. REPORT FUNCTIONALITY
+// ==========================================
+
+/**
+ * Shows the report message dialog
+ */
+window.showReportDialog = function() {
+    // Create and show report modal
+    const modal = document.createElement('div');
+    modal.className = 'report-modal';
+    modal.innerHTML = `
+        <div class="report-modal-content">
+            <div class="report-header">
+                <h3>🚩 Report Message</h3>
+                <button class="close-btn" onclick="closeReportModal()">×</button>
+            </div>
+            <div class="report-body">
+                <div class="report-options">
+                    <label class="report-option">
+                        <input type="radio" name="reason" value="spam">
+                        <span>📢 Spam or Self-Promotion</span>
+                    </label>
+                    <label class="report-option">
+                        <input type="radio" name="reason" value="harassment">
+                        <span>😠 Harassment or Hate Speech</span>
+                    </label>
+                    <label class="report-option">
+                        <input type="radio" name="reason" value="inappropriate">
+                        <span>🔞 Inappropriate Content</span>
+                    </label>
+                    <label class="report-option">
+                        <input type="radio" name="reason" value="off-topic">
+                        <span>💬 Off-Topic</span>
+                    </label>
+                    <label class="report-option">
+                        <input type="radio" name="reason" value="other">
+                        <span>⚠️ Other</span>
+                    </label>
+                </div>
+                <div class="report-description">
+                    <label for="report-desc">Additional Details (Optional)</label>
+                    <textarea id="report-desc" placeholder="Please provide any additional context..."></textarea>
+                </div>
+            </div>
+            <div class="report-actions">
+                <button class="btn-cancel" onclick="closeReportModal()">Cancel</button>
+                <button class="btn-submit" onclick="submitReport()">Submit Report</button>
+            </div>
+        </div>
+    `;
+    
+    // Add modal to page
+    document.body.appendChild(modal);
+    
+    // Add CSS for modal
+    if (!document.getElementById('report-modal-styles')) {
+        const style = document.createElement('style');
+        style.id = 'report-modal-styles';
+        style.textContent = `
+            .report-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+            }
+            .report-modal-content {
+                background: var(--bg-primary);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 24px;
+                max-width: 500px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+            .report-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            .report-header h3 {
+                margin: 0;
+                color: var(--text-primary);
+            }
+            .close-btn {
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: var(--text-secondary);
+            }
+            .report-option {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 12px;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                margin-bottom: 8px;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+            .report-option:hover {
+                background: var(--bg-secondary);
+            }
+            .report-option input[type="radio"] {
+                margin: 0;
+            }
+            .report-description {
+                margin-top: 20px;
+            }
+            .report-description label {
+                display: block;
+                margin-bottom: 8px;
+                color: var(--text-primary);
+            }
+            .report-description textarea {
+                width: 100%;
+                min-height: 100px;
+                padding: 12px;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                resize: vertical;
+                background: var(--bg-secondary);
+                color: var(--text-primary);
+            }
+            .report-actions {
+                display: flex;
+                gap: 12px;
+                justify-content: flex-end;
+                margin-top: 20px;
+            }
+            .btn-cancel, .btn-submit {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: 500;
+            }
+            .btn-cancel {
+                background: var(--bg-secondary);
+                color: var(--text-primary);
+                border: 1px solid var(--border);
+            }
+            .btn-submit {
+                background: var(--accent);
+                color: white;
+            }
+            .btn-submit:hover {
+                background: var(--accent-hover);
+            }
+        `;
+        document.head.appendChild(style);
+    }
+};
+
+/**
+ * Closes the report modal
+ */
+window.closeReportModal = function() {
+    const modal = document.querySelector('.report-modal');
+    if (modal) {
+        modal.remove();
+    }
+};
+
+/**
+ * Submits the report
+ */
+window.submitReport = function() {
+    const selectedReason = document.querySelector('input[name="reason"]:checked');
+    const description = document.getElementById('report-desc').value;
+    
+    if (!selectedReason) {
+        if (window.toast) window.toast("Please select a reason for reporting");
+        return;
+    }
+    
+    // Here you would normally send the report to your backend
+    console.log('Report submitted:', {
+        reason: selectedReason.value,
+        description: description,
+        timestamp: new Date().toISOString()
+    });
+    
+    // Close modal and show confirmation
+    closeReportModal();
+    if (window.toast) window.toast("🚩 Report submitted successfully. Thank you for helping keep our community safe.");
+};
+
+// ==========================================
+// 7. INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Community Page Module Initialized.");

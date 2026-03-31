@@ -100,7 +100,30 @@ window.setTheme = function(el) {
 };
 
 // ==========================================
-// 5. UTILITIES & TOASTS
+// 5. AUTHENTICATION
+// ==========================================
+
+/**
+ * Handles user logout functionality
+ * Clears session data and redirects to login page
+ */
+window.logout = function() {
+    // Clear any stored session data
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userData');
+    sessionStorage.clear();
+    
+    // Show confirmation toast
+    window.toast("Logging out... 👋");
+    
+    // Redirect to login page after a short delay
+    setTimeout(() => {
+        window.location.href = 'login.html';
+    }, 1000);
+};
+
+// ==========================================
+// 6. UTILITIES & TOASTS
 // ==========================================
 
 window.toast = function(msg) {
@@ -124,16 +147,43 @@ window.saveAllChanges = function() {
         return;
     }
 
+    // Validation Check
+    if (window.NexusValidator) {
+        const nameInput = document.querySelector('input[value="Alex Morgan"]') || document.querySelector('.main input[type="text"]');
+        const handleInput = document.querySelector('input[value="alexmorgan"]') || document.querySelectorAll('.main input[type="text"]')[1];
+        const emailInput = document.querySelector('input[type="email"]');
+        
+        let valid = true;
+        const rules = [];
+        
+        if (nameInput) rules.push({ element: nameInput, validators: [{ check: v => window.NexusValidator.isRequired(v), message: 'Display name is required' }, { check: v => window.NexusValidator.minLength(v, 2), message: 'Minimum 2 characters' }]});
+        if (handleInput) rules.push({ element: handleInput, validators: [{ check: v => window.NexusValidator.isHandle(v), message: '3-20 characters, alphanumeric only' }]});
+        if (emailInput) rules.push({ element: emailInput, validators: [{ check: v => window.NexusValidator.isEmail(v), message: 'Please enter a valid email address' }]});
+        
+        if (rules.length > 0) {
+            valid = window.NexusValidator.validateForm(rules);
+        }
+        
+        if (!valid) {
+            window.toast("⚠️ Please fix the validation errors.");
+            return;
+        }
+    }
+
     // Simulate API call
     const saveBtn = document.querySelector('.tb-btn.save');
-    saveBtn.textContent = "Saving...";
-    saveBtn.disabled = true;
+    if(saveBtn) {
+        saveBtn.textContent = "Saving...";
+        saveBtn.disabled = true;
+    }
 
     setTimeout(() => {
         hasUnsavedChanges = false;
-        saveBtn.textContent = "Save Changes";
-        saveBtn.disabled = false;
-        saveBtn.classList.remove('pulse');
+        if(saveBtn) {
+            saveBtn.textContent = "Save Changes";
+            saveBtn.disabled = false;
+            saveBtn.classList.remove('pulse');
+        }
         window.toast("✅ All changes saved successfully!");
     }, 1200);
 };

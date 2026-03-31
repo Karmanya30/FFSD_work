@@ -22,12 +22,12 @@
   <a href="#" class="rail-item" data-tooltip="Notifications">🔔</a>
   <a href="profile-settings.html" class="rail-item" data-tooltip="Settings">⚙️</a>
   <div class="rail-divider"></div>
-  <div class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">⚡<div class="rail-dot bg-dot-green"></div></div>
-  <div class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">🎨<div class="rail-dot bg-dot-green"></div></div>
-  <div class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">🎮<div class="rail-dot bg-dot-orange"></div></div>
-  <div class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">🌿<div class="rail-dot bg-dot-gray"></div></div>
-  <div class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">🎵<div class="rail-dot bg-dot-green"></div></div>
-  <div class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">📚<div class="rail-dot bg-dot-gray"></div></div>
+  <a href="community-page.html?name=pro-gamers" class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">⚡<div class="rail-dot bg-dot-green"></div></a>
+  <a href="community-page.html?name=rpg-tavern" class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">🎨<div class="rail-dot bg-dot-green"></div></a>
+  <a href="community-page.html?name=gamezone" class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">🎮<div class="rail-dot bg-dot-orange"></div></a>
+  <a href="community-page.html?name=fps-masters" class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">🌿<div class="rail-dot bg-dot-gray"></div></a>
+  <a href="community-page.html?name=speedrunners" class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">🎵<div class="rail-dot bg-dot-green"></div></a>
+  <a href="community-page.html?name=strategy-gods" class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">📚<div class="rail-dot bg-dot-gray"></div></a>
   <div class="rail-footer">
     <div class="rail-avatar" onclick="window.location.href='profile-settings.html'" data-tooltip="Profile">AM<div class="rail-dot bg-dot-green" style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg-sidebar);"></div></div>
   </div>
@@ -114,6 +114,7 @@
 <div class="icon-btn" onclick="toast('12 pending alerts')">🔔<div class="notif-dot"></div></div>
 <div class="icon-btn" onclick="toast('Settings')">⚙️</div>
 <div class="header-avatar">SA</div>
+<button class="logout-btn" onclick="logout()" data-tooltip="Logout">🚪</button>
 </div>
 </header>
 <!-- ══ DASHBOARD ══ -->
@@ -390,6 +391,7 @@
 </div>
 </div>
 <div id="toast"></div>
+<script src="../js/core/validator.js"></script>
 <script src="../js/pages/admin.js"></script>
 </body>
 </html>

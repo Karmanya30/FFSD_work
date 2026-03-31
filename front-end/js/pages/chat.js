@@ -94,6 +94,70 @@ window.autoResize = function(ta) {
     ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
 };
 
+window.showMessageMenu = function(button) {
+    // Remove any existing menus
+    const existingMenu = document.querySelector('.message-menu');
+    if (existingMenu) {
+        existingMenu.remove();
+    }
+    
+    // Create menu
+    const menu = document.createElement('div');
+    menu.className = 'message-menu';
+    menu.innerHTML = `
+        <div class="menu-item" onclick="replyToMessage()">↩ Reply</div>
+        <div class="menu-item" onclick="editMessage()">✏️ Edit</div>
+        <div class="menu-item" onclick="copyMessage()">📋 Copy</div>
+        <div class="menu-divider"></div>
+        <div class="menu-item danger" onclick="reportMessage()">🚩 Report</div>
+    `;
+    
+    // Position menu near the button
+    const rect = button.getBoundingClientRect();
+    menu.style.position = 'fixed';
+    menu.style.top = rect.bottom + 'px';
+    menu.style.right = (window.innerWidth - rect.right) + 'px';
+    menu.style.zIndex = '1000';
+    
+    // Add to page
+    document.body.appendChild(menu);
+    
+    // Close when clicking outside
+    setTimeout(() => {
+        document.addEventListener('click', function closeMenu(e) {
+            if (!menu.contains(e.target)) {
+                menu.remove();
+                document.removeEventListener('click', closeMenu);
+            }
+        });
+    }, 100);
+};
+
+window.replyToMessage = function() {
+    if (window.toast) window.toast("Reply feature coming soon!");
+    document.querySelector('.message-menu')?.remove();
+};
+
+window.editMessage = function() {
+    if (window.toast) window.toast("Edit feature coming soon!");
+    document.querySelector('.message-menu')?.remove();
+};
+
+window.copyMessage = function() {
+    if (window.toast) window.toast("Message copied to clipboard!");
+    document.querySelector('.message-menu')?.remove();
+};
+
+window.reportMessage = function() {
+    document.querySelector('.message-menu')?.remove();
+    // Use the report dialog from community page
+    if (window.showReportDialog) {
+        window.showReportDialog();
+    } else {
+        if (window.toast) window.toast("Opening report dialog...");
+    }
+};
+
 // ==========================================
 // 4. MESSAGING LOGIC
 // ==========================================
@@ -176,15 +240,77 @@ function simulateResponse() {
 // 5. INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
+    // Check if we came from community page with a selected channel
+    const selectedChannel = sessionStorage.getItem('selectedChannel');
+    const fromCommunityPage = sessionStorage.getItem('fromCommunityPage');
+    
+    if (selectedChannel && fromCommunityPage === 'true') {
+        // Find and click the channel row
+        const channelName = selectedChannel.replace('#', '');
+        const channelRows = document.querySelectorAll('.ch-row');
+        
+        channelRows.forEach(row => {
+            const channelLabel = row.querySelector('.ch-lbl');
+            if (channelLabel && channelLabel.textContent === channelName) {
+                // Get the channel type from the icon
+                const icon = row.querySelector('.ch-type');
+                const iconText = icon ? icon.textContent : '#';
+                
+                // Simulate clicking the channel
+                setChannel(row, channelName, iconText);
+                
+                // Clear the session storage
+                sessionStorage.removeItem('selectedChannel');
+                sessionStorage.removeItem('fromCommunityPage');
+                
+                console.log(`Auto-selected channel from community page: ${selectedChannel}`);
+                return;
+            }
+        });
+    }
+    
     // Initial scroll
     scrollToBottom();
 
-    // Add CSS Animation for messages
+    // Add CSS Animation for messages and menu
     const style = document.createElement('style');
     style.textContent = `
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        .message-menu {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 4px;
+            min-width: 150px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .menu-item {
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-1);
+            transition: background 0.2s;
+        }
+        .menu-item:hover {
+            background: var(--bg-hover);
+        }
+        .menu-item.danger {
+            color: var(--error);
+        }
+        .menu-item.danger:hover {
+            background: rgba(248, 113, 113, 0.1);
+        }
+        .menu-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 4px 0;
+        }
+        .act-btn:last-child {
+            cursor: pointer;
         }
     `;
     document.head.appendChild(style);

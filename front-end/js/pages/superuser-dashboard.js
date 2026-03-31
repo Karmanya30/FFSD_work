@@ -515,13 +515,41 @@ window.confirmModal = function() {
     const name = document.getElementById('m-name')?.value?.trim();
 
     // Validate required fields
-    if (modalAction.startsWith('add') || modalAction.startsWith('edit')) {
+    if (window.NexusValidator && (modalAction.startsWith('add') || modalAction.startsWith('edit'))) {
+        let valid = true;
+        const rules = [];
+        
         if (modalAction.includes('User') || modalAction.includes('Comm')) {
-            if (!name) { toast('⚠️ Name is required'); return; }
+            const nameEl = document.getElementById('m-name');
+            if (nameEl) rules.push({ element: nameEl, validators: [{ check: v => window.NexusValidator.isRequired(v), message: 'Name is required' }, { check: v => window.NexusValidator.minLength(v, 2), message: 'Min 2 characters' }]});
         }
+        
+        if (modalAction.includes('User')) {
+            const emailEl = document.getElementById('m-email');
+            if (emailEl && emailEl.value) rules.push({ element: emailEl, validators: [{ check: v => window.NexusValidator.isEmail(v), message: 'Invalid email' }]});
+        }
+        
         if (modalAction.includes('Event')) {
-            const title = document.getElementById('m-title')?.value?.trim();
-            if (!title) { toast('⚠️ Title is required'); return; }
+            const titleEl = document.getElementById('m-title');
+            if (titleEl) rules.push({ element: titleEl, validators: [{ check: v => window.NexusValidator.isRequired(v), message: 'Title is required' }]});
+        }
+        
+        if (rules.length > 0) valid = window.NexusValidator.validateForm(rules);
+        
+        if (!valid) {
+            toast('⚠️ Please fix the validation errors below');
+            return;
+        }
+    } else {
+        // Fallback validation
+        if (modalAction.startsWith('add') || modalAction.startsWith('edit')) {
+            if (modalAction.includes('User') || modalAction.includes('Comm')) {
+                if (!name) { toast('⚠️ Name is required'); return; }
+            }
+            if (modalAction.includes('Event')) {
+                const title = document.getElementById('m-title')?.value?.trim();
+                if (!title) { toast('⚠️ Title is required'); return; }
+            }
         }
     }
 

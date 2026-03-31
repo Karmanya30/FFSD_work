@@ -27,24 +27,24 @@
   <div class="rail-divider"></div>
   
   <!-- Communities -->
-  <div class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">
+  <a href="community-page.html?name=pro-gamers" class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">
     ⚡<div class="rail-dot bg-dot-green"></div>
-  </div>
-  <div class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">
+  </a>
+  <a href="community-page.html?name=rpg-tavern" class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">
     🎨<div class="rail-dot bg-dot-green"></div>
-  </div>
-  <div class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">
+  </a>
+  <a href="community-page.html?name=gamezone" class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">
     🎮<div class="rail-dot bg-dot-orange"></div>
-  </div>
-  <div class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">
+  </a>
+  <a href="community-page.html?name=fps-masters" class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">
     🌿<div class="rail-dot bg-dot-gray"></div>
-  </div>
-  <div class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">
+  </a>
+  <a href="community-page.html?name=speedrunners" class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">
     🎵<div class="rail-dot bg-dot-green"></div>
-  </div>
-  <div class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">
+  </a>
+  <a href="community-page.html?name=strategy-gods" class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">
     📚<div class="rail-dot bg-dot-gray"></div>
-  </div>
+  </a>
   
   <div class="rail-footer">
     <div class="rail-avatar" onclick="window.location.href='profile-settings.html'" data-tooltip="Profile">AM<div class="rail-dot bg-dot-green" style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg-sidebar);"></div></div>
@@ -61,6 +61,7 @@
 <div class="tb-btn" onclick="toast('Changes discarded')">Discard</div>
 <div class="tb-btn save" onclick="toast('✅ Changes saved!')">Save Changes</div>
 <div class="tb-av">AM</div>
+<button class="logout-btn" onclick="logout()" data-tooltip="Logout">🚪</button>
 </div>
 </div>
 <div class="body-wrap">
@@ -325,6 +326,7 @@
 <div class="dz-item"><div><div class="dz-label">Leave All Communities</div><div class="dz-desc">Remove yourself from all 6 communities you've joined.</div></div><button class="btn-danger" onclick="toast('⚠️ Confirm: Leave all communities?')">Leave All</button></div>
 <div class="dz-item"><div><div class="dz-label">Log Out</div><div class="dz-desc">Sign out of your session on this device.</div></div><button class="btn-danger" id="logoutBtn" onclick="localStorage.removeItem('nexus_user'); window.location.href='landing.html';">Log Out</button></div>
 <div class="dz-item"><div><div class="dz-label">Delete Account</div><div class="dz-desc">Permanently delete your account, profile, and all associated data. This cannot be reversed.</div></div><button class="btn-danger u-extracted-309" onclick="toast('⛔ Account deletion requires email confirmation')">Delete Account</button></div>
+<div class="dz-item"><div><div class="dz-label">Submit Appeal</div><div class="dz-desc">If you believe an action was taken unfairly, you can submit an appeal for review.</div></div><button class="btn-appeal" onclick="window.location.href='appeal.html'">Submit Appeal</button></div>
 </div>
 </div>
 </div><!-- end main -->
@@ -332,6 +334,7 @@
 <!-- TOAST -->
 <div class="toast" id="toast"><span id="toastMsg"></span></div>
 </div>
+<script src="../js/core/validator.js"></script>
 <script src="../js/pages/profile_settings.js"></script>
 </body>
 </html>

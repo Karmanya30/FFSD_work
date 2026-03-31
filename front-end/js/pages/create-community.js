@@ -82,9 +82,31 @@ window.goStep = function(n) {
 
 window.nextStep = function() {
     if (activePage === 'channel') {
+        const cName = document.getElementById('ch-name');
+        if (cName && window.NexusValidator) {
+            const valid = window.NexusValidator.validateForm([{
+                element: cName, validators: [{ check: v => window.NexusValidator.isRequired(v), message: 'Channel name is required' }]
+            }]);
+            if (!valid) return;
+        }
         window.toast('✅ Channel created and added to community!');
         return;
     }
+    
+    if (currentStep === 1 && window.NexusValidator) {
+        const nameInput = document.getElementById('comm-name');
+        const valid = window.NexusValidator.validateForm([
+            { element: nameInput, validators: [
+                { check: v => window.NexusValidator.isRequired(v), message: 'Community name is required' },
+                { check: v => window.NexusValidator.minLength(v, 3), message: 'Name must be at least 3 characters' }
+            ]}
+        ]);
+        if (!valid) {
+            window.toast('⚠️ Please fix the errors before continuing.');
+            return;
+        }
+    }
+
     if (currentStep < totalSteps) {
         window.goStep(currentStep + 1);
     } else {

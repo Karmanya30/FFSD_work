@@ -334,7 +334,30 @@ function initLiveFeed() {
 }
 
 // ==========================================
-// 8. INITIALIZATION
+// 8. AUTHENTICATION
+// ==========================================
+
+/**
+ * Handles user logout functionality
+ * Clears session data and redirects to login page
+ */
+window.logout = function() {
+// Clear any stored session data
+localStorage.removeItem('userToken');
+localStorage.removeItem('userData');
+sessionStorage.clear();
+    
+// Show confirmation toast
+window.toast("Logging out... ");
+    
+// Redirect to login page after a short delay
+setTimeout(() => {
+window.location.href = 'login.html';
+}, 1000);
+};
+
+// ==========================================
+// 9. INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
     // STRICT access control: Only Admins allowed here
