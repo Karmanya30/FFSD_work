@@ -1,174 +1,92 @@
-/**
- * NexusHub — Landing & Authentication Logic
- * Handles demo login, session initialization, and entry animations.
- */
+/* ─────────────────────────────────────────
+   NexusHub Landing — JavaScript
+   ───────────────────────────────────────── */
 
-// ==========================================
-// 1. DEPENDENCIES & CHECK
-// ==========================================
-// Note: loginUser and getCurrentUser are expected to be available 
-// via your auth.js module or globally if not using ESM.
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Session Check: Redirect if already authenticated
-    const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
-    if (user) {
-        window.location.href = 'dashboard.html';
-        return;
-    }
-
-    initLanding();
+/* ── NAV: add glass background on scroll ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
 });
 
-// ==========================================
-// 2. INITIALIZATION
-// ==========================================
 
-function initLanding() {
-    setupLoginForm();
-    setupDemoPersonas();
-    animateLanding();
-    
-    console.log("NexusHub Landing initialized. Ready for auth.");
+/* ── COUNT-UP ANIMATION ── */
+function countUp(id, target, suffix = '', duration = 2000) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  const start = performance.now();
+
+  (function step(now) {
+    const p   = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 4);          /* ease-out-quart */
+    const val  = Math.floor(ease * target);
+
+    el.textContent = val >= 1000
+      ? (val / 1000).toFixed(val < 10000 ? 1 : 0) + 'K' + suffix
+      : val + suffix;
+
+    if (p < 1) {
+      requestAnimationFrame(step);
+    } else {
+      el.textContent = target >= 1000
+        ? (target / 1000).toFixed(target < 10000 ? 1 : 0) + 'K' + suffix
+        : target + suffix;
+    }
+  })(start);
 }
 
-// ==========================================
-// 3. AUTHENTICATION LOGIC
-// ==========================================
+/* Kick off counters after 800 ms so the hero has rendered */
+setTimeout(() => {
+  countUp('c-users', 148000, '+');
+  countUp('c-comms',   3200, '+');
+  countUp('c-msgs',    2400, 'K+');
+}, 800);
 
-function setupLoginForm() {
-    const loginForm = document.getElementById('demo-login-form');
-    if (!loginForm) return;
 
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const usernameInput = document.getElementById('login-username');
-        const roleSelect = document.getElementById('login-role');
-        const loginBtn = document.getElementById('login-btn');
-
-        const username = usernameInput.value.trim();
-        const role = roleSelect.value;
-
-        if (username && role) {
-            // UI Feedback: Loading state
-            if (loginBtn) {
-                loginBtn.innerHTML = `<span class="spinner"></span> Logging in...`;
-                loginBtn.disabled = true;
-            }
-
-            // Save session (Local Storage logic usually lives in auth.js)
-            if (typeof loginUser === 'function') {
-                loginUser(username, role);
-            }
-
-            // Simulate network latency for polished feel
-            setTimeout(() => {
-                window.location.href = 'dashboard.html';
-            }, 1200);
-
-        } else {
-            // Error Handling
-            highlightError([usernameInput, roleSelect]);
-            if (window.toast) {
-                window.toast("⚠️ Please provide a name and select a role.");
-            } else {
-                alert("Please enter a username and select a role.");
-            }
-        }
+/* ── SCROLL REVEAL ── */
+const revealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
+  },
+  { threshold: 0.1 }
+);
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+
+/* ── HOW-IT-WORKS STEPS ── */
+
+/** Activate a step manually (called via onclick in the HTML) */
+function setStep(el) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+  el.classList.add('on');
 }
 
-/**
- * Quick-start personas for evaluators/testers
- */
-function setupDemoPersonas() {
-    const adminPill = document.getElementById('demo-admin');
-    const memberPill = document.getElementById('demo-member');
+/* Auto-cycle through steps every 3 seconds */
+let stepIdx = 0;
 
-    if (adminPill) {
-        adminPill.addEventListener('click', () => {
-            fillAndSubmit("Super Admin", "admin");
-        });
-    }
+setInterval(() => {
+  const steps = document.querySelectorAll('.step');
+  steps.forEach(s => s.classList.remove('on'));
+  steps[stepIdx % steps.length].classList.add('on');
+  stepIdx++;
+}, 3000);
 
-    if (memberPill) {
-        memberPill.addEventListener('click', () => {
-            fillAndSubmit("Alex Morgan", "member");
-        });
-    }
+
+/* ── HERO MOCKUP — 3D TILT ON MOUSE MOVE ── */
+const mockup  = document.querySelector('.mockup');
+const heroR   = document.querySelector('.hero-r');
+
+if (mockup && heroR) {
+  heroR.addEventListener('mousemove', e => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x    = (e.clientX - rect.left)  / rect.width  - 0.5;
+    const y    = (e.clientY - rect.top)   / rect.height - 0.5;
+    mockup.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 8}deg)`;
+  });
+
+  heroR.addEventListener('mouseleave', () => {
+    mockup.style.transform = 'rotateY(-6deg) rotateX(3deg)';
+  });
 }
-
-function fillAndSubmit(name, role) {
-    const uInput = document.getElementById('login-username');
-    const rSelect = document.getElementById('login-role');
-    const form = document.getElementById('demo-login-form');
-
-    if (uInput) uInput.value = name;
-    if (rSelect) rSelect.value = role;
-    
-    // Trigger the submit event
-    if (form) form.dispatchEvent(new Event('submit'));
-}
-
-// ==========================================
-// 4. ANIMATION ENGINE
-// ==========================================
-
-function animateLanding() {
-    const hero = document.querySelector('.hero-content');
-    const loginCard = document.querySelector('.login-card');
-
-    if (hero) {
-        hero.style.opacity = '0';
-        hero.style.transform = 'translateY(20px)';
-        hero.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-        
-        setTimeout(() => {
-            hero.style.opacity = '1';
-            hero.style.transform = 'translateY(0)';
-        }, 200);
-    }
-
-    if (loginCard) {
-        loginCard.style.opacity = '0';
-        loginCard.style.transform = 'scale(0.95)';
-        loginCard.style.transition = 'all 0.6s ease-out';
-        
-        setTimeout(() => {
-            loginCard.style.opacity = '1';
-            loginCard.style.transform = 'scale(1)';
-        }, 500);
-    }
-}
-
-// ==========================================
-// 5. HELPER UTILITIES
-// ==========================================
-
-function highlightError(elements) {
-    elements.forEach(el => {
-        if (el && !el.value) {
-            el.style.borderColor = 'var(--error, #f87171)';
-            el.classList.add('shake-animation');
-            setTimeout(() => {
-                el.style.borderColor = '';
-                el.classList.remove('shake-animation');
-            }, 2000);
-        }
-    });
-}
-
-/**
- * Toggles password visibility if a toggle icon exists
- */
-window.togglePassword = function(btn) {
-    const input = btn.previousElementSibling;
-    if (input && input.type === 'password') {
-        input.type = 'text';
-        btn.textContent = '👁️';
-    } else if (input) {
-        input.type = 'password';
-        btn.textContent = '🙈';
-    }
-};

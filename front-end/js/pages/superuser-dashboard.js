@@ -676,7 +676,8 @@ window.handleGlobalSearch = function(query) {
 // ==========================================
 window.handleLogout = function() {
     localStorage.removeItem('nexus_user');
-    window.location.href = 'login.html';
+    localStorage.removeItem('nexus_owned_communities');
+    window.location.href = 'landing.html';
 };
 
 // ==========================================

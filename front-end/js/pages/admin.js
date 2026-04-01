@@ -343,6 +343,8 @@ function initLiveFeed() {
  */
 window.logout = function() {
 // Clear any stored session data
+localStorage.removeItem('nexus_user');
+localStorage.removeItem('nexus_owned_communities');
 localStorage.removeItem('userToken');
 localStorage.removeItem('userData');
 sessionStorage.clear();
@@ -350,9 +352,9 @@ sessionStorage.clear();
 // Show confirmation toast
 window.toast("Logging out... ");
     
-// Redirect to login page after a short delay
+// Redirect to landing page
 setTimeout(() => {
-window.location.href = 'login.html';
+window.location.href = 'landing.html';
 }, 1000);
 };
 
@@ -360,9 +362,9 @@ window.location.href = 'login.html';
 // 9. INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
-    // STRICT access control: Only Admins allowed here
-    if (!requireRole(['admin'])) {
-        document.body.innerHTML = '<h1>403 Forbidden</h1><p>Admin access required.</p>';
+    // STRICT access control: Only Superusers allowed here
+    if (!requireRole(['superuser'])) {
+        document.body.innerHTML = '<h1>403 Forbidden</h1><p>Superuser access required.</p>';
         return;
     }
 

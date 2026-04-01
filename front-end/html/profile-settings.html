@@ -1,340 +1,230 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>NexusHub – Profile &amp; Settings</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&amp;display=swap" rel="stylesheet"/>
-<link href="../css/global.css" rel="stylesheet"/>
-<link href="../css/pages/profile-settings.css" rel="stylesheet"/>
-</head>
-<body>
-<!-- ─── APP RAIL ─── -->
-<aside class="app-rail">
-  <div class="rail-logo">⬡</div>
-  
-  <div class="rail-divider"></div>
-  
-  <!-- Main Nav -->
-  <a href="dashboard.html" class="rail-item" data-tooltip="Home">🏠</a>
-  <a href="discovery.html" class="rail-item" data-tooltip="Discover">🔍</a>
-  <a href="events.html" class="rail-item" data-tooltip="Events">📅<div class="notif-dot" style="background:var(--gold);width:6px;height:6px;"></div></a>
-  <a href="chat.html" class="rail-item" data-tooltip="Messages">💬<div class="notif-dot" style="width:6px;height:6px;"></div></a>
-  <a href="#" class="rail-item" data-tooltip="Notifications">🔔</a>
-  <a href="profile-settings.html" class="rail-item active" data-tooltip="Settings">⚙️</a>
-  
-  <div class="rail-divider"></div>
-  
-  <!-- Communities -->
-  <a href="community-page.html?name=pro-gamers" class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">
-    ⚡<div class="rail-dot bg-dot-green"></div>
-  </a>
-  <a href="community-page.html?name=rpg-tavern" class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">
-    🎨<div class="rail-dot bg-dot-green"></div>
-  </a>
-  <a href="community-page.html?name=gamezone" class="rail-item rail-comm grad-cyan" data-tooltip="GameZone">
-    🎮<div class="rail-dot bg-dot-orange"></div>
-  </a>
-  <a href="community-page.html?name=fps-masters" class="rail-item rail-comm grad-green" data-tooltip="FPS Masters">
-    🌿<div class="rail-dot bg-dot-gray"></div>
-  </a>
-  <a href="community-page.html?name=speedrunners" class="rail-item rail-comm grad-pink" data-tooltip="SpeedRunners">
-    🎵<div class="rail-dot bg-dot-green"></div>
-  </a>
-  <a href="community-page.html?name=strategy-gods" class="rail-item rail-comm grad-violet" data-tooltip="Strategy Gods">
-    📚<div class="rail-dot bg-dot-gray"></div>
-  </a>
-  
-  <div class="rail-footer">
-    <div class="rail-avatar" onclick="window.location.href='profile-settings.html'" data-tooltip="Profile">AM<div class="rail-dot bg-dot-green" style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg-sidebar);"></div></div>
-  </div>
-</aside>
 
-<div style="flex:1; display:flex; flex-direction:column; min-width:0; overflow:hidden;">
-<!-- TOP BAR -->
-<div class="top-bar">
-<div class="tb-logo"><div class="tb-logo-icon">⬡</div><span class="tb-logo-name">NexusHub</span></div>
-<div class="tb-sep"></div>
-<div class="tb-page">⚙️ Profile &amp; Settings</div>
-<div class="tb-right">
-<div class="tb-btn" onclick="toast('Changes discarded')">Discard</div>
-<div class="tb-btn save" onclick="toast('✅ Changes saved!')">Save Changes</div>
-<div class="tb-av">AM</div>
-<button class="logout-btn" onclick="logout()" data-tooltip="Logout">🚪</button>
-</div>
-</div>
-<div class="body-wrap">
-<!-- LEFT NAV -->
-<nav class="left-nav">
-<div class="nav-profile" onclick="switchView('profile',document.querySelector('.ln-item'))">
-<div class="profile-av-wrap">
-<div class="profile-av">AM</div>
-<div class="profile-av-edit">✏️</div>
-</div>
-<div class="u-extracted-192">
-<div class="profile-name">Alex Morgan</div>
-<div class="profile-handle">@alexmorgan</div>
-<div class="profile-status u-extracted-293">Online</div>
-</div>
-</div>
-<div class="ln-section">
-<div class="ln-label">Account</div>
-<div class="ln-item active" onclick="switchView('profile',this)"><span class="ln-icon">👤</span> My Profile</div>
-<div class="ln-item" onclick="switchView('account',this)"><span class="ln-icon">🔐</span> Account &amp; Security</div>
-<div class="ln-item" onclick="switchView('notifications',this)"><span class="ln-icon">🔔</span> Notifications</div>
-<div class="ln-item" onclick="switchView('privacy',this)"><span class="ln-icon">🔒</span> Privacy</div>
-</div>
-<div class="ln-section">
-<div class="ln-label">App</div>
-<div class="ln-item" onclick="switchView('appearance',this)"><span class="ln-icon">🎨</span> Appearance</div>
-<div class="ln-item" onclick="switchView('communities',this)"><span class="ln-icon">🌐</span> My Communities</div>
-<div class="ln-item" onclick="switchView('accessibility',this)"><span class="ln-icon">♿</span> Accessibility</div>
-</div>
-<div class="ln-section">
-<div class="ln-item ln-danger" onclick="switchView('danger',this)"><span class="ln-icon">⚠️</span> Danger Zone</div>
-</div>
-</nav>
-<!-- MAIN -->
-<div class="main">
-<!-- ══ PROFILE ══ -->
-<div class="view active" id="view-profile">
-<div class="settings-card">
-<div class="card-title">👤 Public Profile</div>
-<div class="card-sub">This is how other members see you across NexusHub.</div>
-<div class="avatar-picker u-extracted-294">
-<div class="av-preview">AM</div>
-<div class="av-actions">
-<div class="btn-sm accent" onclick="toast('Opening photo upload…')">📷 Upload Photo</div>
-<div class="btn-sm" onclick="toast('Avatar removed')">Remove Photo</div>
-</div>
-<div class="u-extracted-295">Recommended: Square image, min 200×200px.<br/>PNG or JPG, max 5MB.</div>
-</div>
-<div class="field-row u-extracted-142">
-<div class="field"><label>First Name</label><input type="text" value="Alex"/></div>
-<div class="field"><label>Last Name</label><input type="text" value="Morgan"/></div>
-</div>
-<div class="field-row u-extracted-142">
-<div class="field"><label>Username</label><input type="text" value="alexmorgan"/><div class="field-hint">nexushub.io/@alexmorgan</div></div>
-<div class="field"><label>Display Name</label><input type="text" value="Alex Morgan"/></div>
-</div>
-<div class="field u-extracted-142">
-<label>Bio</label>
-<textarea>Full-stack dev 🛠 · FPS, Node, RPG · Building cool things · based in Chennai 🇮🇳</textarea>
-<div class="field-hint">160 characters max. Visible on your public profile.</div>
-</div>
-<div class="field-row">
-<div class="field"><label>Website</label><input placeholder="https://yoursite.com" type="text"/></div>
-<div class="field"><label>Location</label><input type="text" value="Chennai, India"/></div>
-</div>
-</div>
-<div class="settings-card">
-<div class="card-title">🟢 Status</div>
-<div class="card-sub">Set your current activity status.</div>
-<div class="badge-row">
-<div class="status-badge on" onclick="setStatus(this)"><div class="dot u-extracted-172"></div> Online</div>
-<div class="status-badge" onclick="setStatus(this)"><div class="dot u-extracted-178"></div> Away</div>
-<div class="status-badge" onclick="setStatus(this)"><div class="dot u-extracted-186"></div> Do Not Disturb</div>
-<div class="status-badge" onclick="setStatus(this)"><div class="dot u-extracted-296"></div> Invisible</div>
-</div>
-<div class="field u-extracted-297">
-<label>Custom Status Message</label>
-<input placeholder="e.g. Building something cool 🔧" type="text" value="Grinding for the hackathon 🚀"/>
-</div>
-</div>
-<div class="settings-card">
-<div class="card-title">🔗 Social Links</div>
-<div class="card-sub">Connect your social profiles (optional — visible on your profile).</div>
-<div class="field-row u-extracted-189">
-<div class="field"><label>GitHub</label><input placeholder="github.com/username" type="text" value="github.com/alexmorgan"/></div>
-<div class="field"><label>Twitter / X</label><input placeholder="@handle" type="text" value="@alexmorgan_dev"/></div>
-</div>
-<div class="field-row">
-<div class="field"><label>LinkedIn</label><input placeholder="linkedin.com/in/…" type="text"/></div>
-<div class="field"><label>Portfolio</label><input placeholder="https://…" type="text"/></div>
-</div>
-</div>
-</div>
-<!-- ══ ACCOUNT & SECURITY ══ -->
-<div class="view" id="view-account">
-<div class="settings-card">
-<div class="card-title">📧 Account Details</div>
-<div class="card-sub">Manage your login credentials and account info.</div>
-<div class="field-row u-extracted-189">
-<div class="field"><label>Email Address</label><input type="text" value="alex@example.com"/></div>
-<div class="field"><label>Phone Number</label><input placeholder="+91 XXXXX XXXXX" type="text"/></div>
-</div>
-<div class="divider"></div>
-<div class="card-title u-extracted-298">🔑 Change Password</div>
-<div class="u-extracted-299">Leave blank to keep your current password.</div>
-<div class="field u-extracted-189"><label>Current Password</label><input placeholder="••••••••" type="password"/></div>
-<div class="field-row">
-<div class="field"><label>New Password</label><input placeholder="Min 8 characters" type="password"/></div>
-<div class="field"><label>Confirm New Password</label><input placeholder="Repeat new password" type="password"/></div>
-</div>
-</div>
-<div class="settings-card">
-<div class="card-title">🛡 Security</div>
-<div class="card-sub">Protect your account with additional security layers.</div>
-<div class="security-item">
-<div class="sec-icon u-extracted-300">📱</div>
-<div class="sec-info"><div class="sec-title">Two-Factor Authentication</div><div class="sec-desc">Secure your account with an authenticator app.</div></div>
-<span class="sec-badge sec-enabled">✓ Enabled</span>
-<div class="btn-sm u-extracted-301" onclick="toast('2FA settings opened')">Manage</div>
-</div>
-<div class="security-item">
-<div class="sec-icon u-extracted-288">🔑</div>
-<div class="sec-info"><div class="sec-title">Passkey Login</div><div class="sec-desc">Use biometrics or device PIN instead of password.</div></div>
-<span class="sec-badge sec-disabled">✗ Not set up</span>
-<div class="btn-sm accent u-extracted-301" onclick="toast('Setting up passkey…')">Set up</div>
-</div>
-<div class="security-item">
-<div class="sec-icon u-extracted-302">🖥</div>
-<div class="sec-info"><div class="sec-title">Active Sessions</div><div class="sec-desc">2 devices currently logged in.</div></div>
-<div class="btn-sm" onclick="toast('Opening session manager…')">View All</div>
-</div>
-</div>
-</div>
-<!-- ══ NOTIFICATIONS ══ -->
-<div class="view" id="view-notifications">
-<div class="settings-card">
-<div class="card-title">🔔 Notification Preferences</div>
-<div class="card-sub">Choose when and how NexusHub notifies you.</div>
-<div class="u-extracted-303">Messages</div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Direct Messages</div><div class="tr-desc">Notify me when I receive a DM</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">@Mentions</div><div class="tr-desc">Notify me when someone mentions me</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Replies to my messages</div><div class="tr-desc">Notify me when someone replies to my message</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="divider"></div>
-<div class="u-extracted-303">Community</div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">New Members</div><div class="tr-desc">In communities I manage</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Events I'm registered for</div><div class="tr-desc">Reminders 1 hour before an event</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">New Events in my communities</div><div class="tr-desc">When a new event is posted</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-<div class="divider"></div>
-<div class="u-extracted-303">System</div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Moderation Actions</div><div class="tr-desc">If action is taken on your account</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Appeal Decisions</div><div class="tr-desc">When your appeal is resolved</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Product announcements</div><div class="tr-desc">New features and platform updates</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-</div>
-<div class="settings-card">
-<div class="card-title">📧 Email Notifications</div>
-<div class="card-sub">These are sent to alex@example.com.</div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Weekly digest</div><div class="tr-desc">Summary of activity in your communities</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Event reminders</div><div class="tr-desc">24 hours before registered events</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Security alerts</div><div class="tr-desc">New sign-ins and suspicious activity</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Marketing emails</div><div class="tr-desc">Tips, promotions, and new features</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-</div>
-</div>
-<!-- ══ PRIVACY ══ -->
-<div class="view" id="view-privacy">
-<div class="settings-card">
-<div class="card-title">🔒 Privacy Settings</div>
-<div class="card-sub">Control who can see your profile and contact you.</div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Public Profile</div><div class="tr-desc">Anyone can view your profile page</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Show Online Status</div><div class="tr-desc">Others can see when you're online</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Show Community Memberships</div><div class="tr-desc">Your profile shows which communities you've joined</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Allow Direct Messages</div><div class="tr-desc">Anyone can send you a DM</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">DMs from mutual community members only</div><div class="tr-desc">Limit DMs to people you share a community with</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Read Receipts</div><div class="tr-desc">Let others know when you've read their messages</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-</div>
-<div class="settings-card">
-<div class="card-title">📁 Your Data</div>
-<div class="card-sub">Manage the data NexusHub stores about you.</div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Analytics &amp; Telemetry</div><div class="tr-desc">Help us improve with anonymous usage data</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="u-extracted-304">
-<div class="btn-sm accent" onclick="toast('Preparing data export…')">⬇ Download My Data</div>
-<div class="btn-sm" onclick="toast('Opening data deletion request…')">🗑 Request Data Deletion</div>
-</div>
-</div>
-</div>
-<!-- ══ APPEARANCE ══ -->
-<div class="view" id="view-appearance">
-<div class="settings-card">
-<div class="card-title">🎨 Theme</div>
-<div class="card-sub">Choose your NexusHub colour theme.</div>
-<div class="theme-grid">
-<div class="theme-opt on" onclick="setTheme(this)">
-<div class="theme-swatch u-extracted-305"></div>
-<div class="theme-label">Dark (Default)</div>
-</div>
-<div class="theme-opt" onclick="setTheme(this)">
-<div class="theme-swatch u-extracted-306"></div>
-<div class="theme-label">Midnight Green</div>
-</div>
-<div class="theme-opt" onclick="setTheme(this)">
-<div class="theme-swatch u-extracted-307"></div>
-<div class="theme-label">Deep Purple</div>
-</div>
-<div class="theme-opt" onclick="setTheme(this)">
-<div class="theme-swatch u-extracted-308"></div>
-<div class="theme-label">Amber Dusk</div>
-</div>
-</div>
-</div>
-<div class="settings-card">
-<div class="card-title">🔡 Font &amp; Layout</div>
-<div class="card-sub">Adjust your reading and display preferences.</div>
-<div class="select-row u-extracted-142">
-<div class="field"><label>Font Size</label>
-<select><option>Small</option><option selected="">Medium (Default)</option><option>Large</option><option>X-Large</option></select>
-</div>
-<div class="field"><label>Message Density</label>
-<select><option>Comfortable (Default)</option><option selected="">Compact</option><option>Cozy</option></select>
-</div>
-</div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Show Avatars in Chat</div><div class="tr-desc">Display user avatars next to messages</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Animate Emoji &amp; GIFs</div><div class="tr-desc">Play GIFs and animated emoji automatically</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Show Member Count in Sidebar</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-</div>
-</div>
-<!-- ══ COMMUNITIES ══ -->
-<div class="view" id="view-communities">
-<div class="settings-card">
-<div class="card-title">🌐 My Communities</div>
-<div class="card-sub">You're a member of 6 communities.</div>
-<div class="comm-grid">
-<div class="comm-card"><div class="comm-icon grad-purple">⚡</div><div class="comm-info"><div class="comm-name">Pro Gamers</div><div class="comm-meta">2,451 members · Member</div></div></div>
-<div class="comm-card"><div class="comm-icon grad-orange">🎨</div><div class="comm-info"><div class="comm-name">RPG Tavern</div><div class="comm-meta">1,120 members · Member</div></div></div>
-<div class="comm-card"><div class="comm-icon grad-cyan">🎮</div><div class="comm-info"><div class="comm-name">GameZone</div><div class="comm-meta">8,720 members · Member</div></div></div>
-<div class="comm-card"><div class="comm-icon grad-pink">🎵</div><div class="comm-info"><div class="comm-name">SpeedRunners</div><div class="comm-meta">3,240 members · Member</div></div></div>
-<div class="comm-card"><div class="comm-icon grad-green">🌿</div><div class="comm-info"><div class="comm-name">FPS Masters</div><div class="comm-meta">540 members · Member</div></div></div>
-<div class="comm-card"><div class="comm-icon grad-violet">📚</div><div class="comm-info"><div class="comm-name">Strategy Gods</div><div class="comm-meta">890 members · Member</div></div></div>
-</div>
-</div>
-</div>
-<!-- ══ ACCESSIBILITY ══ -->
-<div class="view" id="view-accessibility">
-<div class="settings-card">
-<div class="card-title">♿ Accessibility</div>
-<div class="card-sub">Adjust NexusHub for your accessibility needs.</div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Reduce Motion</div><div class="tr-desc">Minimise animations and transitions</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">High Contrast Mode</div><div class="tr-desc">Increase colour contrast throughout the app</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Screen Reader Optimisations</div><div class="tr-desc">Improved ARIA labels and keyboard navigation</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="toggle-row"><div class="tr-info"><div class="tr-title">Focus Indicators</div><div class="tr-desc">Show visible focus rings for keyboard navigation</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="divider"></div>
-<div class="select-row">
-<div class="field"><label>Language</label><select><option selected="">English (US)</option><option>English (UK)</option><option>Hindi</option><option>Tamil</option><option>Spanish</option><option>French</option></select></div>
-<div class="field"><label>Timezone</label><select><option>Asia/Kolkata (IST)</option><option selected="">Asia/Kolkata (IST +5:30)</option><option>UTC</option><option>America/New_York</option></select></div>
-</div>
-</div>
-</div>
-<!-- ══ DANGER ZONE ══ -->
-<div class="view" id="view-danger">
-<div class="danger-zone">
-<div class="dz-title">⚠️ Danger Zone</div>
-<div class="dz-sub">These actions are permanent and cannot be undone.</div>
-<div class="dz-item"><div><div class="dz-label">Deactivate Account</div><div class="dz-desc">Temporarily hide your profile and pause notifications. You can FPSivate at any time.</div></div><button class="btn-danger" onclick="toast('⚠️ Deactivation flow started…')">Deactivate</button></div>
-<div class="dz-item"><div><div class="dz-label">Leave All Communities</div><div class="dz-desc">Remove yourself from all 6 communities you've joined.</div></div><button class="btn-danger" onclick="toast('⚠️ Confirm: Leave all communities?')">Leave All</button></div>
-<div class="dz-item"><div><div class="dz-label">Log Out</div><div class="dz-desc">Sign out of your session on this device.</div></div><button class="btn-danger" id="logoutBtn" onclick="localStorage.removeItem('nexus_user'); window.location.href='landing.html';">Log Out</button></div>
-<div class="dz-item"><div><div class="dz-label">Delete Account</div><div class="dz-desc">Permanently delete your account, profile, and all associated data. This cannot be reversed.</div></div><button class="btn-danger u-extracted-309" onclick="toast('⛔ Account deletion requires email confirmation')">Delete Account</button></div>
-<div class="dz-item"><div><div class="dz-label">Submit Appeal</div><div class="dz-desc">If you believe an action was taken unfairly, you can submit an appeal for review.</div></div><button class="btn-appeal" onclick="window.location.href='appeal.html'">Submit Appeal</button></div>
-</div>
-</div>
-</div><!-- end main -->
-</div>
-<!-- TOAST -->
-<div class="toast" id="toast"><span id="toastMsg"></span></div>
-</div>
-<script src="../js/core/validator.js"></script>
-<script src="../js/pages/profile_settings.js"></script>
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>NexusHub – Profile &amp; Settings</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet" />
+  <link href="../css/global.css" rel="stylesheet" />
+  <link href="../css/pages/profile-settings.css" rel="stylesheet" />
+  <link href="../css/pages/rbac-nav.css" rel="stylesheet" />
+</head>
+
+<body>
+  <aside class="app-rail">
+    <div class="rail-logo">⬡</div>
+
+    <div class="rail-divider"></div>
+
+    <a href="dashboard.html" class="rail-item" data-tooltip="Home">🏠</a>
+    <a href="discovery.html" class="rail-item" data-tooltip="Discover">🔍</a>
+    <a href="events.html" class="rail-item" data-tooltip="Events">📅<div class="notif-dot"
+        style="background:var(--gold);width:6px;height:6px;"></div></a>
+
+    <a href="profile-settings.html" class="rail-item active" data-tooltip="Settings">⚙️</a>
+
+    <div class="rail-divider"></div>
+
+    <a href="community-manager.html" class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">
+      ⚡<div class="rail-dot bg-dot-green"></div>
+    </a>
+    <a href="#" class="rail-item rail-comm grad-orange" data-tooltip="RPG Tavern">
+      🎨<div class="rail-dot bg-dot-green"></div>
+    </a>
+
+    <div class="rail-footer">
+      <div class="rail-avatar" id="sidebarBottomAvatar" onclick="window.location.href='profile-settings.html'"
+        data-tooltip="Profile">AM<div class="rail-dot bg-dot-green"
+          style="position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg-sidebar);">
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div style="flex:1; display:flex; flex-direction:column; min-width:0; overflow:hidden;">
+    <div class="top-bar">
+      <div class="tb-logo">
+        <div class="tb-logo-icon">⬡</div><span class="tb-logo-name">NexusHub</span>
+      </div>
+      <div class="tb-sep"></div>
+      <div class="tb-page">⚙️ Profile &amp; Settings</div>
+      <div class="tb-right">
+        <div class="tb-btn" onclick="toast('Changes discarded')">Discard</div>
+        <div class="tb-btn save" onclick="toast('✅ Changes saved!')">Save Changes</div>
+        <div class="tb-av" id="topBarAvatar">AM</div>
+        <button class="logout-btn" onclick="logout()" data-tooltip="Logout">🚪</button>
+      </div>
+    </div>
+    <div class="body-wrap">
+      <nav class="left-nav">
+        <div class="nav-profile" onclick="switchView('profile',document.querySelector('.ln-item'))">
+          <div class="profile-av-wrap">
+            <div class="profile-av" id="navMainAvatar">AM</div>
+            <div class="profile-av-edit">✏️</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="profile-name" id="navName">Alex Morgan</div>
+            <div class="profile-handle" id="navHandle">@alexmorgan</div>
+            <div class="profile-status" style="justify-content: center; margin-top: 4px;">Online</div>
+          </div>
+        </div>
+        <div class="ln-section">
+          <div class="ln-label">Account</div>
+          <div class="ln-item active" onclick="switchView('profile',this)"><span class="ln-icon">👤</span> My Profile
+          </div>
+          <div class="ln-item" onclick="switchView('account',this)"><span class="ln-icon">🔐</span> Account &amp;
+            Security</div>
+          <div class="ln-item" onclick="switchView('notifications',this)"><span class="ln-icon">🔔</span> Notifications
+          </div>
+          <div class="ln-item" onclick="switchView('privacy',this)"><span class="ln-icon">🔒</span> Privacy</div>
+        </div>
+        <div class="ln-section">
+          <div class="ln-label">App</div>
+          <div class="ln-item" onclick="switchView('appearance',this)"><span class="ln-icon">🎨</span> Appearance</div>
+          <div class="ln-item" onclick="switchView('communities',this)"><span class="ln-icon">🌐</span> My Communities
+          </div>
+          <div class="ln-item" onclick="switchView('accessibility',this)"><span class="ln-icon">♿</span> Accessibility
+          </div>
+        </div>
+        <div class="ln-section">
+          <div class="ln-item ln-danger" onclick="switchView('danger',this)"><span class="ln-icon">⚠️</span> Danger Zone
+          </div>
+        </div>
+      </nav>
+      <div class="main">
+        <div class="view active" id="view-profile">
+          <div class="settings-card">
+            <div class="card-title">👤 Public Profile</div>
+            <div class="card-sub">This is how other members see you across NexusHub.</div>
+            <div class="avatar-picker" style="margin-bottom: 24px;">
+              <div class="av-preview" id="mainAvatarPreview">AM</div>
+              <div class="av-actions">
+                <div class="btn-sm accent" onclick="toast('Opening photo upload…')">📷 Upload Photo</div>
+                <div class="btn-sm" onclick="toast('Avatar removed')">Remove Photo</div>
+              </div>
+              <div style="font-size: 11px; color: var(--text-3); max-width: 200px;">Recommended: Square image, min
+                200×200px.<br />PNG or JPG, max 5MB.</div>
+            </div>
+            <div class="field-row" style="margin-bottom: 16px;">
+              <div class="field"><label>First Name</label><input id="inpFirstName" type="text" value="Alex" /></div>
+              <div class="field"><label>Last Name</label><input id="inpLastName" type="text" value="Morgan" /></div>
+            </div>
+            <div class="field-row" style="margin-bottom: 16px;">
+              <div class="field"><label>Username</label><input id="inpHandle" type="text" value="alexmorgan" />
+                <div class="field-hint">nexushub.io/@<span id="hintHandle">alexmorgan</span></div>
+              </div>
+              <div class="field"><label>Display Name</label><input id="inpFullName" type="text" value="Alex Morgan" />
+              </div>
+            </div>
+            <div class="field" style="margin-bottom: 16px;">
+              <label>Bio</label>
+              <textarea>Full-stack dev 🛠 · FPS, Node, RPG · Building cool things · based in Chennai 🇮🇳</textarea>
+              <div class="field-hint">160 characters max. Visible on your public profile.</div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Website</label><input placeholder="https://yoursite.com" type="text" /></div>
+              <div class="field"><label>Location</label><input type="text" value="Chennai, India" /></div>
+            </div>
+          </div>
+          <div class="settings-card">
+            <div class="card-title">🟢 Status</div>
+            <div class="card-sub">Set your current activity status.</div>
+            <div class="badge-row">
+              <div class="status-badge on" onclick="setStatus(this)">
+                <div class="dot" style="background:var(--success)"></div> Online
+              </div>
+              <div class="status-badge" onclick="setStatus(this)">
+                <div class="dot" style="background:var(--gold)"></div> Away
+              </div>
+              <div class="status-badge" onclick="setStatus(this)">
+                <div class="dot" style="background:var(--error)"></div> Do Not Disturb
+              </div>
+              <div class="status-badge" onclick="setStatus(this)">
+                <div class="dot" style="background:var(--text-3)"></div> Invisible
+              </div>
+            </div>
+            <div class="field" style="margin-top: 16px;">
+              <label>Custom Status Message</label>
+              <input placeholder="e.g. Building something cool 🔧" type="text" value="Grinding for the hackathon 🚀" />
+            </div>
+          </div>
+        </div>
+        <div class="view" id="view-account">
+          <div class="settings-card">
+            <div class="card-title">📧 Account Details</div>
+            <div class="card-sub">Manage your login credentials and account info.</div>
+            <div class="field-row" style="margin-bottom: 24px;">
+              <div class="field"><label>Email Address</label><input id="inpEmail" type="text"
+                  value="alex@example.com" /></div>
+              <div class="field"><label>Phone Number</label><input placeholder="+91 XXXXX XXXXX" type="text" /></div>
+            </div>
+            <div class="divider"></div>
+            <div class="card-title" style="margin-bottom: 8px;">🔑 Change Password</div>
+            <div style="font-size: 12px; color: var(--text-3); margin-bottom: 16px;">Leave blank to keep your current
+              password.</div>
+            <div class="field" style="margin-bottom: 16px;"><label>Current Password</label><input placeholder="••••••••"
+                type="password" /></div>
+            <div class="field-row">
+              <div class="field"><label>New Password</label><input placeholder="Min 8 characters" type="password" />
+              </div>
+              <div class="field"><label>Confirm New Password</label><input placeholder="Repeat new password"
+                  type="password" /></div>
+            </div>
+          </div>
+        </div>
+        <div class="view" id="view-appearance">
+          <div class="settings-card">
+            <div class="card-title">🎨 Theme</div>
+            <div class="card-sub">Choose your NexusHub colour theme.</div>
+            <div class="theme-grid">
+              <div class="theme-opt on" onclick="setTheme(this)">
+                <div class="theme-swatch" style="background:var(--bg-deep)"></div>
+                <div class="theme-label">Dark (Default)</div>
+              </div>
+              <div class="theme-opt" onclick="setTheme(this)">
+                <div class="theme-swatch" style="background:#064E3B"></div>
+                <div class="theme-label">Midnight Green</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="view" id="view-danger">
+          <div class="danger-zone">
+            <div class="dz-title">⚠️ Danger Zone</div>
+            <div class="dz-sub">These actions are permanent and cannot be undone.</div>
+            <div class="dz-item">
+              <div>
+                <div class="dz-label">Deactivate Account</div>
+                <div class="dz-desc">Temporarily hide your profile and pause notifications. You can reactivate at any
+                  time.</div>
+              </div><button class="btn-danger" onclick="toast('⚠️ Deactivation flow started…')">Deactivate</button>
+            </div>
+            <div class="dz-item">
+              <div>
+                <div class="dz-label">Appeal Moderation Action</div>
+                <div class="dz-desc">Submit an appeal if your account was unfairly warned, muted, or banned.</div>
+              </div><button class="btn-danger" onclick="window.location.href='appeal.html'">Submit Appeal</button>
+            </div>
+            <div class="dz-item">
+              <div>
+                <div class="dz-label">Log Out</div>
+                <div class="dz-desc">Sign out of your session on this device.</div>
+              </div><button class="btn-danger" onclick="logout()">Log Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast"><span id="toastMsg"></span></div>
+  </div>
+
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/components/rbac-nav.js"></script>
+  <script src="../js/pages/profile_settings.js"></script>
+<script src="../js/components/notifications.js"></script>
 </body>
+
 </html>

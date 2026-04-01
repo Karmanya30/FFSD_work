@@ -1,320 +1,348 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>NexusHub – Community Manager Panel</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<link href="../css/global.css" rel="stylesheet"/>
-<link href="../css/pages/community-manager.css" rel="stylesheet"/>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>NexusHub – Community Manager Panel</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link href="../css/global.css" rel="stylesheet" />
+  <link href="../css/pages/community-manager.css" rel="stylesheet" />
+  <link href="../css/pages/rbac-nav.css" rel="stylesheet" />
 </head>
+
 <body>
-<!-- ─── TOP BAR ─── -->
-<div class="top-bar">
-<div class="tb-logo">
-<div class="tb-logo-icon">⬡</div>
-<span class="tb-logo-name">NexusHub</span>
-</div>
-<div class="tb-sep"></div>
-<div class="tb-comm">
-<div class="tb-comm-icon">⚡</div>
-<span class="tb-comm-name">Pro Gamers</span>
-<span class="tb-badge">Owner Panel</span>
-</div>
-<div class="tb-right">
-<div class="tb-btn" onclick="toast('👁 Viewing community as member')">👁 View as Member</div>
-<div class="tb-btn" onclick="toast('🔗 Link copied!')">🔗 Share</div>
-<div class="tb-btn primary" onclick="showModal()">+ Add Channel</div>
-<div class="tb-av">JK</div>
-</div>
-</div>
-<div class="body-wrap">
-<!-- ─── LEFT NAV ─── -->
-<nav class="left-nav">
-<div class="ln-section">
-<div class="ln-label">Manager</div>
-<div class="ln-item active" onclick="switchView('overview',this)"><span class="ln-icon">📊</span> Overview</div>
-<div class="ln-item" onclick="switchView('channels',this)"><span class="ln-icon">📡</span> Channels</div>
-<div class="ln-item" onclick="switchView('roles',this)"><span class="ln-icon">🎭</span> Roles &amp; Permissions</div>
-<div class="ln-item" onclick="switchView('members',this)"><span class="ln-icon">👥</span> Members <span class="ln-badge blue">2,451</span></div>
-<div class="ln-item" onclick="switchView('reports',this)"><span class="ln-icon">🚩</span> Reports <span class="ln-badge red">8</span></div>
-</div>
-<div class="ln-section">
-<div class="ln-label">Settings</div>
-<div class="ln-item" onclick="toast('Opening community settings…')"><span class="ln-icon">⚙️</span> Community Settings</div>
-<div class="ln-item" onclick="toast('Opening integration settings…')"><span class="ln-icon">🔌</span> Integrations</div>
-<div class="ln-item" onclick="toast('Opening analytics…')"><span class="ln-icon">📈</span> Analytics</div>
-<div class="ln-item" onclick="toast('Opening audit log…')"><span class="ln-icon">📋</span> Audit Log</div>
-</div>
-<div class="ln-footer">
-<div class="ln-owner">
-<div class="ln-owner-av">JK</div>
-<div><div class="ln-owner-name">Jake Kim</div><div class="ln-owner-role">👑 Owner</div></div>
-</div>
-</div>
-</nav>
-<!-- ─── MAIN CONTENT ─── -->
-<div class="main-content">
-<!-- ══ OVERVIEW VIEW ══ -->
-<div class="view active" id="view-overview">
-<!-- Stats row -->
-<div>
-<div class="section-header"><div class="section-title">Community Overview</div><div class="section-action" onclick="toast('Opening analytics…')">Full analytics →</div></div>
-<div class="stats-row">
-<div class="stat-card s-blue">
-<div class="stat-icon">👥</div>
-<div class="stat-val">2,451</div>
-<div class="stat-label">Total Members</div>
-<div class="stat-delta delta-up">↑ +47 this week</div>
-</div>
-<div class="stat-card s-green">
-<div class="stat-icon">🟢</div>
-<div class="stat-val">312</div>
-<div class="stat-label">Online Now</div>
-<div class="stat-delta delta-up">↑ 12.7% of members</div>
-</div>
-<div class="stat-card s-gold">
-<div class="stat-icon">📡</div>
-<div class="stat-val">14</div>
-<div class="stat-label">Channels</div>
-<div class="stat-delta u-extracted-140">— No change</div>
-</div>
-<div class="stat-card s-red">
-<div class="stat-icon">🚩</div>
-<div class="stat-val">8</div>
-<div class="stat-label">Open Reports</div>
-<div class="stat-delta delta-down">↑ +3 from yesterday</div>
-</div>
-</div>
-</div>
-<!-- Quick Actions -->
-<div>
-<div class="section-header"><div class="section-title">Quick Actions</div></div>
-<div class="quick-grid">
-<div class="qa-card" onclick="showModal()">
-<div class="qa-icon">📡</div>
-<div class="qa-label">Create Channel</div>
-</div>
-<div class="qa-card" onclick="switchView('roles',document.querySelectorAll('.ln-item')[2])">
-<div class="qa-icon">🎭</div>
-<div class="qa-label">Assign Roles</div>
-</div>
-<div class="qa-card" onclick="switchView('members',document.querySelectorAll('.ln-item')[3])">
-<div class="qa-icon">👥</div>
-<div class="qa-label">Manage Members</div>
-</div>
-<div class="qa-card" onclick="switchView('reports',document.querySelectorAll('.ln-item')[4])">
-<div class="qa-icon">🚩</div>
-<div class="qa-label">View Reports</div>
-</div>
-<div class="qa-card" onclick="toast('Opening invite link manager…')">
-<div class="qa-icon">🔗</div>
-<div class="qa-label">Invite Link</div>
-</div>
-<div class="qa-card" onclick="toast('Opening announcement composer…')">
-<div class="qa-icon">📣</div>
-<div class="qa-label">Announcement</div>
-</div>
-<div class="qa-card" onclick="toast('Opening event creator…')">
-<div class="qa-icon">📅</div>
-<div class="qa-label">Create Event</div>
-</div>
-<div class="qa-card" onclick="toast('Opening analytics export…')">
-<div class="qa-icon">📊</div>
-<div class="qa-label">Export Data</div>
-</div>
-</div>
-</div>
-<!-- Two col: Activity + Growth -->
-<div class="two-col">
-<div class="panel-card">
-<div class="section-header u-extracted-185"><div class="section-title u-extracted-145">📋 Recent Activity</div><div class="section-action">View all</div></div>
-<div class="activity-list">
-<div class="act-item"><div class="act-dot u-extracted-186"></div><div class="act-text"><strong>BadActor_X</strong> reported in #general</div><div class="act-time">2m</div></div>
-<div class="act-item"><div class="act-dot u-extracted-172"></div><div class="act-text"><strong>NewMember_93</strong> joined the community</div><div class="act-time">8m</div></div>
-<div class="act-item"><div class="act-dot u-extracted-187"></div><div class="act-text"><strong>#releases</strong> channel updated by Sara Lee</div><div class="act-time">22m</div></div>
-<div class="act-item"><div class="act-dot u-extracted-178"></div><div class="act-text"><strong>March Hack Sprint</strong> event created</div><div class="act-time">1h</div></div>
-<div class="act-item"><div class="act-dot u-extracted-186"></div><div class="act-text"><strong>SpamBot99</strong> reported in #frontend</div><div class="act-time">1h</div></div>
-<div class="act-item"><div class="act-dot u-extracted-172"></div><div class="act-text"><strong>TrollX_420</strong> appealed moderation action</div><div class="act-time">2h</div></div>
-<div class="act-item"><div class="act-dot u-extracted-188"></div><div class="act-text"><strong>Mia Park</strong> promoted to Moderator</div><div class="act-time">3h</div></div>
-<div class="act-item"><div class="act-dot u-extracted-187"></div><div class="act-text"><strong>#portfolio-review</strong> channel created</div><div class="act-time">5h</div></div>
-</div>
-</div>
-<div class="panel-card">
-<div class="section-header u-extracted-189"><div class="section-title u-extracted-145">📈 7-Day Growth</div></div>
-<div class="u-extracted-190" id="growthChart">
-</div>
-<div class="u-extracted-191">
-<div class="u-extracted-192"><div class="u-extracted-193">+47</div><div class="u-extracted-194">New members</div></div>
-<div class="u-extracted-192"><div class="u-extracted-195">48k</div><div class="u-extracted-194">Messages sent</div></div>
-<div class="u-extracted-192"><div class="u-extracted-196">94%</div><div class="u-extracted-194">Retention rate</div></div>
-</div>
-</div>
-</div>
-</div>
-<!-- ══ CHANNELS VIEW ══ -->
-<div class="view" id="view-channels">
-<div class="ch-toolbar">
-<div class="section-title">📡 Channel Management</div>
-<div class="search-input"><span class="u-extracted-140">🔍</span><input oninput="filterChannels(this.value)" placeholder="Search channels…" type="text"/></div>
-<div class="u-extracted-197">
-<div class="btn-sm">⇅ Sort</div>
-<div class="btn-sm accent" onclick="showModal()">+ Add Channel</div>
-</div>
-</div>
-<div class="panel-card u-extracted-130">
-<table class="ch-table" id="chTable">
-<thead>
-<tr>
-<th>Channel</th>
-<th>Type</th>
-<th>Visibility</th>
-<th>Members</th>
-<th>Last Active</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody id="chBody">
-<tr><td><span class="u-extracted-174">📣</span> <strong>announcements</strong></td><td><span class="ch-type-badge ct-ann">📣 Announce</span></td><td><span class="perm-badge perm-role">🔒 Mod only</span></td><td>2,451</td><td class="u-extracted-140">2h ago</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Editing announcements…')">✏️</div><div class="tbl-btn" onclick="toast('Setting permissions…')">🔒</div><div class="tbl-btn del" onclick="toast('Cannot delete system channels')">🗑</div></div></td></tr>
-<tr><td><span class="u-extracted-174">#</span> <strong>general</strong></td><td><span class="ch-type-badge ct-text"># Text</span></td><td><span class="perm-badge perm-pub">🌐 Public</span></td><td>2,451</td><td class="u-extracted-140">Just now</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Editing general…')">✏️</div><div class="tbl-btn" onclick="toast('Setting permissions…')">🔒</div><div class="tbl-btn del" onclick="confirmDelete('general')">🗑</div></div></td></tr>
-<tr><td><span class="u-extracted-174">#</span> <strong>introductions</strong></td><td><span class="ch-type-badge ct-text"># Text</span></td><td><span class="perm-badge perm-pub">🌐 Public</span></td><td>2,451</td><td class="u-extracted-140">3h ago</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Editing channel…')">✏️</div><div class="tbl-btn" onclick="toast('Setting permissions…')">🔒</div><div class="tbl-btn del" onclick="confirmDelete('introductions')">🗑</div></div></td></tr>
-<tr><td><span class="u-extracted-174">#</span> <strong>frontend</strong></td><td><span class="ch-type-badge ct-text"># Text</span></td><td><span class="perm-badge perm-pub">🌐 Public</span></td><td>1,820</td><td class="u-extracted-140">20m ago</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Editing channel…')">✏️</div><div class="tbl-btn" onclick="toast('Setting permissions…')">🔒</div><div class="tbl-btn del" onclick="confirmDelete('frontend')">🗑</div></div></td></tr>
-<tr><td><span class="u-extracted-174">#</span> <strong>Strategy</strong></td><td><span class="ch-type-badge ct-text"># Text</span></td><td><span class="perm-badge perm-pub">🌐 Public</span></td><td>1,640</td><td class="u-extracted-140">45m ago</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Editing channel…')">✏️</div><div class="tbl-btn" onclick="toast('Setting permissions…')">🔒</div><div class="tbl-btn del" onclick="confirmDelete('Strategy')">🗑</div></div></td></tr>
-<tr><td><span class="u-extracted-174">#</span> <strong>code-review</strong></td><td><span class="ch-type-badge ct-text"># Text</span></td><td><span class="perm-badge perm-pub">🌐 Public</span></td><td>2,100</td><td class="u-extracted-140">5m ago</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Editing channel…')">✏️</div><div class="tbl-btn" onclick="toast('Setting permissions…')">🔒</div><div class="tbl-btn del" onclick="confirmDelete('code-review')">🗑</div></div></td></tr>
-<tr><td><span class="u-extracted-174">#</span> <strong>job-board</strong></td><td><span class="ch-type-badge ct-text"># Text</span></td><td><span class="perm-badge perm-priv">🔐 Members</span></td><td>2,451</td><td class="u-extracted-140">30m ago</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Editing channel…')">✏️</div><div class="tbl-btn" onclick="toast('Setting permissions…')">🔒</div><div class="tbl-btn del" onclick="confirmDelete('job-board')">🗑</div></div></td></tr>
-<tr><td><span class="u-extracted-123">🔊</span> <strong>study-together</strong></td><td><span class="ch-type-badge ct-voice">🔊 Voice</span></td><td><span class="perm-badge perm-pub">🌐 Public</span></td><td>2,451</td><td class="u-extracted-123">● 3 in voice</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Editing channel…')">✏️</div><div class="tbl-btn" onclick="toast('Setting permissions…')">🔒</div><div class="tbl-btn del" onclick="confirmDelete('study-together')">🗑</div></div></td></tr>
-</tbody>
-</table>
-</div>
-</div>
-<!-- ══ ROLES VIEW ══ -->
-<div class="view" id="view-roles">
-<div class="section-title">🎭 Roles &amp; Permissions</div>
-<div class="roles-layout">
-<div>
-<div class="u-extracted-198">Community Roles</div>
-<div class="role-list">
-<div class="role-item active" onclick="selectRole(this,'Owner','#F59E0B')"><div class="role-dot bg-dot-orange"></div><span class="role-name">👑 Owner</span><span class="role-count">1 member</span></div>
-<div class="role-item" onclick="selectRole(this,'Moderator','#818CF8')"><div class="role-dot u-extracted-199"></div><span class="role-name">🛡 Moderator</span><span class="role-count">4 members</span></div>
-<div class="role-item" onclick="selectRole(this,'Member','#9CA3AF')"><div class="role-dot u-extracted-200"></div><span class="role-name">👤 Member</span><span class="role-count">2,446 members</span></div>
-<div class="role-item" onclick="selectRole(this,'Guest','#6B7280')"><div class="role-dot bg-dot-gray"></div><span class="role-name">👁 Guest</span><span class="role-count">Read-only</span></div>
-</div>
-<div class="btn-sm accent u-extracted-201" onclick="toast('Opening role creator…')">+ Create New Role</div>
-</div>
-<div class="perms-editor">
-<div class="pe-title">
-<div class="u-extracted-202"></div>
-<span id="roleEditorName">Owner Permissions</span>
-</div>
-<div class="perm-group">
-<div class="perm-group-title">📋 General</div>
-<div class="perm-row"><div class="perm-info"><div class="perm-title">View Channels</div><div class="perm-desc">Can see all public channels</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="perm-row"><div class="perm-info"><div class="perm-title">Send Messages</div><div class="perm-desc">Can send messages in text channels</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="perm-row"><div class="perm-info"><div class="perm-title">Add reactions</div><div class="perm-desc">Can FPS to messages with emoji</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="perm-row"><div class="perm-info"><div class="perm-title">Attach Files</div><div class="perm-desc">Can upload files and images</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-</div>
-<div class="perm-group">
-<div class="perm-group-title">🛡 Moderation</div>
-<div class="perm-row"><div class="perm-info"><div class="perm-title">Manage Messages</div><div class="perm-desc">Can delete or pin any message</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="perm-row"><div class="perm-info"><div class="perm-title">Kick Members</div><div class="perm-desc">Can remove members from community</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="perm-row"><div class="perm-info"><div class="perm-title">Ban Members</div><div class="perm-desc">Can permanently ban members</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="perm-row"><div class="perm-info"><div class="perm-title">Mention @everyone</div><div class="perm-desc">Can notify all members at once</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-</div>
-<div class="perm-group">
-<div class="perm-group-title">⚙️ Management</div>
-<div class="perm-row"><div class="perm-info"><div class="perm-title">Manage Channels</div><div class="perm-desc">Can create, edit, delete channels</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="perm-row"><div class="perm-info"><div class="perm-title">Manage Roles</div><div class="perm-desc">Can assign and edit roles</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-<div class="perm-row"><div class="perm-info"><div class="perm-title">Manage Community</div><div class="perm-desc">Can change community settings</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-</div>
-<div class="u-extracted-203">
-<div class="btn-sm" onclick="toast('Changes discarded')">Discard</div>
-<div class="btn-sm accent" onclick="toast('Role permissions saved!')">Save Changes</div>
-</div>
-</div>
-</div>
-</div>
-<!-- ══ MEMBERS VIEW ══ -->
-<div class="view" id="view-members">
-<div class="mem-toolbar">
-<div class="section-title">👥 Member Management</div>
-<div class="search-input u-extracted-204"><span class="u-extracted-140">🔍</span><input oninput="filterMembers(this.value)" placeholder="Search members…" type="text"/></div>
-<select class="u-extracted-205">
-<option>All Roles</option><option>Owner</option><option>Moderator</option><option>Member</option>
-</select>
-<div class="btn-sm" onclick="toast('Exporting member list…')">↓ Export</div>
-</div>
-<div class="panel-card u-extracted-130">
-<table class="mem-table" id="memTable">
-<thead><tr><th>Member</th><th>Role</th><th>Join Date</th><th>Status</th><th>Actions</th></tr></thead>
-<tbody id="memBody">
-<tr><td><div class="mem-name-cell"><div class="mem-av u-extracted-154">JK</div><div><div class="mem-uname">Jake Kim</div><div class="u-extracted-194">jake@nexushub.io</div></div></div></td><td><select class="role-select" onchange="toast('Role updated!')"><option selected="">👑 Owner</option><option>🛡 Mod</option><option>👤 Member</option></select></td><td class="u-extracted-140">Mar 1, 2022</td><td><span class="status-dot u-extracted-172"></span> Online</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Opening profile…')">👁</div><div class="tbl-btn" onclick="toast('Cannot modify owner')">✏️</div><div class="tbl-btn del" onclick="toast('Cannot kick owner')">🚪</div></div></td></tr>
-<tr><td><div class="mem-name-cell"><div class="mem-av grad-purple">SL</div><div><div class="mem-uname">Sara Lee</div><div class="u-extracted-194">sara@example.com</div></div></div></td><td><select class="role-select" onchange="toast('Role updated!')"><option>👑 Owner</option><option selected="">🛡 Mod</option><option>👤 Member</option></select></td><td class="u-extracted-140">Jun 12, 2022</td><td><span class="status-dot u-extracted-172"></span> Online</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Opening profile…')">👁</div><div class="tbl-btn" onclick="toast('Editing member…')">✏️</div><div class="tbl-btn del" onclick="toast('Sara Lee kicked')">🚪</div></div></td></tr>
-<tr><td><div class="mem-name-cell"><div class="mem-av grad-violet">AM</div><div><div class="mem-uname">Alex Morgan</div><div class="u-extracted-194">alex@example.com</div></div></div></td><td><select class="role-select" onchange="toast('Role updated!')"><option>👑 Owner</option><option>🛡 Mod</option><option selected="">👤 Member</option></select></td><td class="u-extracted-140">Jan 5, 2025</td><td><span class="status-dot u-extracted-172"></span> Online</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Opening profile…')">👁</div><div class="tbl-btn" onclick="toast('Editing member…')">✏️</div><div class="tbl-btn del" onclick="toast('Member kicked')">🚪</div></div></td></tr>
-<tr><td><div class="mem-name-cell"><div class="mem-av u-extracted-206">BX</div><div><div class="mem-uname">BadActor_X</div><div class="u-extracted-207">⚠️ 3 violations</div></div></div></td><td><select class="role-select" onchange="toast('Role updated!')"><option>👑 Owner</option><option>🛡 Mod</option><option selected="">👤 Member</option></select></td><td class="u-extracted-140">Jan 18, 2025</td><td><span class="status-dot bg-dot-orange"></span> Muted</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Opening profile…')">👁</div><div class="tbl-btn del" onclick="toast('⚠️ Warning issued to BadActor_X')">⚠️</div><div class="tbl-btn del" onclick="toast('🚫 BadActor_X banned')">🚫</div></div></td></tr>
-<tr><td><div class="mem-name-cell"><div class="mem-av u-extracted-208">TC</div><div><div class="mem-uname">Tom Chen</div><div class="u-extracted-194">tom@example.com</div></div></div></td><td><select class="role-select" onchange="toast('Role updated!')"><option>👑 Owner</option><option>🛡 Mod</option><option selected="">👤 Member</option></select></td><td class="u-extracted-140">Feb 2, 2025</td><td><span class="status-dot u-extracted-172"></span> Online</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Opening profile…')">👁</div><div class="tbl-btn" onclick="toast('Editing member…')">✏️</div><div class="tbl-btn del" onclick="toast('Member kicked')">🚪</div></div></td></tr>
-</tbody>
-</table>
-</div>
-<div class="u-extracted-131">
-<span>Showing 5 of 2,451 members</span>
-<div class="u-extracted-132">
-<div class="btn-sm">← Prev</div>
-<div class="btn-sm accent">Next →</div>
-</div>
-</div>
-</div>
-<!-- ══ REPORTS VIEW ══ -->
-<div class="view" id="view-reports">
-<div class="section-title">🚩 Reports Summary</div>
-<div class="rpt-grid">
-<div class="rpt-card"><div class="rpt-val u-extracted-149">8</div><div class="rpt-label">Open Reports</div></div>
-<div class="rpt-card"><div class="rpt-val u-extracted-174">3</div><div class="rpt-label">In Review</div></div>
-<div class="rpt-card"><div class="rpt-val u-extracted-123">24</div><div class="rpt-label">Resolved Today</div></div>
-<div class="rpt-card"><div class="rpt-val u-extracted-152">2</div><div class="rpt-label">Pending Appeals</div></div>
-</div>
-<div class="panel-card u-extracted-130">
-<table class="ch-table">
-<thead><tr><th>Report ID</th><th>Reported User</th><th>Reason</th><th>Channel</th><th>Status</th><th>Reported</th><th>Actions</th></tr></thead>
-<tbody>
-<tr><td class="u-extracted-209">#4821</td><td class="u-extracted-210">BadActor_X</td><td>🚫 Hate Speech</td><td class="u-extracted-174">#general</td><td><span class="ri-badge badge-pending u-extracted-211">Pending</span></td><td class="u-extracted-140">2m ago</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Opening report #4821…')">👁</div><div class="tbl-btn" onclick="toast('Report #4821 resolved')">✅</div></div></td></tr>
-<tr><td class="u-extracted-209">#4820</td><td class="u-extracted-212">SpamBot99</td><td>📢 Spam</td><td class="u-extracted-174">#frontend</td><td><span class="ri-badge badge-pending u-extracted-211">Pending</span></td><td class="u-extracted-140">14m ago</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Opening report #4820…')">👁</div><div class="tbl-btn" onclick="toast('Report #4820 resolved')">✅</div></div></td></tr>
-<tr><td class="u-extracted-209">#4819</td><td class="u-extracted-213">TrollX_420</td><td>😡 Harassment</td><td class="u-extracted-174">#code-review</td><td><span class="ri-badge badge-review u-extracted-211">In Review</span></td><td class="u-extracted-140">31m ago</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Opening report #4819…')">👁</div><div class="tbl-btn" onclick="toast('Report #4819 resolved')">✅</div></div></td></tr>
-<tr><td class="u-extracted-209">#4817</td><td class="u-extracted-210">DarkRaider</td><td>🔞 NSFW</td><td class="u-extracted-174">#off-topic</td><td><span class="ri-badge badge-escalated u-extracted-211">Escalated</span></td><td class="u-extracted-140">2h ago</td><td><div class="tbl-actions"><div class="tbl-btn" onclick="toast('Opening report #4817…')">👁</div><div class="tbl-btn" onclick="toast('Escalated to Admin')">🔺</div></div></td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</div><!-- end main-content -->
-</div>
-<!-- ─── ADD CHANNEL MODAL ─── -->
-<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
-<div class="modal">
-<div class="modal-title">📡 Create New Channel</div>
-<div class="modal-field">
-<label>Channel Name *</label>
-<input id="chNameInput" placeholder="e.g. resources, announcements-2" type="text"/>
-</div>
-<div class="modal-field">
-<label>Channel Type</label>
-<select><option>💬 Text</option><option>🔊 Voice</option><option>📣 Announcement</option></select>
-</div>
-<div class="modal-field">
-<label>Category</label>
-<select><option>General</option><option>Development</option><option>Career</option><option>Voice</option></select>
-</div>
-<div class="modal-field">
-<label>Visibility</label>
-<select><option>🌐 Public</option><option>🔐 Members only</option><option>🔒 Mod only</option></select>
-</div>
-<div class="modal-btns">
-<button class="btn-modal-cancel" onclick="closeModal()">Cancel</button>
-<button class="btn-modal-ok" onclick="createChannel()">Create Channel</button>
-</div>
-</div>
-</div>
-<!-- Toast -->
-<div class="toast" id="toast"><span id="toastMsg">Done</span></div>
-<script src="../js/pages/community-manager.js"></script>
+  <div class="top-bar">
+    <div class="tb-logo">
+      <div class="tb-logo-icon">⬡</div>
+      <span class="tb-logo-name">NexusHub</span>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="tb-comm">
+      <div class="tb-comm-icon">⚡</div>
+      <span class="tb-comm-name" id="topBarCommunityName">Pro Gamers</span>
+      <span class="tb-badge">Owner Panel</span>
+    </div>
+    <div class="tb-right">
+      <div class="tb-btn" onclick="viewAsMember()">👁 View as Member</div>
+      <div class="tb-btn" onclick="toast('🔗 Invite Link copied!')">🔗 Share</div>
+      <div class="tb-btn primary" onclick="showModal()">+ Add Channel</div>
+      <div class="tb-av" onclick="openProfileSettings()"
+        style="background: linear-gradient(135deg, var(--gold), #d97706); border-color: rgba(245, 158, 11, 0.4);">JK
+      </div>
+    </div>
+  </div>
+
+  <div class="body-wrap">
+    <div class="main-content">
+
+      <div class="view active" id="view-settings">
+        <div class="section-title">⚙️ Community Settings</div>
+        <div class="settings-layout">
+
+          <div class="settings-nav">
+            <div class="settings-nav-item active" onclick="switchSettingsTab('basic', this)">🏠 Community Settings</div>
+            <div class="settings-nav-item" onclick="switchSettingsTab('members', this)">👥 Member Management</div>
+            <div class="settings-nav-item" onclick="switchSettingsTab('channels', this)">📢 Channel Management</div>
+            <div class="settings-nav-item" onclick="switchSettingsTab('moderation', this)">🛡️ Moderation Tools</div>
+            <div class="settings-nav-item" onclick="switchSettingsTab('events', this)">📅 Events & Announcements</div>
+            <div class="settings-nav-item" onclick="switchSettingsTab('analytics', this)">📊 Analytics</div>
+            <div class="settings-nav-item" onclick="switchSettingsTab('appearance', this)">🎨 Appearance</div>
+            <div class="settings-nav-item" onclick="switchSettingsTab('reports', this)">🚩 Reports</div>
+            <div class="settings-nav-item" onclick="switchSettingsTab('permissions', this)">⚙️ Role Management</div>
+          </div>
+
+          <div class="settings-content-wrap">
+            <div class="settings-content">
+
+              <div class="settings-tab active" id="settings-basic">
+                <div class="settings-group">
+                  <div class="settings-group-title">📋 Basic Information</div>
+                  <div class="settings-field">
+                    <label>Community Name</label>
+                    <input type="text" value="Pro Gamers" id="communityNameInput" class="settings-input" />
+                  </div>
+                  <div class="settings-field">
+                    <label>Community Description</label>
+                    <textarea id="communityDescInput" class="settings-textarea"
+                      rows="3">A thriving community for developers of all levels. Share projects, ask questions, and explore the latest frameworks and tools.</textarea>
+                  </div>
+                  <div class="settings-field">
+                    <label>Community Banner</label>
+                    <div class="banner-upload">
+                      <div class="current-banner"
+                        style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); height:120px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:white; font-weight:600;">
+                        Current Banner</div>
+                      <button class="btn-sm" onclick="toast('Banner upload dialog opened')">Change Banner</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-tab" id="settings-members">
+                <div class="settings-group">
+                  <div class="settings-group-title">👥 Member Overview</div>
+                  <div class="member-stats">
+                    <div class="stat-item">
+                      <div class="stat-value" id="totalMembersCount">2,451</div>
+                      <div class="stat-label">Total Members</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-value">312</div>
+                      <div class="stat-label">Online Now</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-value">47</div>
+                      <div class="stat-label">New This Week</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="settings-group">
+                  <div class="settings-group-title">📋 Member List</div>
+
+                  <div class="member-list" id="settingsMemberList">
+                    <div class="member-item">
+                      <div class="member-avatar">JK</div>
+                      <div class="member-info">
+                        <div class="member-name">Jake Kim</div>
+                        <div class="member-role">👑 Owner • jake@nexushub.io</div>
+                        <div class="member-date">Joined Mar 1, 2022</div>
+                      </div>
+                      <div class="member-actions">
+                        <button class="btn-sm" onclick="editMember(101)">✏️</button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="settings-tab" id="settings-channels">
+                <div class="settings-group">
+                  <div class="settings-group-title">📢 Channel Overview</div>
+                  <div class="channel-stats">
+                    <div class="stat-item">
+                      <div class="stat-value" id="totalChannelsCount">3</div>
+                      <div class="stat-label">Total Channels</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-value">2</div>
+                      <div class="stat-label">Archived</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="settings-group">
+                  <div class="settings-group-title">➕ Quick Actions</div>
+                  <div class="action-buttons">
+                    <button class="btn-sm accent" onclick="showModal()">📡 Create Channel</button>
+                  </div>
+                </div>
+                <div class="settings-group">
+                  <div class="settings-group-title">📋 Channel List</div>
+
+                  <div class="channel-list" id="settingsChannelList"></div>
+
+                </div>
+              </div>
+
+              <div class="settings-tab" id="settings-moderation">
+                <div class="settings-group">
+                  <div class="settings-group-title">🔧 Auto-Mod Settings</div>
+                  <div class="settings-field">
+                    <label>Filtered Words</label>
+                    <textarea class="settings-textarea" rows="2"
+                      placeholder="Enter words to filter, separated by commas">spam, scam, inappropriate</textarea>
+                  </div>
+                  <div class="settings-field">
+                    <label>Slow Mode Interval (seconds)</label>
+                    <input type="number" value="5" class="settings-input" style="width:100px;" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-tab" id="settings-events">
+                <div class="settings-group">
+                  <div class="settings-group-title">📅 Event Management</div>
+                  <div class="action-buttons">
+                    <button class="btn-sm accent" onclick="openEventModal()">🎉 Create Event</button>
+                  </div>
+                </div>
+                <div class="settings-group">
+                  <div class="settings-group-title">📋 Upcoming Events</div>
+                  <div class="role-list-settings" id="settingsEventsList"></div>
+                </div>
+              </div>
+
+              <div class="settings-tab" id="settings-analytics">
+                <div class="settings-group">
+                  <div class="settings-group-title">📊 Community Analytics</div>
+                  <div class="analytics-grid">
+                    <div class="analytics-card">
+                      <div class="analytics-title">Member Growth</div>
+                      <div class="analytics-value">+47</div>
+                      <div class="analytics-subtitle">This week</div>
+                    </div>
+                    <div class="analytics-card">
+                      <div class="analytics-title">Active Members</div>
+                      <div class="analytics-value">1,847</div>
+                      <div class="analytics-subtitle">75.3% engagement</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-tab" id="settings-appearance">
+                <div class="settings-group">
+                  <div class="settings-group-title">🎨 Theme Customization</div>
+                  <div class="settings-field">
+                    <label>Custom Theme CSS</label>
+                    <textarea class="settings-textarea" rows="4">/* Custom theme styles */</textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-tab" id="settings-reports">
+                <div class="settings-group">
+                  <div class="settings-group-title">🚩 Reports Overview</div>
+                  <div class="mod-stats">
+                    <div class="stat-item">
+                      <div class="stat-value" id="openReportsCount">2</div>
+                      <div class="stat-label">Open Reports</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-value" id="resolvedReportsCount">24</div>
+                      <div class="stat-label">Resolved Today</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="settings-group">
+                  <div class="settings-group-title">📋 Active Reports</div>
+                  <table class="ch-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Reported User</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="settingsReportsList"></tbody>
+
+                  </table>
+                </div>
+              </div>
+
+              <div class="settings-tab" id="settings-permissions">
+                <div class="settings-group">
+                  <div class="settings-group-title">🎭 Role Management</div>
+                  <div class="action-buttons">
+                    <button class="btn-sm accent" onclick="createRole()">➕ Create Role</button>
+                  </div>
+                </div>
+                <div class="settings-group">
+                  <div class="settings-group-title">📋 Role List</div>
+
+                  <div class="role-list-settings" id="settingsRolesList"></div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="settings-actions" id="settingsActions">
+              <button class="btn-sm" onclick="discardSettings()">Discard Changes</button>
+              <button class="btn-sm accent" onclick="saveSettings()">Save All Changes</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <div class="modal-title">📡 Create New Channel</div>
+      <div class="modal-field">
+        <label>Channel Name *</label>
+        <input id="chNameInput" placeholder="e.g. resources" type="text" />
+      </div>
+      <div class="modal-field">
+        <label>Channel Type</label>
+        <select id="chTypeInput">
+          <option value="💬 Text">💬 Text</option>
+          <option value="🔊 Voice">🔊 Voice</option>
+          <option value="📣 Announcement">📣 Announcement</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Visibility</label>
+        <select id="chVisInput">
+          <option value="🌐 Public">🌐 Public</option>
+          <option value="🔐 Members only">🔐 Members only</option>
+          <option value="🔒 Mod only">🔒 Mod only</option>
+        </select>
+      </div>
+      <div class="modal-btns">
+        <button class="btn-modal-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-modal-ok" onclick="submitCreateChannel()">Create Channel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="eventModalBg" onclick="if(event.target===this)closeEventModal()">
+    <div class="modal">
+      <div class="modal-title">📅 Create New Event</div>
+      <div class="modal-field">
+        <label>Event Title *</label>
+        <input id="evTitleInput" placeholder="e.g. Game Night, Code Review..." type="text" />
+      </div>
+      <div class="modal-field">
+        <label>Date & Time</label>
+        <input id="evDateInput" type="datetime-local" class="settings-input" />
+      </div>
+      <div class="modal-field">
+        <label>Event Type</label>
+        <select id="evTypeInput">
+          <option value="Community Event">Community Event</option>
+          <option value="Tournament">Tournament</option>
+          <option value="Workshop">Workshop</option>
+          <option value="Meeting">Meeting</option>
+        </select>
+      </div>
+      <div class="modal-btns">
+        <button class="btn-modal-cancel" onclick="closeEventModal()">Cancel</button>
+        <button class="btn-modal-ok" onclick="submitCreateEvent()">Create Event</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="reportModalBg" onclick="if(event.target===this)closeReportModal()">
+    <div class="modal">
+      <div class="modal-title">🚩 Report Details</div>
+
+      <div id="reportModalContent"
+        style="font-size: 13px; line-height: 1.6; color: var(--text-2); margin-bottom: 20px;">
+      </div>
+
+      <div class="modal-btns">
+        <button class="btn-modal-cancel" onclick="closeReportModal()">Close</button>
+        <button class="btn-modal-ok"
+          style="background: rgba(248, 113, 113, 0.2); color: var(--error); border: 1px solid rgba(248,113,113,0.5); box-shadow: none;"
+          id="reportModalResolveBtn">✅ Resolve Report</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><span id="toastMsg">Done</span></div>
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/components/rbac-nav.js"></script>
+  <script src="../js/pages/community-manager.js"></script>
+<script src="../js/components/notifications.js"></script>
 </body>
+
 </html>

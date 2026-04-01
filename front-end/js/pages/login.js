@@ -11,20 +11,18 @@ let currentTab = 'login';
 let toastTimeout;
 
 const ROLE_REDIRECTS = {
-    superuser: 'superuser-dashboard.html',
-    admin: 'admin-dashboard.html',
-    mod: 'mod-panel.html',
-    manager: 'community-manager.html',
+    superuser: 'dashboard.html',
+    mod: 'dashboard.html',
     gamer: 'dashboard.html',
-    audience: 'discovery.html'
+    audience: 'dashboard.html'
 };
 
 // Mock registered users for prototype
 const MOCK_USERS = [
-    { email: 'admin@nexushub.io', username: 'SuperAdmin', password: 'Admin@123', role: 'superuser' },
-    { email: 'mod@nexushub.io', username: 'SaraLee', password: 'Mod@123', role: 'mod' },
-    { email: 'alex@nexushub.io', username: 'AlexMorgan', password: 'Gamer@123', role: 'gamer' },
-    { email: 'manager@nexushub.io', username: 'Admin', password: 'Manager@123', role: 'admin' }
+    { email: 'admin01', username: 'Admin', password: 'Admin@123', role: 'superuser' },
+    { email: 'moderator01', username: 'SaraLee', password: 'Moderator@123', role: 'mod' },
+    { email: 'gamer01', username: 'Alex Morgan', password: 'Gamer@123', role: 'gamer' },
+    { email: 'user01', username: 'Viewer', password: 'User@123', role: 'audience' }
 ];
 
 // ==========================================
@@ -169,15 +167,27 @@ window.handleLogin = function(e) {
     btn.disabled = true;
 
     setTimeout(() => {
+        // Check if a mock user matches — use their display name if found
+        const matchedUser = MOCK_USERS.find(u => 
+            (u.email === email || u.username === email) && u.password === password && u.role === role
+        );
+
         // Save session to localStorage
         const user = {
-            username: email.includes('@') ? email.split('@')[0] : email,
-            email: email.includes('@') ? email : email + '@nexushub.io',
+            username: matchedUser ? matchedUser.username : (email.includes('@') ? email.split('@')[0] : email),
+            email: matchedUser ? matchedUser.email : (email.includes('@') ? email : email + '@nexushub.io'),
             role: role,
             loginTime: new Date().toISOString(),
             token: 'mock_token_' + Math.random().toString(36).substr(2)
         };
         localStorage.setItem('nexus_user', JSON.stringify(user));
+
+        // Seed community ownership for demo (gamer owns "pro-gamers")
+        if (role === 'gamer') {
+            localStorage.setItem('nexus_owned_communities', JSON.stringify(['pro-gamers']));
+        } else {
+            localStorage.removeItem('nexus_owned_communities');
+        }
 
         showToast('✅', 'Login successful! Redirecting...');
 
@@ -346,8 +356,12 @@ window.handleForgotPassword = function(e) {
 // ==========================================
 
 window.quickLogin = function(username, role) {
+    // Find the matching mock user to get the correct password
+    const mockUser = MOCK_USERS.find(u => u.email === username || u.username === username);
+    const password = mockUser ? mockUser.password : 'Demo@123';
+
     document.getElementById('login-email').value = username;
-    document.getElementById('login-password').value = 'Demo@123';
+    document.getElementById('login-password').value = password;
     document.getElementById('login-role').value = role;
 
     // Trigger login

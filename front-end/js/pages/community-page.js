@@ -1,361 +1,130 @@
 /**
- * NexusHub — Community Page Logic
- * Handles tab switching, community joining, and dynamic content filtering.
+ * NexusHub — Community Page Interactive Logic
+ * Handles tab switching, sidebar toggle, join button, chat interface, member search, etc.
  */
 
 // ==========================================
-// 1. DATA & CONFIG
+// 1. TAB SWITCHING
 // ==========================================
-const CHANNEL_DESCRIPTIONS = {
-    'general': 'The main hub for all things Pro Gamers. Say hello, share updates, ask anything, or just vibe with the community.',
-    'introductions': 'New here? Introduce yourself! Tell us your stack, experience level, and what you\'re working on.',
-    'off-topic': 'Non-dev chat lives here. Memes, life updates, random thoughts — keep it friendly.',
-    'frontend': 'Everything UI — HTML, CSS, MOBA, FPS, Vue, Angular, and more.',
-    'Strategy': 'APIs, databases, server architecture, microservices, and all things server-side.',
-    'Streaming': 'CI/CD, containers, cloud infrastructure, monitoring, and deployment discussions.',
-    'code-review': 'Post your code for review. Be specific about what feedback you need.',
-    'open-source': 'Share open-source projects, contributions, and opportunities.',
-    'job-board': 'Post job openings, freelance gigs, and career opportunities for the community.',
-    'portfolio-review': 'Share your portfolio for honest, constructive feedback from peers.',
-    'interview-prep': 'LeetCode, system design, behavioral tips — help each other get hired.'
-};
-
-// ==========================================
-// 2. NAVIGATION & TABS
-// ==========================================
-
-/**
- * Switches between Overview, Channels, Members, and Rules
- */
 window.switchTab = function(tabName, btn) {
-    // UI: Update Buttons
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    // Deactivate all tabs and tab content
+    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-    // UI: Update Content Panels
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    const targetTab = document.getElementById('tab-' + tabName);
-    if (targetTab) {
-        targetTab.classList.add('active');
-    }
-
-    console.log(`Switched community tab to: ${tabName}`);
+    // Activate the selected tab and its content
+    if (btn) btn.classList.add('active');
+    const target = document.getElementById('tab-' + tabName);
+    if (target) target.classList.add('active');
 };
 
 // ==========================================
-// 3. JOIN / LEAVE LOGIC
+// 2. SIDEBAR TOGGLE
 // ==========================================
+window.toggleSidebar = function() {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) sidebar.classList.toggle('expanded');
+};
 
-/**
- * Toggles the membership status for the community
- */
+// ==========================================
+// 3. JOIN / LEAVE BUTTON
+// ==========================================
 window.toggleMainJoin = function() {
     const btn = document.getElementById('joinMainBtn');
     if (!btn) return;
 
-    const isJoined = btn.textContent.includes('Joined');
-
-    if (isJoined) {
-        // Leave Logic
+    if (btn.classList.contains('joined')) {
+        btn.classList.remove('joined');
         btn.textContent = '+ Join Community';
-        btn.classList.remove('btn-joined-main');
-        btn.style.background = 'rgba(91, 110, 245, 0.12)';
-        btn.style.borderColor = 'rgba(91, 110, 245, 0.3)';
-        btn.style.color = 'var(--accent)';
-        
-        // Optional: Trigger a "toast" notification from the global utility
-        if (window.toast) window.toast("Left Pro Gamers");
+        btn.style.background = 'linear-gradient(135deg, var(--accent), var(--accent-hover))';
+        btn.style.color = '#fff';
     } else {
-        // Join Logic
+        btn.classList.add('joined');
         btn.textContent = '✓ Joined';
-        btn.classList.add('btn-joined-main');
-        btn.style.background = '';
-        btn.style.borderColor = '';
-        btn.style.color = '';
-        
-        if (window.toast) window.toast("Joined Pro Gamers! ⚡");
+        btn.style.background = 'var(--success)';
+        btn.style.color = '#fff';
     }
 };
 
-// ==========================================
-// 4. CHANNEL INTERACTION
-// ==========================================
-
-/**
- * Updates the side-panel info when a channel is clicked
- */
-window.setActiveChannel = function(el, channelName) {
-    // UI: Active Row State
-    document.querySelectorAll('.ch-row').forEach(r => r.classList.remove('active-ch'));
-    el.classList.add('active-ch');
-
-    // Logic: Update Info Display
-    const cleanName = channelName.replace('#', '');
-    const titleEl = document.getElementById('activeCh');
-    const descEl = document.getElementById('activeChDesc');
-
-    if (titleEl) titleEl.textContent = cleanName;
-    if (descEl) {
-        descEl.textContent = CHANNEL_DESCRIPTIONS[cleanName] || 'No description available for this channel.';
+// Initialize join button state
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('joinMainBtn');
+    if (btn && btn.textContent.includes('Joined')) {
+        btn.classList.add('joined');
     }
+});
 
-    // Scroll the info card to top
-    const sidebar = document.querySelector('.ch-sidebar');
-    if (sidebar) sidebar.scrollTop = 0;
-    
-    // Navigate to chat interface with the selected channel
-    window.openChatInterface(channelName);
-};
-
-/**
- * Opens the chat interface with the selected channel
- */
+// ==========================================
+// 4. CHAT INTERFACE (Channel Click)
+// ==========================================
 window.openChatInterface = function(channelName) {
-    // Store the selected channel in sessionStorage for the chat page to use
-    sessionStorage.setItem('selectedChannel', channelName);
-    sessionStorage.setItem('fromCommunityPage', 'true');
-    
-    // Navigate to chat page
-    window.location.href = 'chat.html';
+    const clean = channelName.replace('#', '');
+    window.location.href = `chat.html?channel=${encodeURIComponent(clean)}`;
 };
 
 // ==========================================
-// 5. MEMBER FILTERING
+// 5. MEMBER SEARCH / FILTER
 // ==========================================
-
-/**
- * Searches through the member grid
- */
 window.filterMembers = function(query) {
     const q = query.toLowerCase().trim();
     const cards = document.querySelectorAll('.member-card');
-    
-    cards.forEach(card => {
-        const name = card.querySelector('.m-name').textContent.toLowerCase();
-        // Check if name contains search query
-        const isMatch = !q || name.includes(q);
-        card.style.display = isMatch ? '' : 'none';
-    });
 
-    // Optional: Toggle visibility of group titles if all members in group are hidden
-    document.querySelectorAll('.member-group-title').forEach(title => {
-        const groupGrid = title.nextElementSibling;
-        if (groupGrid && groupGrid.classList.contains('member-grid')) {
-            const hasVisibleMembers = Array.from(groupGrid.children).some(c => c.style.display !== 'none');
-            title.style.display = hasVisibleMembers ? '' : 'none';
+    cards.forEach(card => {
+        const name = card.querySelector('.m-name');
+        if (name) {
+            const match = name.textContent.toLowerCase().includes(q);
+            card.style.display = match ? '' : 'none';
         }
     });
 };
 
 // ==========================================
-// 6. REPORT FUNCTIONALITY
+// 6. REACTION TOGGLE
 // ==========================================
+window.toggleFPS = function(el) {
+    const countEl = el.querySelector('.FPS-count');
+    if (!countEl) return;
 
-/**
- * Shows the report message dialog
- */
-window.showReportDialog = function() {
-    // Create and show report modal
-    const modal = document.createElement('div');
-    modal.className = 'report-modal';
-    modal.innerHTML = `
-        <div class="report-modal-content">
-            <div class="report-header">
-                <h3>🚩 Report Message</h3>
-                <button class="close-btn" onclick="closeReportModal()">×</button>
-            </div>
-            <div class="report-body">
-                <div class="report-options">
-                    <label class="report-option">
-                        <input type="radio" name="reason" value="spam">
-                        <span>📢 Spam or Self-Promotion</span>
-                    </label>
-                    <label class="report-option">
-                        <input type="radio" name="reason" value="harassment">
-                        <span>😠 Harassment or Hate Speech</span>
-                    </label>
-                    <label class="report-option">
-                        <input type="radio" name="reason" value="inappropriate">
-                        <span>🔞 Inappropriate Content</span>
-                    </label>
-                    <label class="report-option">
-                        <input type="radio" name="reason" value="off-topic">
-                        <span>💬 Off-Topic</span>
-                    </label>
-                    <label class="report-option">
-                        <input type="radio" name="reason" value="other">
-                        <span>⚠️ Other</span>
-                    </label>
-                </div>
-                <div class="report-description">
-                    <label for="report-desc">Additional Details (Optional)</label>
-                    <textarea id="report-desc" placeholder="Please provide any additional context..."></textarea>
-                </div>
-            </div>
-            <div class="report-actions">
-                <button class="btn-cancel" onclick="closeReportModal()">Cancel</button>
-                <button class="btn-submit" onclick="submitReport()">Submit Report</button>
-            </div>
-        </div>
+    let count = parseInt(countEl.textContent);
+    if (el.classList.contains('reacted')) {
+        el.classList.remove('reacted');
+        countEl.textContent = count - 1;
+    } else {
+        el.classList.add('reacted');
+        countEl.textContent = count + 1;
+    }
+};
+
+// ==========================================
+// 7. MESSAGE CONTEXT MENU
+// ==========================================
+window.showMessageMenu = function(btn) {
+    // Remove any existing menus
+    document.querySelectorAll('.msg-context-menu').forEach(m => m.remove());
+
+    const menu = document.createElement('div');
+    menu.className = 'msg-context-menu';
+    menu.style.cssText = `
+        position: absolute; right: 0; top: 100%;
+        background: var(--bg-card, #151d2f); border: 1px solid var(--border, rgba(255,255,255,0.08));
+        border-radius: 8px; padding: 6px 0; min-width: 140px; z-index: 100;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.4); font-size: 13px;
     `;
-    
-    // Add modal to page
-    document.body.appendChild(modal);
-    
-    // Add CSS for modal
-    if (!document.getElementById('report-modal-styles')) {
-        const style = document.createElement('style');
-        style.id = 'report-modal-styles';
-        style.textContent = `
-            .report-modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 1000;
-            }
-            .report-modal-content {
-                background: var(--bg-primary);
-                border: 1px solid var(--border);
-                border-radius: 12px;
-                padding: 24px;
-                max-width: 500px;
-                width: 90%;
-                max-height: 80vh;
-                overflow-y: auto;
-            }
-            .report-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 20px;
-            }
-            .report-header h3 {
-                margin: 0;
-                color: var(--text-primary);
-            }
-            .close-btn {
-                background: none;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                color: var(--text-secondary);
-            }
-            .report-option {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                padding: 12px;
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                margin-bottom: 8px;
-                cursor: pointer;
-                transition: background 0.2s;
-            }
-            .report-option:hover {
-                background: var(--bg-secondary);
-            }
-            .report-option input[type="radio"] {
-                margin: 0;
-            }
-            .report-description {
-                margin-top: 20px;
-            }
-            .report-description label {
-                display: block;
-                margin-bottom: 8px;
-                color: var(--text-primary);
-            }
-            .report-description textarea {
-                width: 100%;
-                min-height: 100px;
-                padding: 12px;
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                resize: vertical;
-                background: var(--bg-secondary);
-                color: var(--text-primary);
-            }
-            .report-actions {
-                display: flex;
-                gap: 12px;
-                justify-content: flex-end;
-                margin-top: 20px;
-            }
-            .btn-cancel, .btn-submit {
-                padding: 10px 20px;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                font-weight: 500;
-            }
-            .btn-cancel {
-                background: var(--bg-secondary);
-                color: var(--text-primary);
-                border: 1px solid var(--border);
-            }
-            .btn-submit {
-                background: var(--accent);
-                color: white;
-            }
-            .btn-submit:hover {
-                background: var(--accent-hover);
-            }
-        `;
-        document.head.appendChild(style);
-    }
-};
+    menu.innerHTML = `
+        <div style="padding:6px 14px;cursor:pointer;color:var(--text-2)" onmouseover="this.style.background='var(--bg-card-hover)'" onmouseout="this.style.background='none'">📋 Copy Text</div>
+        <div style="padding:6px 14px;cursor:pointer;color:var(--text-2)" onmouseover="this.style.background='var(--bg-card-hover)'" onmouseout="this.style.background='none'">📌 Pin Message</div>
+        <div style="padding:6px 14px;cursor:pointer;color:var(--text-2)" onmouseover="this.style.background='var(--bg-card-hover)'" onmouseout="this.style.background='none'">🚩 Report</div>
+    `;
 
-/**
- * Closes the report modal
- */
-window.closeReportModal = function() {
-    const modal = document.querySelector('.report-modal');
-    if (modal) {
-        modal.remove();
-    }
-};
+    btn.style.position = 'relative';
+    btn.appendChild(menu);
 
-/**
- * Submits the report
- */
-window.submitReport = function() {
-    const selectedReason = document.querySelector('input[name="reason"]:checked');
-    const description = document.getElementById('report-desc').value;
-    
-    if (!selectedReason) {
-        if (window.toast) window.toast("Please select a reason for reporting");
-        return;
-    }
-    
-    // Here you would normally send the report to your backend
-    console.log('Report submitted:', {
-        reason: selectedReason.value,
-        description: description,
-        timestamp: new Date().toISOString()
-    });
-    
-    // Close modal and show confirmation
-    closeReportModal();
-    if (window.toast) window.toast("🚩 Report submitted successfully. Thank you for helping keep our community safe.");
-};
-
-// ==========================================
-// 7. INITIALIZATION
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("Community Page Module Initialized.");
-
-    // Handle Report Button action
-    const reportBtn = document.querySelector('.u-extracted-225');
-    if (reportBtn) {
-        reportBtn.addEventListener('click', () => {
-            if (window.toast) window.toast("Opening reporting tool...");
+    // Close on click outside
+    setTimeout(() => {
+        document.addEventListener('click', function close(e) {
+            if (!menu.contains(e.target)) {
+                menu.remove();
+                document.removeEventListener('click', close);
+            }
         });
-    }
-});
+    }, 10);
+};

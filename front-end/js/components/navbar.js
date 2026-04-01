@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateAuthUI() {
     // 1. Get user from core auth module
     const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
-    
+
     // 2. Target the profile section (Sidebar footer or Topbar)
     const profileSection = document.getElementById('nav-profile-section');
     if (!profileSection || !user) return;
@@ -52,7 +52,7 @@ function updateAuthUI() {
  */
 function handleLogout() {
     if (window.toast) window.toast("Logging out... See you soon! 👋");
-    
+
     // Simulate minor delay for smooth transition
     setTimeout(() => {
         if (typeof logoutUser === 'function') {
@@ -60,7 +60,8 @@ function handleLogout() {
         } else {
             // Fallback if core module is missing
             localStorage.removeItem('nexus_user');
-            window.location.href = 'index.html';
+            localStorage.removeItem('nexus_owned_communities');
+            window.location.href = 'landing.html';
         }
     }, 600);
 }

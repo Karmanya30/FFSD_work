@@ -9,13 +9,20 @@
 let unreadMessages = 12;
 
 // ==========================================
-// 2. COMMUNITY INTERACTIONS
+// 2. SIDEBAR TOGGLE FUNCTIONALITY
 // ==========================================
 
 /**
- * Toggles the join state for recommended communities
- * Provides immediate visual feedback for the action
+ * Toggles sidebar expansion state
+ * Switches between compact (72px) and expanded (240px) modes
  */
+window.toggleSidebar = function() {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+        sidebar.classList.toggle('expanded');
+    }
+};
+
 window.toggleJoin = function(btn) {
     const card = btn.closest('.rec-card');
     const isJoined = btn.classList.contains('joined');
@@ -97,7 +104,9 @@ window.markAllRead = function() {
  * Clears session data and redirects to login page
  */
 window.logout = function() {
-    // Clear any stored session data
+    // Clear session data
+    localStorage.removeItem('nexus_user');
+    localStorage.removeItem('nexus_owned_communities');
     localStorage.removeItem('userToken');
     localStorage.removeItem('userData');
     sessionStorage.clear();
@@ -107,9 +116,9 @@ window.logout = function() {
         window.toast("Logging out... 👋");
     }
     
-    // Redirect to login page after a short delay
+    // Redirect to landing page
     setTimeout(() => {
-        window.location.href = 'login.html';
+        window.location.href = 'landing.html';
     }, 1000);
 };
 

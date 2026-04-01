@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
     <link href="../css/global.css" rel="stylesheet"/>
     <link href="../css/pages/superuser-dashboard.css" rel="stylesheet"/>
+    <link href="../css/pages/rbac-nav.css" rel="stylesheet"/>
 </head>
 <body>
     <!-- ═══ APP RAIL ═══ -->
@@ -17,8 +18,7 @@
   <a href="dashboard.html" class="rail-item" data-tooltip="Home">🏠</a>
   <a href="discovery.html" class="rail-item" data-tooltip="Discover">🔍</a>
   <a href="events.html" class="rail-item" data-tooltip="Events">📅</a>
-  <a href="chat.html" class="rail-item" data-tooltip="Messages">💬</a>
-  <a href="#" class="rail-item" data-tooltip="Notifications">🔔</a>
+
   <a href="profile-settings.html" class="rail-item" data-tooltip="Settings">⚙️</a>
   <div class="rail-divider"></div>
   <a href="community-page.html?name=pro-gamers" class="rail-item rail-comm grad-purple" data-tooltip="Pro Gamers">⚡<div class="rail-dot bg-dot-green"></div></a>
@@ -112,7 +112,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Recent Audit Log</h3>
-                        <button class="btn-sm" onclick="navTo('audit', document.querySelector('[onclick*=\"audit\"]'))">View All</button>
+                        <button class="btn-sm" onclick="navTo('audit', document.querySelector('[onclick*=\'audit\']'))">View All</button>
                     </div>
                     <div class="audit-list" id="recent-audit"></div>
                 </div>
@@ -299,9 +299,12 @@
         <span id="toastMsg">Action applied</span>
     </div>
 
+    <script src="../js/core/auth.js"></script>
+    <script src="../js/components/rbac-nav.js"></script>
     <script src="../js/data/mockData.js"></script>
     <script src="../js/data/crudService.js"></script>
     <script src="../js/core/validator.js"></script>
     <script src="../js/pages/superuser-dashboard.js"></script>
+<script src="../js/components/notifications.js"></script>
 </body>
 </html>

@@ -8,12 +8,14 @@
 
 <link rel="stylesheet" href="../css/global.css"/>
 <link rel="stylesheet" href="../css/pages/dashboard.css"/>
+<link rel="stylesheet" href="../css/pages/rbac-nav.css"/>
 </head>
 <body>
 
 <!-- ─── APP RAIL ─── -->
-<aside class="app-rail">
+<aside class="app-rail" id="sidebar">
   <div class="rail-logo">⬡</div>
+  <div class="rail-toggle" onclick="toggleSidebar()">☰</div>
   
   <div class="rail-divider"></div>
   
@@ -21,8 +23,6 @@
   <a href="dashboard.html" class="rail-item active" data-tooltip="Home">🏠</a>
   <a href="discovery.html" class="rail-item" data-tooltip="Discover">🔍</a>
   <a href="events.html" class="rail-item" data-tooltip="Events">📅<div class="notif-dot" style="background:var(--gold);width:6px;height:6px;"></div></a>
-  <a href="chat.html" class="rail-item" data-tooltip="Messages">💬<div class="notif-dot" style="width:6px;height:6px;"></div></a>
-  <a href="#" class="rail-item" data-tooltip="Notifications">🔔</a>
   <a href="profile-settings.html" class="rail-item" data-tooltip="Settings">⚙️</a>
   
   <div class="rail-divider"></div>
@@ -289,6 +289,9 @@
   </div>
 </div>
 
+<script src="../js/core/auth.js"></script>
+<script src="../js/components/rbac-nav.js"></script>
 <script src="../js/pages/dashboard.js"></script>
+<script src="../js/components/notifications.js"></script>
 </body>
 </html>

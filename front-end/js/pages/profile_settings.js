@@ -3,45 +3,25 @@
  * Handles view switching, theme selection, and real-time profile synchronization.
  */
 
-// ==========================================
-// 1. STATE & CONFIG
-// ==========================================
 let hasUnsavedChanges = false;
 let toastDebounce;
 
-// ==========================================
-// 2. VIEW MANAGEMENT
-// ==========================================
-
-/**
- * Switches between settings categories (Profile, Account, etc.)
- */
-window.switchView = function(viewId, navEl) {
-    // UI: Update active view visibility
+window.switchView = function (viewId, navEl) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     const targetView = document.getElementById('view-' + viewId);
     if (targetView) targetView.classList.add('active');
 
-    // UI: Update sidebar item active state
     document.querySelectorAll('.ln-item').forEach(i => i.classList.remove('active'));
     if (navEl) navEl.classList.add('active');
-
-    console.log(`Settings view switched to: ${viewId}`);
 };
 
-// ==========================================
-// 3. PROFILE & PREVIEW SYNC
-// ==========================================
-
-/**
- * Updates the left sidebar preview in real-time as the user types
- */
 function setupProfileSync() {
-    const nameInput = document.querySelector('input[value="Alex Morgan"]');
-    const handleInput = document.querySelector('input[value="alexmorgan"]');
-    
-    const sidebarName = document.querySelector('.profile-name');
-    const sidebarHandle = document.querySelector('.profile-handle');
+    const nameInput = document.getElementById('inpFullName');
+    const handleInput = document.getElementById('inpHandle');
+
+    const sidebarName = document.getElementById('navName');
+    const sidebarHandle = document.getElementById('navHandle');
+    const hintHandle = document.getElementById('hintHandle');
 
     if (nameInput && sidebarName) {
         nameInput.addEventListener('input', (e) => {
@@ -54,11 +34,11 @@ function setupProfileSync() {
         handleInput.addEventListener('input', (e) => {
             const val = e.target.value.replace(/[^a-zA-Z0-9_]/g, '');
             sidebarHandle.textContent = val ? `@${val}` : "@username";
+            if (hintHandle) hintHandle.textContent = val;
             markAsDirty();
         });
     }
 
-    // Monitor all inputs for the "Save Changes" highlight
     document.querySelectorAll('.main input, .main textarea, .main select').forEach(input => {
         input.addEventListener('change', markAsDirty);
     });
@@ -70,116 +50,97 @@ function markAsDirty() {
     if (saveBtn) saveBtn.classList.add('pulse');
 }
 
-window.setStatus = function(el) {
+window.setStatus = function (el) {
     document.querySelectorAll('.status-badge').forEach(b => b.classList.remove('on'));
     el.classList.add('on');
-    
-    // Update sidebar status text
+
     const statusText = el.textContent.trim();
     const sidebarStatus = document.querySelector('.profile-status');
     if (sidebarStatus) sidebarStatus.textContent = statusText;
-    
+
     window.toast(`Status updated to ${statusText}`);
     markAsDirty();
 };
 
-// ==========================================
-// 4. THEME & APPEARANCE
-// ==========================================
-
-window.setTheme = function(el) {
+window.setTheme = function (el) {
     document.querySelectorAll('.theme-opt').forEach(t => t.classList.remove('on'));
     el.classList.add('on');
-    
+
     const themeName = el.querySelector('.theme-label').textContent;
     window.toast(`Theme preview: ${themeName}`);
-    
-    // In a real app, you would toggle a class on the <body> or <html>
-    // document.body.setAttribute('data-theme', themeName.toLowerCase().replace(' ', '-'));
     markAsDirty();
 };
 
-// ==========================================
-// 5. AUTHENTICATION
-// ==========================================
-
-/**
- * Handles user logout functionality
- * Clears session data and redirects to login page
- */
-window.logout = function() {
-    // Clear any stored session data
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('userData');
-    sessionStorage.clear();
-    
-    // Show confirmation toast
+window.logout = function () {
+    localStorage.removeItem('nexus_user');
+    localStorage.removeItem('nexus_owned_communities');
+    localStorage.removeItem('nexus_current_user');
     window.toast("Logging out... 👋");
-    
-    // Redirect to login page after a short delay
     setTimeout(() => {
-        window.location.href = 'login.html';
+        window.location.href = 'landing.html';
     }, 1000);
 };
 
-// ==========================================
-// 6. UTILITIES & TOASTS
-// ==========================================
-
-window.toast = function(msg) {
+window.toast = function (msg) {
     const t = document.getElementById('toast');
     const m = document.getElementById('toastMsg');
     if (!t || !m) return;
 
     m.textContent = msg;
     t.classList.add('show');
-    
+
     clearTimeout(toastDebounce);
     toastDebounce = setTimeout(() => t.classList.remove('show'), 2500);
 };
 
-/**
- * Handles the "Save Changes" button click
- */
-window.saveAllChanges = function() {
+// --- THIS IS THE DYNAMIC SAVE LOGIC ---
+window.saveAllChanges = function () {
     if (!hasUnsavedChanges) {
         window.toast("No changes to save.");
         return;
     }
 
-    // Validation Check
-    if (window.NexusValidator) {
-        const nameInput = document.querySelector('input[value="Alex Morgan"]') || document.querySelector('.main input[type="text"]');
-        const handleInput = document.querySelector('input[value="alexmorgan"]') || document.querySelectorAll('.main input[type="text"]')[1];
-        const emailInput = document.querySelector('input[type="email"]');
-        
-        let valid = true;
-        const rules = [];
-        
-        if (nameInput) rules.push({ element: nameInput, validators: [{ check: v => window.NexusValidator.isRequired(v), message: 'Display name is required' }, { check: v => window.NexusValidator.minLength(v, 2), message: 'Minimum 2 characters' }]});
-        if (handleInput) rules.push({ element: handleInput, validators: [{ check: v => window.NexusValidator.isHandle(v), message: '3-20 characters, alphanumeric only' }]});
-        if (emailInput) rules.push({ element: emailInput, validators: [{ check: v => window.NexusValidator.isEmail(v), message: 'Please enter a valid email address' }]});
-        
-        if (rules.length > 0) {
-            valid = window.NexusValidator.validateForm(rules);
-        }
-        
-        if (!valid) {
-            window.toast("⚠️ Please fix the validation errors.");
-            return;
-        }
-    }
-
-    // Simulate API call
     const saveBtn = document.querySelector('.tb-btn.save');
-    if(saveBtn) {
+    if (saveBtn) {
         saveBtn.textContent = "Saving...";
         saveBtn.disabled = true;
     }
 
     setTimeout(() => {
         hasUnsavedChanges = false;
-        if(saveBtn) {
+
+        // Retrieve existing, update, calculate new initials, and save back to local storage!
+        const userStr = localStorage.getItem('nexus_current_user');
+        if (userStr) {
+            const user = JSON.parse(userStr);
+
+            user.firstName = document.getElementById('inpFirstName').value.trim();
+            user.lastName = document.getElementById('inpLastName').value.trim();
+            user.fullName = document.getElementById('inpFullName').value.trim() || `${user.firstName} ${user.lastName}`;
+            user.handle = document.getElementById('inpHandle').value.trim();
+            user.email = document.getElementById('inpEmail').value.trim();
+
+            // Calculate Initials automatically!
+            let newInitials = "U";
+            if (user.firstName && user.lastName) {
+                newInitials = user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
+            } else if (user.fullName && user.fullName.length >= 2) {
+                newInitials = user.fullName.substring(0, 2).toUpperCase();
+            }
+            user.initials = newInitials;
+
+            // Give non-JK users a generic purple background so they don't look broken
+            if (user.initials !== 'JK') {
+                user.bgClass = 'grad-purple';
+            }
+
+            localStorage.setItem('nexus_current_user', JSON.stringify(user));
+
+            // Refresh avatars on this page immediately
+            loadUserData();
+        }
+
+        if (saveBtn) {
             saveBtn.textContent = "Save Changes";
             saveBtn.disabled = false;
             saveBtn.classList.remove('pulse');
@@ -188,17 +149,64 @@ window.saveAllChanges = function() {
     }, 1200);
 };
 
-// ==========================================
-// 6. INITIALIZATION
-// ==========================================
+function loadUserData() {
+    const storedUser = localStorage.getItem('nexus_current_user');
+    if (!storedUser) return;
+
+    const user = JSON.parse(storedUser);
+
+    // Update Avatars dynamically
+    const avatars = [
+        document.getElementById('topBarAvatar'),
+        document.getElementById('sidebarBottomAvatar'),
+        document.getElementById('navMainAvatar'),
+        document.getElementById('mainAvatarPreview')
+    ];
+
+    avatars.forEach(av => {
+        if (av) {
+            av.innerText = user.initials;
+            // Clean slate
+            av.style.background = '';
+            av.style.borderColor = '';
+
+            if (user.bgClass === 'grad-orange' || user.initials === 'JK') {
+                av.style.background = 'linear-gradient(135deg, var(--gold), #d97706)';
+                av.style.borderColor = 'rgba(245, 158, 11, 0.4)';
+            } else if (user.bgClass) {
+                av.className = `profile-av ${user.bgClass}`; // Fallback class
+            }
+        }
+    });
+
+    // Update Sidebar text
+    const sidebarName = document.getElementById('navName');
+    const sidebarHandle = document.getElementById('navHandle');
+    if (sidebarName) sidebarName.innerText = user.fullName;
+    if (sidebarHandle) sidebarHandle.innerText = `@${user.handle}`;
+
+    // Update Input Fields
+    const inpFirst = document.getElementById('inpFirstName');
+    const inpLast = document.getElementById('inpLastName');
+    const inpFull = document.getElementById('inpFullName');
+    const inpHandle = document.getElementById('inpHandle');
+    const inpEmail = document.getElementById('inpEmail');
+    const hintHandle = document.getElementById('hintHandle');
+
+    if (inpFirst) inpFirst.value = user.firstName;
+    if (inpLast) inpLast.value = user.lastName;
+    if (inpFull) inpFull.value = user.fullName;
+    if (inpHandle) inpHandle.value = user.handle;
+    if (hintHandle) hintHandle.innerText = user.handle;
+    if (inpEmail) inpEmail.value = user.email;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    loadUserData();
     setupProfileSync();
 
-    // Map the Top Bar "Save" button to our logic
     const topSaveBtn = document.querySelector('.tb-btn.save');
     if (topSaveBtn) {
         topSaveBtn.onclick = window.saveAllChanges;
     }
-
-    console.log("Settings module initialized. Session: Alex Morgan.");
 });

@@ -23,26 +23,181 @@ const CHANNEL_TOPICS = {
     'pair-programming': "Voice channel — find a pair programming partner 👥",
 };
 
+let currentOpenMenu = null;
+
 // ==========================================
-// 2. UTILITIES
+// 2. GLOBAL EVENT LISTENER (ACTION BUTTONS)
+// ==========================================
+document.addEventListener('click', function (e) {
+    // 1. Close the menu if we click anywhere on the page
+    if (currentOpenMenu) {
+        currentOpenMenu.remove();
+        currentOpenMenu = null;
+    }
+
+    // 2. Check if the thing we clicked was an action button
+    const btn = e.target.closest('.act-btn');
+    if (!btn) return; // If we didn't click an action button, do nothing
+
+    // 3. Stop the click from triggering the close logic we just ran above
+    e.stopPropagation();
+
+    // Get the specific button clicked and the message details
+    const action = btn.textContent.trim();
+    const msgGroup = btn.closest('.msg-group');
+
+    // Fallback name if we can't find one (for continued messages)
+    let userName = 'User';
+    if (msgGroup) {
+        const nameElement = msgGroup.querySelector('.msg-uname');
+        if (nameElement) userName = nameElement.textContent.trim();
+    }
+
+    // ─── ROUTE THE CLICK TO THE RIGHT FUNCTION ───
+    if (action === '😊') {
+        addReaction(msgGroup, '👍');
+    }
+    else if (action === '↩') {
+        const input = document.getElementById('msgInput');
+        if (input) {
+            input.value = `@${userName} ` + input.value;
+            input.focus();
+        }
+    }
+    else if (action === '🧵') {
+        showToast(`Thread opened for ${userName}'s message`);
+    }
+    else if (action === '⋯') {
+        openMoreMenu(btn);
+    }
+});
+
+// ==========================================
+// 3. ACTION BUTTON HELPERS
 // ==========================================
 
-/**
- * Escapes HTML and applies basic Markdown formatting
- */
+function openMoreMenu(btn) {
+    const menu = document.createElement('div');
+    menu.className = 'msg-menu show';
+
+    const items = [
+        { icon: '↩', label: 'Reply', action: () => document.getElementById('msgInput').focus() },
+        { icon: '📋', label: 'Copy Text', action: () => showToast('Message copied to clipboard!') },
+        { icon: '📌', label: 'Pin Message', action: () => showToast('Message pinned!') },
+        { separator: true },
+        { icon: '🚩', label: 'Report Message', danger: true, action: () => window.location.href = 'report.html' }
+    ];
+
+    items.forEach(item => {
+        if (item.separator) {
+            const sep = document.createElement('div');
+            sep.className = 'msg-menu-divider';
+            menu.appendChild(sep);
+            return;
+        }
+
+        const menuItem = document.createElement('div');
+        menuItem.className = 'msg-menu-item' + (item.danger ? ' danger' : '');
+        menuItem.innerHTML = `<span>${item.icon}</span> <span>${item.label}</span>`;
+
+        menuItem.onclick = (event) => {
+            event.stopPropagation();
+            item.action();
+            menu.remove();
+            currentOpenMenu = null;
+        };
+
+        menu.appendChild(menuItem);
+    });
+
+    document.body.appendChild(menu);
+
+    const rect = btn.getBoundingClientRect();
+    menu.style.top = `${rect.bottom + 5}px`;
+    menu.style.left = `${rect.right - 160}px`;
+
+    currentOpenMenu = menu;
+}
+
+function addReaction(msgGroup, emoji) {
+    if (!msgGroup) return;
+
+    let reactionsContainer = msgGroup.querySelector('.reactions');
+    if (!reactionsContainer) {
+        reactionsContainer = document.createElement('div');
+        reactionsContainer.className = 'reactions';
+        const msgBody = msgGroup.querySelector('.msg-body');
+        if (msgBody) msgBody.appendChild(reactionsContainer);
+    }
+
+    let existingPill = Array.from(reactionsContainer.querySelectorAll('.FPS-pill'))
+        .find(pill => pill.querySelector('span').textContent === emoji);
+
+    if (existingPill) {
+        let countSpan = existingPill.querySelector('.FPS-count');
+        countSpan.textContent = parseInt(countSpan.textContent) + 1;
+        existingPill.classList.add('mine');
+    } else {
+        const pill = document.createElement('div');
+        pill.className = 'FPS-pill mine';
+        pill.onclick = function () { if (typeof toggleFPS === 'function') toggleFPS(this); };
+        pill.innerHTML = `<span>${emoji}</span><span class="FPS-count">1</span>`;
+        reactionsContainer.appendChild(pill);
+    }
+}
+
+function showToast(message) {
+    const existing = document.getElementById('nexus-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'nexus-toast';
+    toast.textContent = message;
+
+    Object.assign(toast.style, {
+        position: 'fixed',
+        bottom: '80px',
+        left: '50%',
+        transform: 'translateX(-50%) translateY(20px)',
+        background: 'var(--accent)',
+        color: '#fff',
+        padding: '12px 24px',
+        borderRadius: '30px',
+        fontSize: '14px',
+        fontWeight: '600',
+        zIndex: '9999',
+        boxShadow: '0 8px 24px rgba(91, 110, 245, 0.4)',
+        opacity: '0',
+        transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
+    });
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+    }, 10);
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(10px)';
+        setTimeout(() => toast.remove(), 300);
+    }, 2500);
+}
+
+// ==========================================
+// 4. UTILITIES
+// ==========================================
+
 const parseMarkdown = (text) => {
     let escaped = text
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
 
-    // Bold: **text**
     escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    // Italic: _text_
     escaped = escaped.replace(/_(.*?)_/g, '<em>$1</em>');
-    // Inline Code: `text`
     escaped = escaped.replace(/`(.*?)`/g, '<code>$1</code>');
-    // Mentions: @Name
     escaped = escaped.replace(/@([a-zA-Z0-9\s]+)/g, '<span class="mention">@$1</span>');
 
     return escaped;
@@ -54,15 +209,13 @@ const scrollToBottom = () => {
 };
 
 // ==========================================
-// 3. UI INTERACTIONS
+// 5. UI INTERACTIONS
 // ==========================================
 
-window.setChannel = function(el, name, type) {
-    // UI Update: Active State
+window.setChannel = function (el, name, type) {
     document.querySelectorAll('.ch-row').forEach(r => r.classList.remove('active'));
     el.classList.add('active');
 
-    // Content Update
     const nameDisplay = document.getElementById('activeChanName');
     const topicDisplay = document.getElementById('activeChanTopic');
     const inputField = document.getElementById('msgInput');
@@ -74,103 +227,34 @@ window.setChannel = function(el, name, type) {
         inputField.focus();
     }
 
-    // Remove unread badge
     const badge = el.querySelector('.ch-unread');
     if (badge) badge.remove();
-
-    // In a real app, you'd fetch messages for this channel here
-    console.log(`Switched to channel: ${name}`);
 };
 
-window.toggleFPS = function(pill) {
+window.toggleFPS = function (pill) {
     pill.classList.toggle('mine');
     const countEl = pill.querySelector('.FPS-count');
     let count = parseInt(countEl.textContent);
     countEl.textContent = pill.classList.contains('mine') ? count + 1 : count - 1;
 };
 
-window.autoResize = function(ta) {
+window.autoResize = function (ta) {
     ta.style.height = 'auto';
     ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
 };
 
-window.showMessageMenu = function(button) {
-    // Remove any existing menus
-    const existingMenu = document.querySelector('.message-menu');
-    if (existingMenu) {
-        existingMenu.remove();
-    }
-    
-    // Create menu
-    const menu = document.createElement('div');
-    menu.className = 'message-menu';
-    menu.innerHTML = `
-        <div class="menu-item" onclick="replyToMessage()">↩ Reply</div>
-        <div class="menu-item" onclick="editMessage()">✏️ Edit</div>
-        <div class="menu-item" onclick="copyMessage()">📋 Copy</div>
-        <div class="menu-divider"></div>
-        <div class="menu-item danger" onclick="reportMessage()">🚩 Report</div>
-    `;
-    
-    // Position menu near the button
-    const rect = button.getBoundingClientRect();
-    menu.style.position = 'fixed';
-    menu.style.top = rect.bottom + 'px';
-    menu.style.right = (window.innerWidth - rect.right) + 'px';
-    menu.style.zIndex = '1000';
-    
-    // Add to page
-    document.body.appendChild(menu);
-    
-    // Close when clicking outside
-    setTimeout(() => {
-        document.addEventListener('click', function closeMenu(e) {
-            if (!menu.contains(e.target)) {
-                menu.remove();
-                document.removeEventListener('click', closeMenu);
-            }
-        });
-    }, 100);
-};
-
-window.replyToMessage = function() {
-    if (window.toast) window.toast("Reply feature coming soon!");
-    document.querySelector('.message-menu')?.remove();
-};
-
-window.editMessage = function() {
-    if (window.toast) window.toast("Edit feature coming soon!");
-    document.querySelector('.message-menu')?.remove();
-};
-
-window.copyMessage = function() {
-    if (window.toast) window.toast("Message copied to clipboard!");
-    document.querySelector('.message-menu')?.remove();
-};
-
-window.reportMessage = function() {
-    document.querySelector('.message-menu')?.remove();
-    // Use the report dialog from community page
-    if (window.showReportDialog) {
-        window.showReportDialog();
-    } else {
-        if (window.toast) window.toast("Opening report dialog...");
-    }
-};
-
 // ==========================================
-// 4. MESSAGING LOGIC
+// 6. MESSAGING LOGIC
 // ==========================================
 
-window.handleKey = function(e) {
-    // Send on Enter, New Line on Shift+Enter
+window.handleKey = function (e) {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         window.sendMessage();
     }
 };
 
-window.sendMessage = function() {
+window.sendMessage = function () {
     const input = document.getElementById('msgInput');
     const text = input.value.trim();
     if (!text) return;
@@ -178,7 +262,6 @@ window.sendMessage = function() {
     const wrap = document.getElementById('messagesWrap');
     const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-    // Create Message Element
     const msgEl = document.createElement('div');
     msgEl.className = 'msg-group';
     msgEl.style.animation = 'fadeUp 0.25s ease forwards';
@@ -198,13 +281,11 @@ window.sendMessage = function() {
     `;
 
     wrap.appendChild(msgEl);
-    
-    // Clear Input
+
     input.value = '';
     input.style.height = 'auto';
     scrollToBottom();
 
-    // Simulated Response
     simulateResponse();
 };
 
@@ -212,7 +293,7 @@ function simulateResponse() {
     setTimeout(() => {
         const wrap = document.getElementById('messagesWrap');
         const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        
+
         const replyEl = document.createElement('div');
         replyEl.className = 'msg-group';
         replyEl.style.animation = 'fadeUp 0.25s ease forwards';
@@ -230,90 +311,47 @@ function simulateResponse() {
             </div>
             <div class="msg-actions"><div class="act-btn">😊</div><div class="act-btn">↩</div><div class="act-btn">🧵</div><div class="act-btn">⋯</div></div>
         `;
-        
+
         wrap.appendChild(replyEl);
         scrollToBottom();
     }, 1500);
 }
 
 // ==========================================
-// 5. INITIALIZATION
+// 7. INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if we came from community page with a selected channel
     const selectedChannel = sessionStorage.getItem('selectedChannel');
     const fromCommunityPage = sessionStorage.getItem('fromCommunityPage');
-    
+
     if (selectedChannel && fromCommunityPage === 'true') {
-        // Find and click the channel row
         const channelName = selectedChannel.replace('#', '');
         const channelRows = document.querySelectorAll('.ch-row');
-        
+
         channelRows.forEach(row => {
             const channelLabel = row.querySelector('.ch-lbl');
             if (channelLabel && channelLabel.textContent === channelName) {
-                // Get the channel type from the icon
                 const icon = row.querySelector('.ch-type');
                 const iconText = icon ? icon.textContent : '#';
-                
-                // Simulate clicking the channel
+
                 setChannel(row, channelName, iconText);
-                
-                // Clear the session storage
+
                 sessionStorage.removeItem('selectedChannel');
                 sessionStorage.removeItem('fromCommunityPage');
-                
-                console.log(`Auto-selected channel from community page: ${selectedChannel}`);
                 return;
             }
         });
     }
-    
-    // Initial scroll
+
     scrollToBottom();
 
-    // Add CSS Animation for messages and menu
+    // Core animation styles for dynamically added messages
     const style = document.createElement('style');
     style.textContent = `
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .message-menu {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 4px;
-            min-width: 150px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-        .menu-item {
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            color: var(--text-1);
-            transition: background 0.2s;
-        }
-        .menu-item:hover {
-            background: var(--bg-hover);
-        }
-        .menu-item.danger {
-            color: var(--error);
-        }
-        .menu-item.danger:hover {
-            background: rgba(248, 113, 113, 0.1);
-        }
-        .menu-divider {
-            height: 1px;
-            background: var(--border);
-            margin: 4px 0;
-        }
-        .act-btn:last-child {
-            cursor: pointer;
-        }
     `;
     document.head.appendChild(style);
-
-    console.log("Chat module initialized.");
 });
