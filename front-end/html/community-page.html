@@ -51,6 +51,8 @@
       📚<div class="rail-dot bg-dot-gray"></div>
     </div>
 
+    <a href="create-community.html" class="rail-item" data-tooltip="Create Community" style="background:rgba(255,255,255,0.05);color:var(--text-1);font-weight:600;border-radius:14px;">✚</a>
+  
     <div class="rail-footer">
       <div class="rail-avatar" onclick="window.location.href='profile-settings.html'" data-tooltip="Profile">AM<div
           class="rail-dot bg-dot-green"
@@ -100,8 +102,7 @@
         <div class="comm-actions">
           <button class="btn-joined-main" id="joinMainBtn" onclick="toggleMainJoin()">✓ Joined</button>
           <a href="community-manager.html" class="rbac-manage-btn hidden" id="rbacManageBtn" title="Manage this community">⚙️ Manage Community</a>
-          <div class="btn-notify" title="Notifications">🔔</div>
-          <div class="btn-share" title="Share">↗</div>
+          <button class="hidden" id="rbacDeleteBtn" onclick="requestDeleteCommunity()" style="background: rgba(255, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(255, 68, 68, 0.2); border-radius: 8px; padding: 0 16px; font-weight: 600; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px;">🗑️ Delete</button>
         </div>
       </div>
     </div>
@@ -572,18 +573,46 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Show/hide Manage Community button based on ownership
+      // Show/hide Manage & Delete buttons based on ownership and superuser role
       const user = window.getCurrentUser ? window.getCurrentUser() : null;
       const manageBtn = document.getElementById('rbacManageBtn');
-      if (user && manageBtn) {
+      const deleteBtn = document.getElementById('rbacDeleteBtn');
+      
+      if (user) {
         const params = new URLSearchParams(window.location.search);
         const communityName = params.get('name') || 'pro-gamers';
-        if (window.isOwnerOfCommunity && window.isOwnerOfCommunity(communityName)) {
+        const isOwner = window.isOwnerOfCommunity ? window.isOwnerOfCommunity(communityName) : false;
+        const isSuperUser = user.role === 'superuser';
+        
+        // Let owners and superusers manage
+        if (manageBtn && (isOwner || isSuperUser)) {
           manageBtn.classList.remove('hidden');
           manageBtn.href = `community-manager.html?name=${communityName}`;
         }
+        
+        // Let owners and superusers delete
+        if (deleteBtn && (isOwner || isSuperUser)) {
+          deleteBtn.classList.remove('hidden');
+        }
       }
     });
+
+    function requestDeleteCommunity() {
+        const conf = confirm("Are you sure you want to permanently delete this community? This action cannot be undone.");
+        if (conf) {
+            // Usually this would call an API, we will just simulate it and redirect to dashboard
+            const params = new URLSearchParams(window.location.search);
+            const communityName = params.get('name') || 'pro-gamers';
+            
+            // Remove from session local storage to simulate deletion
+            let owned = JSON.parse(localStorage.getItem('nexus_owned_communities') || '{"pro-gamers":true}');
+            delete owned[communityName];
+            localStorage.setItem('nexus_owned_communities', JSON.stringify(owned));
+            
+            alert("Community has been successfully deleted.");
+            window.location.href = "dashboard.html";
+        }
+    }
   </script>
 
   <script src="../js/pages/community-page.js"></script>

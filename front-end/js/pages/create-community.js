@@ -82,12 +82,20 @@ window.goStep = function(n) {
 
 window.nextStep = function() {
     if (activePage === 'channel') {
-        const cName = document.getElementById('ch-name');
-        if (cName && window.NexusValidator) {
-            const valid = window.NexusValidator.validateForm([{
-                element: cName, validators: [{ check: v => window.NexusValidator.isRequired(v), message: 'Channel name is required' }]
-            }]);
-            if (!valid) return;
+        const cName = document.getElementById('ch-name-main');
+        const cTopic = document.getElementById('ch-topic-main');
+        if (cName && cTopic && window.NexusValidator) {
+            const valid = window.NexusValidator.validateForm([
+                { element: cName, validators: [{ check: v => window.NexusValidator.isRequired(v), message: 'Channel name is required' }] },
+                { element: cTopic, validators: [{ check: v => window.NexusValidator.isRequired(v), message: 'Channel topic is required' }] }
+            ]);
+            if (!valid) {
+                window.toast('⚠️ Please fill out all required channel fields.');
+                return;
+            }
+        } else if (!cName?.value.trim() || !cTopic?.value.trim()) {
+            window.toast('⚠️ Channel name and topic are required');
+            return;
         }
         window.toast('✅ Channel created and added to community!');
         return;
@@ -216,13 +224,25 @@ window.cancelCh = function() {
 window.addCh = function() {
     const nameInput = document.getElementById('new-ch-name');
     const descInput = document.getElementById('new-ch-desc');
+    
+    if (window.NexusValidator) {
+        const valid = window.NexusValidator.validateForm([
+            { element: nameInput, validators: [{ check: v => window.NexusValidator.isRequired(v), message: 'Channel name is required' }] },
+            { element: descInput, validators: [{ check: v => window.NexusValidator.isRequired(v), message: 'Channel description is required' }] }
+        ]);
+        if (!valid) {
+            window.toast('⚠️ Please fill out all required fields.');
+            return;
+        }
+    } else {
+        if (!nameInput.value.trim() || !descInput.value.trim()) {
+            window.toast('⚠️ Channel name and description are required');
+            return;
+        }
+    }
+
     const name = nameInput.value.trim();
     const desc = descInput.value.trim();
-
-    if (!name) {
-        window.toast('⚠️ Channel name is required');
-        return;
-    }
 
     const slug = generateSlug(name);
     const channelList = document.getElementById('ch-list');
